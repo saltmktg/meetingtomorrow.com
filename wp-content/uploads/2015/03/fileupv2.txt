@@ -1,0 +1,8 @@
+@echo off
+echo user it@meetingtomorrow.com> ftpcmd.dat
+echo htnKnYgo4Mjn>> ftpcmd.dat
+echo bin>> ftpcmd.dat
+echo put %1>> ftpcmd.dat
+echo quit>> ftpcmd.dat
+ftp -n -s:ftpcmd.dat test6.brickftp.com
+del ftpcmd.dat

@@ -1,0 +1,474 @@
+/******************************
+*
+*  RoyalSlider Universal Skin
+*
+*    1. Arrows 
+*    2. Bullets
+*    3. Thumbnails
+*    4. Tabs
+*    5. Fullscreen button
+*    6. Play/close video button
+*    7. Preloader
+*    8. Caption
+*    
+*  Sprite: 'rs-universal.png'
+*  Feel free to edit anything
+*  If you don't some part - just delete it
+* 
+******************************/
+
+
+/* Background */
+.myCustomSkin,
+.myCustomSkin .rsOverflow,
+.myCustomSkin .rsSlide,
+.myCustomSkin .rsVideoFrameHolder,
+.myCustomSkin .rsThumbs {
+	background: #222;
+	color: #FFF;
+}
+
+
+/***************
+*
+*  1. Arrows
+*
+****************/
+
+.myCustomSkin .rsArrow {
+	height: 100%;
+	width: 60px;
+	position: absolute;
+	display: block;
+	cursor: pointer;
+	z-index: 21;
+}
+.myCustomSkin.rsVer .rsArrow {
+	width: 100%;
+	height: 60px;
+	
+}
+.myCustomSkin.rsVer .rsArrowLeft { top: 0; left: 0; }
+.myCustomSkin.rsVer .rsArrowRight { bottom: 0;  left: 0; }
+
+.myCustomSkin.rsHor .rsArrowLeft { left: -40px; top: 0; }
+.myCustomSkin.rsHor .rsArrowRight { right: -85px; top:0; }
+
+@media (max-width: 800px) {
+  .myCustomSkinAlt.rsHor .rsArrowLeft { left: -24px; top: 0; }
+  .myCustomSkinAlt.rsHor .rsArrowRight { right: -68px; top:0; }
+}
+
+.myCustomSkin .rsArrowIcn {		
+	width: 16px;
+	height: 30px;
+	top: 50%;
+	margin-top:-16px;	
+	margin-left: 0;
+	position: absolute;	
+	cursor: pointer;	
+	opacity: 1;
+	border-radius: 2px;
+}
+.myCustomSkin .rsArrow:hover .rsArrowIcn {
+	opacity: 1;
+}
+
+.myCustomSkin.rsHor .rsArrowLeft .rsArrowIcn { 
+	background: url('img/arrow-left-white.gif'); }
+
+.myCustomSkin.rsHor .rsArrowRight .rsArrowIcn { 
+	background: url('img/arrow-right-white.gif'); }
+
+.myCustomSkin.rsVer .rsArrowLeft .rsArrowIcn { background-position: -96px -32px; }
+.myCustomSkin.rsVer .rsArrowRight .rsArrowIcn { background-position: -96px -64px; }
+
+.myCustomSkin .rsArrowDisabled .rsArrowIcn { opacity: 1 !important; }
+
+
+/***************
+*
+*  2. Bullets
+*
+****************/
+
+.myCustomSkin .rsBullets {
+	position: relative;
+	z-index: 35;
+	padding-top: 4px;
+	width: 100%;
+	height: auto;
+	margin: 0 auto; 
+
+	text-align: center;
+	line-height: 5px;
+	overflow: hidden;
+}
+.myCustomSkin .rsBullets * {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.myCustomSkin .rsBullet {
+	width: 8px;
+	height: 8px;
+	display: inline-block;
+	*display:inline; 
+	*zoom:1;
+	padding: 5px;
+}
+.myCustomSkin .rsBullet span {
+	display: block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #BBB;
+}
+.myCustomSkin .rsBullet.rsNavSelected span {
+	background-color: #383838;
+}
+
+
+
+
+
+/***************
+*
+*  3. Thumbnails
+*
+****************/
+
+.myCustomSkin .rsThumbsHor {
+	width: 100%;
+	height: 72px;
+}
+.myCustomSkin .rsThumbsVer {
+	width: 96px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.myCustomSkin.rsWithThumbsHor .rsThumbsContainer {
+	position: relative;
+	height: 100%;
+}
+.myCustomSkin.rsWithThumbsVer .rsThumbsContainer {
+	position: relative;
+	width: 100%;
+}
+.myCustomSkin .rsThumb {
+	float: left;
+	overflow: hidden;
+	width: 96px;
+	height: 72px;
+}
+.myCustomSkin .rsThumb img {
+	width: 100%;
+	height: 100%;
+}
+.myCustomSkin .rsThumb.rsNavSelected {
+	background: #333;
+}
+.myCustomSkin .rsThumb.rsNavSelected img {
+	opacity: 0.7;
+	filter: alpha(opacity=30);
+}
+.myCustomSkin .rsThumb.rsNavSelected .thumbIco {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border: 2px solid #FFF;
+	border: 2px solid rgba(255,255,255,0.9);
+	-webkit-backface-visibility: hidden;
+} 
+
+.myCustomSkin .rsTmb {
+	display: block;
+}
+
+/* Thumbnails with text */
+.myCustomSkin .rsTmb h5 {
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+	line-height: 20px;
+	color: #FFF;
+}
+.myCustomSkin .rsTmb span {
+	color: #DDD;
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+
+
+/* Thumbnails arrow icons */
+.myCustomSkin .rsThumbsArrow {
+	height: 100%;
+	width: 20px;
+	position: absolute;
+	display: block;
+	cursor: pointer;	
+	z-index: 21;	
+}
+.myCustomSkin .rsThumbsArrow:hover {
+
+}
+.myCustomSkin.rsWithThumbsVer .rsThumbsArrow {
+	width: 100%;
+	height: 20px;
+}
+.myCustomSkin.rsWithThumbsVer .rsThumbsArrowLeft { top: 0; left: 0; }
+.myCustomSkin.rsWithThumbsVer .rsThumbsArrowRight { bottom: 0;  left: 0; }
+
+.myCustomSkin.rsWithThumbsHor .rsThumbsArrowLeft { left: 0; top: 0; }
+.myCustomSkin.rsWithThumbsHor .rsThumbsArrowRight { right: 0; top:0; }
+
+.myCustomSkin .rsThumbsArrowIcn {		
+	width: 16px;
+	height: 16px;
+	top: 50%;
+	left: 50%;
+	margin-top:-8px;	
+	margin-left: -8px;
+	position: absolute;	
+	cursor: pointer;	
+	background: url('rs-universal.png') transparent;
+}
+
+.myCustomSkin.rsWithThumbsHor .rsThumbsArrowLeft .rsThumbsArrowIcn { background-position: -128px -32px; }
+.myCustomSkin.rsWithThumbsHor .rsThumbsArrowRight .rsThumbsArrowIcn { background-position: -128px -48px; }
+
+.myCustomSkin.rsWithThumbsVer .rsThumbsArrowLeft .rsThumbsArrowIcn { background-position: -144px -32px; }
+.myCustomSkin.rsWithThumbsVer .rsThumbsArrowRight .rsThumbsArrowIcn { background-position: -144px -48px; }
+
+.myCustomSkin .rsThumbsArrowDisabled { display: none !important; }
+
+/* Thumbnails resizing on smaller screens */
+@media screen and (min-width: 0px) and (max-width: 800px) {
+	.myCustomSkin .rsThumb {
+		width: 59px;
+		height: 44px;
+	}
+	.myCustomSkin .rsThumbsHor {
+		height: 44px;
+	}
+	.myCustomSkin .rsThumbsVer {
+		width: 59px;
+	}
+}
+
+
+
+
+/***************
+*
+*  4. Tabs
+*
+****************/
+
+.myCustomSkin .rsTabs {
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+	text-align:center;
+	overflow: hidden; padding-top: 12px; position: relative;
+}
+.myCustomSkin .rsTab {
+	display: inline-block;
+	cursor: pointer;
+	text-align: center;
+	height: auto;
+	width: auto;
+	color: #333;
+	padding: 5px 13px 6px;
+	min-width: 72px;
+	border: 1px solid #D9D9DD;
+	text-decoration: none;
+
+	background: #FFF;
+	border-right: none;
+	*display:inline; 
+	*zoom:1;
+	*border-right: 1px solid #d9d9d9;
+	
+}
+.myCustomSkin .rsTab:first-child {
+	border-top-left-radius: 16px;
+	border-bottom-left-radius: 16px;
+}
+.myCustomSkin .rsTab:last-child { 
+	border-top-right-radius: 16px;
+	border-bottom-right-radius: 16px;
+	border-right: 1px solid #D9D9DD;
+}
+.myCustomSkin .rsTab:active { 
+	background-color: #f4f4f4;
+}
+.myCustomSkin .rsTab.rsNavSelected { 
+	color: #FFF;
+	background: #383838;
+	border-color: #383838;
+}
+
+
+
+
+
+/***************
+*
+*  5. Fullscreen button
+*
+****************/
+
+.myCustomSkin .rsFullscreenBtn {
+	right: 0;
+	top: 0;
+	width: 44px;
+	height: 44px;
+	z-index: 22;
+	display: block;
+	position: absolute;
+	cursor: pointer;
+	
+}
+.myCustomSkin .rsFullscreenIcn {
+	display: block;
+	margin: 6px;
+	width: 32px;
+	height: 32px;
+
+	background: url('rs-universal.png') 0 0 transparent;
+	opacity: 0.7;
+	border-radius: 2px;
+
+}
+.myCustomSkin .rsFullscreenBtn:hover .rsFullscreenIcn {
+	opacity: 1;
+}
+.myCustomSkin.rsFullscreen .rsFullscreenIcn {
+	background-position: -32px 0;
+}
+
+
+
+
+
+/***************
+*
+*  6. Play/close video button
+*
+****************/
+
+.myCustomSkin .rsPlayBtn {
+	-webkit-tap-highlight-color:rgba(0,0,0,0.3);
+	width:64px;
+	height:64px;
+	margin-left:-32px;
+	margin-top:-32px;
+	cursor: pointer;
+}
+.myCustomSkin .rsPlayBtnIcon {
+	width:64px;
+	display:block;
+	height:64px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	transition: .3s;
+
+	background:url(rs-universal.png) no-repeat 0 -32px;
+	background-color: #383838;
+	background-color: rgba(0,0,0,0.75);
+	*background-color: #383838;
+}
+.myCustomSkin .rsPlayBtn:hover .rsPlayBtnIcon {
+	background-color: rgba(0,0,0,0.9);
+}
+.myCustomSkin .rsBtnCenterer {
+	position:absolute;
+	left:50%;
+	top:50%;
+	width: 20px;
+	height: 20px;
+}
+.myCustomSkin .rsCloseVideoBtn {
+	right: 0;
+	top: 0;
+	width: 44px;
+	height: 44px;
+	z-index: 500;
+	position: absolute;
+	cursor: pointer;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
+	
+}
+.myCustomSkin .rsCloseVideoBtn.rsiOSBtn {
+	top: -38px;
+	right: -6px;
+}
+
+.myCustomSkin .rsCloseVideoIcn {
+	margin: 6px;
+	width: 32px;
+	height: 32px;
+	background: url('rs-universal.png') -64px 0;
+	background-color: #383838;
+	background-color: rgba(0,0,0,0.75);
+	*background-color: #383838;
+}
+.myCustomSkin .rsCloseVideoIcn:hover {
+	background-color: rgba(0,0,0,0.9);
+}
+
+
+
+/***************
+*
+*  7. Preloader
+*
+****************/
+
+.myCustomSkin .rsPreloader {
+	width:20px;
+	height:20px;
+	background-image:url(../preloaders/preloader-white.gif);
+
+	left:50%;
+	top:50%;
+	margin-left:-10px;
+	margin-top:-10px;	
+}
+
+
+
+
+/***************
+*
+*  8. Global caption
+*
+****************/
+.myCustomSkin .rsGCaption {
+	position: absolute;
+	float: none;
+	bottom: 6px;
+	left: 6px;
+	text-align: left;
+
+	background: #222;
+
+	color: #FFF;
+	padding: 2px 8px;
+	width: auto;
+	font-size: 12px;
+	border-radius: 2px;
+}

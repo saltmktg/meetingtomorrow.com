@@ -1,0 +1,2 @@
+[03-Nov-2015 22:05:10 UTC] PHP Warning:  require_once(ABSPATHWPINC/cache.php): failed to open stream: No such file or directory in /home/meetingtomorrow/public_html/wp-content/object-cache.php on line 668
+[03-Nov-2015 22:05:10 UTC] PHP Fatal error:  require_once(): Failed opening required 'ABSPATHWPINC/cache.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/meetingtomorrow/public_html/wp-content/object-cache.php on line 668

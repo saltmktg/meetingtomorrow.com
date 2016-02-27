@@ -1,0 +1,1 @@
+[03-Nov-2015 22:10:30 UTC] PHP Fatal error:  Call to undefined function __() in /home/meetingtomorrow/public_html/wp-content/themes/Avada/framework/class-tgm-plugin-activation.php on line 164

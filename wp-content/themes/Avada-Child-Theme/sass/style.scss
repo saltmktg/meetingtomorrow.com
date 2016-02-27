@@ -1,0 +1,39 @@
+/*
+Theme Name: Avada Child
+Description: Child theme for Avada
+Author: Ryan Karpeles
+Template: Avada
+*/
+
+// Imports
+@import "compass";
+@import "breakpoint";
+@import "breakpoints";
+
+@import "helpers";
+@import "colors";
+@import "typography";
+
+@import "layout";
+@import "header";
+@import "footer";
+@import "footer";
+@import "theme";
+@import "blog";
+@import "google-search";
+
+@import "forms";
+@import "buttons";
+@import "social";
+@import "accordion";
+@import "tables";
+@import "popups";
+@import "slider";
+
+@import "metaslider";
+@import "royalslider";
+@import "tooltips";
+@import "usamap";
+
+@import "responsive";
+@import "avada-fixes";

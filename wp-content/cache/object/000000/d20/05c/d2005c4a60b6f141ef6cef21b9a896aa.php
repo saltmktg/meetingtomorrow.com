@@ -1,0 +1,7 @@
+t3�V<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":23:{s:2:"ID";s:4:"8918";s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2015-07-24 19:55:32";s:13:"post_date_gmt";s:19:"2015-07-24 19:55:32";s:12:"post_content";s:686:"Today our Production Team hosted an MT Equipment Open House with examples of the gear we own and rent. What better way to start a series of technical training courses than with a chance to see/touch/use all of our different <a href="http://meetingtomorrow.com/nationwide-rentals" target="_blank">rental gear</a>.
+
+There were stations for Technology, Microphones, Audio, Video, Cameras, and Lighting. Those who visited all 6 stations were entered into a drawing for some sweet prizes!
+
+Check out the video below to see what it was like:
+
+<iframe src="https://www.youtube.com/embed/zG7ledlz4eY" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>";s:10:"post_title";s:26:"MT Rental Gear: Open House";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:4:"open";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:13:"mt-open-house";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2015-08-05 16:29:49";s:17:"post_modified_gmt";s:19:"2015-08-05 16:29:49";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";s:1:"0";s:4:"guid";s:34:"http://meetingtomorrow.com/?p=8918";s:10:"menu_order";s:2:"40";s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";}}

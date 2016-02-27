@@ -1,0 +1,2 @@
+[03-Nov-2015 22:10:30 UTC] PHP Fatal error:  Call to undefined function add_action() in /home/meetingtomorrow/public_html/wp-content/themes/Avada/widgets/tweets-widget.php on line 2
+[03-Nov-2015 22:10:30 UTC] PHP Fatal error:  Call to undefined function add_action() in /home/meetingtomorrow/public_html/wp-content/themes/Avada/widgets/flickr-widget.php on line 2

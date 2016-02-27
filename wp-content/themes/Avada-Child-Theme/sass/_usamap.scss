@@ -1,0 +1,148 @@
+// USA City Map
+.usa-map {
+  /* Remove 'display: none' once we update the maps */
+  display: none !important;
+  float: right;
+  position: relative;
+  width: 225px;
+  margin-top: 5px;
+  margin-left: 25px; }
+
+.usa-map .star {
+  position: absolute;
+  width: 25px; }
+
+.dot {
+  position: absolute;
+  z-index: 100;
+  border-radius: 50%;
+  background: white;
+  opacity: .8;
+  width: 4px;                           
+  height: 4px; }
+
+.dot-1   { top: 30px;  left: 20px; }
+.dot-2   { top: 28px;  left: 28px; }
+.dot-3   { top: 37px;  left: 92px; }
+.dot-4   { top: 40px;  left: 138px; }
+.dot-5   { top: 52px;  left: 103px; }
+.dot-6   { top: 60px;  left: 143px; }
+.dot-7   { top: 70px;  left: 38px; }
+.dot-8   { top: 80px;  left: 48px; }
+.dot-9   { top: 108px; left: 171px; }
+.dot-10  { top: 97px;  left: 68px; }
+.dot-11  { top: 23px;  left: 57px; }
+.dot-12  { top: 28px;  left: 90px; }
+.dot-13  { top: 38px;  left: 28px; }
+.dot-14  { top: 49px;  left: 121px; }
+.dot-15  { top: 58px;  left: 151px; }
+.dot-16  { top: 18px;  left: 128px; }
+.dot-17  { top: 30px;  left: 205px; }
+.dot-18  { top: 34px;  left: 128px; }
+.dot-19  { top: 45px;  left: 48px; }
+.dot-20  { top: 67px;  left: 58px; }
+.dot-21  { top: 34px;  left: 68px; }
+.dot-22  { top: 23px;  left: 78px; }
+.dot-23  { top: 80px;  left: 88px; }
+.dot-24  { top: 68px;  left: 98px; }
+.dot-25  { top: 75px;  left: 108px; }
+.dot-26  { top: 90px;  left: 103px; }
+.dot-27  { top: 10px;  left: 105px; }
+.dot-28  { top: 65px;  left: 143px; }
+.dot-29  { top: 43px;  left: 132px; }
+.dot-30  { top: 78px;  left: 180px; }
+.dot-31  { top: 91px;  left: 161px; }
+.dot-32  { top: 74px;  left: 25px; }
+.dot-33  { top: 78px;  left: 35px; }
+.dot-34  { top: 88px;  left: 90px; }
+.dot-35  { top: 45px;  left: 105px; }
+.dot-36  { top: 28px;  left: 107px; }
+.dot-37  { top: 38px;  left: 109px; }
+.dot-38  { top: 98px;  left: 112px; }
+.dot-39  { top: 56px;  left: 123px; }
+.dot-40  { top: 54px;  left: 134px; }
+.dot-41  { top: 52px;  left: 112px; }
+.dot-42  { top: 72px;  left: 135px; }
+.dot-43  { top: 85px;  left: 141px; }
+.dot-44  { top: 80px;  left: 145px; }
+.dot-45  { top: 101px; left: 149px; }
+.dot-46  { top: 33px;  left: 135px; }
+.dot-47  { top: 44px;  left: 161px; }
+.dot-48  { top: 66px;  left: 185px; }
+.dot-49  { top: 55px;  left: 171px; }
+.dot-50  { top: 88px;  left: 181px; }
+.dot-51  { top: 91px;  left: 175px; }
+.dot-52  { top: 126px; left: 182px; }
+.dot-53  { top: 64px;  left: 173px; }
+.dot-54  { top: 54px;  left: 190px; }
+.dot-55  { top: 77px;  left: 155px; }
+.dot-56  { top: 48px;  left: 167px; }
+.dot-57  { top: 58px;  left: 198px; }
+.dot-58  { top: 73px;  left: 188px; }
+.dot-59  { top: 80px;  left: 121px; }
+.dot-60  { top: 105px; left: 100px; }
+.dot-61  { top: 111px; left: 108px; }
+.dot-62  { top: 117px; left: 111px; }
+.dot-63  { top: 123px; left: 102px; }
+.dot-64  { top: 105px; left: 76px; }
+.dot-65  { top: 50px;  left: 18px; }
+.dot-66  { top: 54px;  left: 12px; }
+.dot-67  { top: 58px;  left: 16px; }
+.dot-68  { top: 65px;  left: 15px; }
+.dot-69  { top: 67px;  left: 26px; }
+.dot-70  { top: 54px;  left: 32px; }
+.dot-71  { top: 46px;  left: 39px; }
+.dot-72  { top: 60px;  left: 110px; }
+.dot-73  { top: 70px;  left: 115px; }
+.dot-74  { top: 79px;  left: 190px; }
+.dot-75  { top: 90px;  left: 120px; }
+.dot-76  { top: 100px; left: 130px; }
+.dot-77  { top: 105px; left: 140px; }
+.dot-78  { display: none; } /* Not currently needed */
+.dot-79  { display: none; } /* Not currently needed */
+.dot-80  { display: none; } /* Not currently needed */
+.dot-81  { display: none; } /* Not currently needed */
+.dot-82  { display: none; } /* Not currently needed */
+.dot-83  { display: none; } /* Not currently needed */
+.dot-84  { display: none; } /* Not currently needed */
+.dot-85  { display: none; } /* Not currently needed */
+.dot-86  { display: none; } /* Not currently needed */
+.dot-87  { display: none; } /* Not currently needed */
+.dot-88  { display: none; } /* Not currently needed */
+.dot-89  { display: none; } /* Not currently needed */
+.dot-90  { display: none; } /* Not currently needed */
+.dot-91  { display: none; } /* Not currently needed */
+.dot-92  { display: none; } /* Not currently needed */
+.dot-93  { display: none; } /* Not currently needed */
+.dot-94  { display: none; } /* Not currently needed */
+.dot-95  { top: 41px;  left: 191px; }
+.dot-96  { top: 50px;  left: 195px; }
+.dot-97  { top: 48px;  left: 135px; }
+.dot-98  { top: 50px;  left: 140px; }
+.dot-99  { top: 50px;  left: 80px; }
+.dot-100 { top: 19px;  left: 19px; }
+.dot-101 { top: 13px;  left: 18px; }
+.dot-102 { top: 22px;  left: 30px; }
+.dot-103 { top: 39px;  left: 12px; }
+.dot-104 { top: 98px;  left: 50px; }
+.dot-105 { top: 50px;  left: 60px; }
+.dot-106 { top: 55px;  left: 70px; }
+.dot-107 { top: 65px;  left: 50px; }
+.dot-108 { top: 70px;  left: 18px; }
+.dot-109 { top: 82px;  left: 23px; }
+.dot-110 { top: 84px;  left: 32px; }
+.dot-111 { top: 64px;  left: 35px; }
+.dot-112 { top: 54px;  left: 45px; }
+
+// Stars
+
+// Atlanta
+.usa-map .star {
+  top: 78px;
+  left: 150px; }
+
+// Austin
+.usa-map .star {
+  top: 78px;
+  left: 150px; }
+

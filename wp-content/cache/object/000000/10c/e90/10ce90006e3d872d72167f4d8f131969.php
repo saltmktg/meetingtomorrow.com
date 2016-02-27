@@ -1,0 +1,31 @@
+÷3ÑV<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:3631;s:11:"post_author";s:1:"2";s:9:"post_date";s:19:"2015-04-01 20:23:18";s:13:"post_date_gmt";s:19:"2015-04-01 20:23:18";s:12:"post_content";s:5353:"[fullwidth backgroundcolor="" backgroundimage="http://meetingtomorrow.com/wp-content/uploads/2015/02/MT-AV-World.jpg" backgroundrepeat="repeat-x" backgroundposition="left top" backgroundattachment="scroll" video_webm="" video_mp4="" video_ogv="" video_preview_image="" overlay_color="" overlay_opacity="0.5" video_mute="yes" video_loop="yes" fade="no" bordersize="0px" bordercolor="" borderstyle="solid" paddingtop="25px" paddingbottom="25px" paddingleft="0px" paddingright="0px" menu_anchor="" equal_height_columns="no" hundred_percent="no" class="banner-heading" id=""][fusion_text]
+<h1 style="text-align: center;">Live sound productions</h1>
+<p style="text-align: center;">Learn more about our <a href="http://meetingtomorrow.com/services/audiovisual-services">audiovisual services</a>.</p>
+[/fusion_text][/fullwidth][fullwidth backgroundcolor="" backgroundimage="" backgroundrepeat="no-repeat" backgroundposition="left top" backgroundattachment="scroll" video_webm="" video_mp4="" video_ogv="" video_preview_image="" overlay_color="" overlay_opacity="0.5" video_mute="yes" video_loop="yes" fade="no" bordersize="0px" bordercolor="" borderstyle="solid" paddingtop="30px" paddingbottom="40px" paddingleft="0px" paddingright="0px" menu_anchor="" equal_height_columns="no" hundred_percent="no" class="" id=""][three_fourth last="no" spacing="yes" background_color="" background_image="" background_repeat="no-repeat" background_position="left top" border_size="0px" border_color="" border_style="" padding="" class="" id=""][fusion_text]
+<div class="panel-pane pane-custom pane-3">
+<div class="pane-content">
+<h2>Think every pro sound company is the same?
+<strong>We believe thereâ€™s a difference: hear us out.</strong></h2>
+</div>
+</div>
+<div class="panel-pane pane-custom pane-4">
+<div class="pane-content">
+<div class="int-services">
+<h3>Live Event Sound Production</h3>
+Some customers say the success of their events is dependent on the high-quality audio equipment we provide. Others claim it starts with the personalized customer service they receive from their Meeting Tomorrow account manager, which begins with listening and understanding their vision. And then there are those who assert that it is the flexibility and professionalism of onsite Meeting Tomorrow audio technicians who make all the difference. We believe the success of your event relies on all of these factors; that's why we strive to provide the best equipment, service, and technical support in the industry.
+<h4>Pro sound services</h4>
+Meeting Tomorrow is a leading audio visual and sound company for nationwide meetings and events. Our live sound production team is focused on the success of your meeting or event, whether it's a keynote address in a hotel ballroom, a seminar featuring a panel of experts, or a series of speaking events. To ensure the best possible experience for our customers and their audiences, we provide custom quotes and setups, site visits to your location, an account manager to answer all of your questions, and professional, onsite support.
+<h4>DIY sound amplification rentals</h4>
+Do you have multiple meetings or events nationwide? Are you looking for one sound company to provide equipment for numerous field reps? We provide simple sound and PA system kits delivered anywhere in the country. With Meeting Tomorrow, you'll have the ease of working directly with one account manager who will ensure that you receive a consistent experience nationwide. And because we service any city nationwide, you'll receive the same low pricing for all of your locations. Call for more information or view ourÂ <a href="http://www.meetingtomorrow.com/sound-system-rental">sound equipment rentals</a>.
+<h4>Teleconferencing, voice recording and archiving</h4>
+Whether you need to set up and record an important conference call or record a series of meetings for later reference, Meeting Tomorrow has the equipment and expertise to help you. For additional details, view ourÂ <a href="http://www.meetingtomorrow.com/audio-conferencing.html">teleconferencing and recording services</a>.
+
+</div>
+</div>
+</div>
+<div class="panel-pane pane-custom pane-5">
+<div class="pane-content">
+<h2 style="text-align: left;">Learn more about all of our <a href="http://meetingtomorrow.com/services">services</a>.</h2>
+</div>
+</div>
+[/fusion_text][/three_fourth][one_fourth last="yes" spacing="yes" background_color="" background_image="" background_repeat="no-repeat" background_position="left top" border_size="0px" border_color="" border_style="" padding="" class="" id=""][separator style_type="none" top_margin="" bottom_margin="22" sep_color="" icon="" width="" class="" id=""][fusion_text][contentblock id=sidebar_2][/fusion_text][/one_fourth][/fullwidth][fullwidth backgroundcolor="#f2f2f2" backgroundimage="" backgroundrepeat="no-repeat" backgroundposition="left top" backgroundattachment="scroll" video_webm="" video_mp4="" video_ogv="" video_preview_image="" overlay_color="" overlay_opacity="0.5" video_mute="yes" video_loop="yes" fade="no" bordersize="0px" bordercolor="" borderstyle="solid" paddingtop="40px" paddingbottom="45px" paddingleft="0px" paddingright="0px" menu_anchor="" equal_height_columns="no" hundred_percent="no" class="" id=""][fusion_text][contentblock id=great_service_block_no_links][/fusion_text][/fullwidth]";s:10:"post_title";s:22:"Live sound productions";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:4:"open";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:21:"live-sound-production";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2015-10-23 15:25:59";s:17:"post_modified_gmt";s:19:"2015-10-23 15:25:59";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:38:"http://mtstagingsite.com/?page_id=3631";s:10:"menu_order";i:479;s:9:"post_type";s:4:"page";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

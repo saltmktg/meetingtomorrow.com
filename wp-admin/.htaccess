@@ -1,0 +1,2 @@
+AuthName "Meeting Tomorrow Admin"
+AuthUserFile "/home/meetingtomorrow/.htpasswds/public_html/wp-admin/passwd"

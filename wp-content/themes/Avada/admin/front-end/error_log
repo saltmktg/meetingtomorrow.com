@@ -1,0 +1,1 @@
+[03-Nov-2015 22:10:30 UTC] PHP Fatal error:  Call to undefined function _e() in /home/meetingtomorrow/public_html/wp-content/themes/Avada/admin/front-end/options.php on line 4

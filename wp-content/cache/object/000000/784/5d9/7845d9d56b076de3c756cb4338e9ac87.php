@@ -1,0 +1,8 @@
+G�V<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":23:{s:2:"ID";s:4:"5898";s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2015-04-27 16:08:26";s:13:"post_date_gmt";s:19:"2015-04-27 16:08:26";s:12:"post_content";s:851:"We're excited to announce that Meeting Tomorrow was chosen as one of <a href="http://www.eventmarketer.com/article/best-places-to-work-in-events-2015/" target="_blank">The Best Places to Work in Events</a> by Event Marketer Magazine!
+
+Winners were determined based on their employees’ responses to an Employee Engagement Survey, and we made the list for Best Event Partners.
+
+Here's what they shared about us:
+<p style="padding-left: 30px;">MEETING TOMORROW</p>
+<p style="padding-left: 30px;">Employees said: “I feel lucky to be a part of this organization.” “It’s a special place.” “… breaks the mold of how corporate environments are supposed to be.” “… talented, positive people.” “The culture is that of respect and affection. We value humility, commitment and kindness.”</p>
+Congratulations to all the winners!";s:10:"post_title";s:53:"Meeting Tomorrow: 2015 Best Places to Work in Events!";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:4:"open";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:51:"meeting-tomorrow-2015-best-places-to-work-in-events";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2015-08-05 17:32:24";s:17:"post_modified_gmt";s:19:"2015-08-05 17:32:24";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";s:1:"0";s:4:"guid";s:34:"http://meetingtomorrow.com/?p=5898";s:10:"menu_order";s:2:"40";s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";}}

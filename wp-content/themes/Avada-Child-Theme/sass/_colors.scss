@@ -1,0 +1,22 @@
+// Variables
+$main-blue:         #2fbeec;
+$alt-blue:          #04b3ed;
+$dark-blue:         #0076a3;
+$main-orange:       #ec7f4c;
+$super-light-gray:  #f4f4f4;
+$light-gray:        #e9e9e9;
+$light-gray-alt:    #e9e9e9;
+$light-gray-2:      #cecece;
+$light-gray-3:      #e6e6e6;
+$light-gray-4:      #e0dede;
+$main-gray:         #777;
+$dark-gray:         #2b2f35;
+
+//==================================================
+
+.orange      { color: $main-orange !important; }
+.blue        { color: $main-blue   !important; }
+.main-gray   { color: $main-gray   !important; }
+.dark-gray   { color: $dark-gray   !important; }
+.light-gray  { color: $light-gray  !important; }
+.white       { color: white !important; }

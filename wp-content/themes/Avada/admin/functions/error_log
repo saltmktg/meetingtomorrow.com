@@ -1,0 +1,1 @@
+[03-Nov-2015 22:10:30 UTC] PHP Fatal error:  Call to undefined function add_action() in /home/meetingtomorrow/public_html/wp-content/themes/Avada/admin/functions/functions.options.php on line 3

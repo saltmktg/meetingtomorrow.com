@@ -1,0 +1,7 @@
+�9�V<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:7610;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2015-06-12 18:13:30";s:13:"post_date_gmt";s:19:"2015-06-12 18:13:30";s:12:"post_content";s:674:"We recently added some exciting new products to our <a href="http://meetingtomorrow.com/touch-screen-rental">touchscreen rentals page</a> including touch tables, touchscreen kiosks, and 32 - 75" touch displays!
+
+Check out all our touchscreen rental options for adding a fun, interactive element to your meeting or event. We can even help convert your media to touch using our touchscreen software solution.
+
+Wondering how to best utilize your touchscreen?
+
+Check out our <a href="http://meetingtomorrow.com/top-5-touchscreen-applications">Top 5 Touchscreen Applications</a> blog post or <a href="http://meetingtomorrow.com/contact">give us a call</a> to discuss!";s:10:"post_title";s:30:"New Touchscreen Rentals Added!";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:4:"open";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:23:"new-touchscreen-rentals";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2015-06-12 18:13:30";s:17:"post_modified_gmt";s:19:"2015-06-12 18:13:30";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:34:"http://meetingtomorrow.com/?p=7610";s:10:"menu_order";i:40;s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

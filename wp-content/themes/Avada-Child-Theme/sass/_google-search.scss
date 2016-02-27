@@ -1,0 +1,108 @@
+// Google Search
+
+/* Header specific Google search styles */
+#header .gsc-input-box {
+  width: 160px;
+  height: 20px;
+  @include border-radius(12px); }
+
+#header input.gsc-search-button, 
+#header input.gsc-search-button:hover, 
+#header input.gsc-search-button:focus {
+  display: none !important;
+  background: none !important; }
+
+/* General Google search styles */
+.gsc-input input,
+input.gsc-input,
+#gs_tti51 input,
+#gs_tti50 input {
+  font-family: $sans-serif-family;
+  font-size: 13px !important;
+  color: $main-gray !important;
+  background: transparent !important;
+  @include box-shadow(none); }
+
+#main input.gsc-search-button, 
+#main input.gsc-search-button:hover, 
+#main input.gsc-search-button:focus {
+  display: none !important;
+  background: none !important; }
+
+.cse .gsc-control-cse, 
+.gsc-control-cse {
+  padding: 0 !important; }
+
+.gsc-results-wrapper-visible {
+  font-family: $sans-serif-family; }
+
+.gsst_a {
+  padding-top: 1px !important; }
+
+.gsib_a {
+  padding: 0 10px !important;
+  position: relative;
+  top: -4px; }
+
+.gsc-result .gs-title {
+  height: auto !important; }
+
+.gsc-url-top {
+  line-height: 21px !important; }
+
+.gsc-table-result, 
+.gsc-thumbnail-inside, 
+.gsc-url-top {
+  padding-left: 0 !important; }
+
+.gsc-result-info {
+  padding: 10px 0 !important; }
+
+.gsc-selected-option-container.gsc-inline-block {
+  width: auto !important; }
+
+/* Non-header Google Custom Search styles */
+#main .gsc-search-box.gsc-search-box-tools {
+  display: block !important; }
+
+#main .gsc-search-box-tools .gsc-search-box .gsc-input {
+  display: none !important;
+  /*padding-right: 0 !important;
+  width: 100% !important;*/ }
+
+#main #___gcse_0 {
+  margin-top: -25px; }
+
+#main .searchform input[type="text"] {
+  color: $main-gray !important;
+  font-size: 16px !important; }
+
+#main .gsc-results {
+  line-height: 1.45; }
+
+#main .gsc-input-box {
+  height: 33px; }
+
+#main #gs_tti50 input,
+#main #gs_tti51 input {
+  position: relative;
+  top: 7px;
+  font-size: 16px !important; }
+
+#main .gsst_a {
+  display: none;
+  position: relative;
+  top: 7px; }
+
+.gsc-cursor-box {
+  margin: 10px 0 !important; }
+
+/*.gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+  border-color: $main-orange;
+  background-color: $main-orange;
+  color: white; }
+
+.gsc-results .gsc-cursor-box .gsc-cursor-page {
+  padding: 3px 6px;
+  font-size: 14px;
+  border: 1px solid #ccc; } */
