@@ -376,7 +376,6 @@ return array(
 	'cdn.netdna.zone_id' => 0,
 	'cdn.maxcdn.authorization_key' => 'meetingtomorrow+c7e3f6484131ec4d295cc7c5e674a64d0569019fe+9b053df12ddc02fdfd3bca8e80eb707a',
 	'cdn.maxcdn.domain' => array(
-		0 => 'meetingtom.meetingtomorrow.netdna-cdn.com',
 	),
 	'cdn.maxcdn.ssl' => 'auto',
 	'cdn.maxcdn.zone_id' => 474691,
@@ -666,7 +665,7 @@ return array(
 	'notes.wp_content_perms' => true,
 	'notes.theme_changed' => false,
 	'notes.wp_upgraded' => false,
-	'notes.plugins_updated' => false,
+	'notes.plugins_updated' => true,
 	'notes.cdn_upload' => false,
 	'notes.cdn_reupload' => false,
 	'notes.need_empty_pgcache' => false,

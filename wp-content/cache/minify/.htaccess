@@ -30,7 +30,7 @@ FileETag MTime Size
 # BEGIN W3TC Minify core
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /wp-content/cache/minify/
+    RewriteBase /meetingtomorrow.com/wp-content/cache/minify/
     RewriteRule /w3tc_rewrite_test$ ../../plugins/w3-total-cache/pub/minify.php?w3tc_rewrite_test=1 [L]
     RewriteCond %{HTTP:Accept-Encoding} gzip
     RewriteRule .* - [E=APPEND_EXT:.gzip]
