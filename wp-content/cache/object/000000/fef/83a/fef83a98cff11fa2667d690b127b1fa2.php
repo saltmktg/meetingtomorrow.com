@@ -1,7 +1,0 @@
-�>�V<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:9303;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2015-08-10 08:00:31";s:13:"post_date_gmt";s:19:"2015-08-10 08:00:31";s:12:"post_content";s:705:"We just added <a href="http://meetingtomorrow.com/4k-touch-screen-rental" target="_blank">4k touchscreen displays</a> to our rental inventory!
-
-With Ultra HD resolution and 10 points of touch, there's no better way to add interaction at trade shows, exhibits, and conferences.
-
-If you're wondering how to best use your touchscreen, check out our <a href="http://meetingtomorrow.com/top-5-touchscreen-applications" target="_blank">Top 5 Touchscreen Applications</a> blog post for some great ideas.
-
-You can even convert your media library into touch content with our touchscreen software solution. <a href="http://meetingtomorrow.com/contact" target="_blank">Give us a call</a> to discuss!";s:10:"post_title";s:27:"New 4k Touchscreen Rentals!";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:4:"open";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:19:"new-4k-touchscreens";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2015-08-07 19:04:44";s:17:"post_modified_gmt";s:19:"2015-08-07 19:04:44";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:34:"http://meetingtomorrow.com/?p=9303";s:10:"menu_order";i:40;s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

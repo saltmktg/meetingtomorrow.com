@@ -1,7 +1,0 @@
-�G�V<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:8242;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2015-06-30 20:14:31";s:13:"post_date_gmt";s:19:"2015-06-30 20:14:31";s:12:"post_content";s:656:"We had an awesome day volunteering with <a class="profileLink" href="http://www.chicagocares.org/HOC__Affiliate_Home_Page" target="_blank">Chicago Cares</a> on Saturday!
-
-If you're unfamiliar with Serve-a-thon, here's a description from the Chicago Cares website:
-
-"Serve-a-thon is all about action. It’s about connecting with people. It’s about building bridges and meeting critical needs. It’s about learning from each other and seeing what’s possible. This June 27, more than 5,000 volunteers will come together to work hard, play hard and give back to the city that’s given so much to us."
-
-We're looking forward to next year already!";s:10:"post_title";s:37:"Meeting Tomorrow at Serve-a-thon 2015";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:4:"open";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:17:"serve-a-thon-2015";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2015-08-05 17:35:29";s:17:"post_modified_gmt";s:19:"2015-08-05 17:35:29";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:34:"http://meetingtomorrow.com/?p=8242";s:10:"menu_order";i:40;s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}
