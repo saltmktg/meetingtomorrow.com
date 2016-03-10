@@ -139,6 +139,9 @@
 		<div class="quote-tab">
 			<div class="quote-tab-img-wrap"><img src="http://meetingtomorrow.com/wp-content/uploads/2015/07/quote-tab.png" alt="Get a Free Quote!"></div> 
 		</div>
+		<div class="quote-tab-mobile">
+			<div class="quote-tab-img-wrap"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/tab-quote-mobile.png" alt="Get a Free Quote!"></div> 
+		</div>
 	</a>
   <!-- Quote Form -->
 	<div class="fusion-modal modal fade modal-2 quote_tab_popup" tabindex="-1" role="dialog" aria-labelledby="modal-heading-2" aria-hidden="true">
@@ -169,6 +172,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<!-- End Quote Form Popup -->
 

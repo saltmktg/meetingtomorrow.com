@@ -57,6 +57,22 @@
 .quote_tab_popup .modal-footer .fusion-button {
   background: #bbb !important; }
 
+/* Sidetab Mobile Quote Form */
+.quote-tab-mobile {
+  position: fixed;
+  right: 0;
+  top: 140px;
+  z-index: 9999999;
+  -webkit-animation: slide 0.75s forwards;
+     -moz-animation: slide 0.75s forwards;
+      -ms-animation: slide 0.75s forwards;
+       -o-animation: slide 0.75s forwards;
+          animation: slide 0.75s forwards;
+  img {
+    height: 100px; }
+  @media (min-width: 601px) {
+    display: none; } }
+
 
 /* Sidetab Pricelist Form */
 .pricelist-tab {
