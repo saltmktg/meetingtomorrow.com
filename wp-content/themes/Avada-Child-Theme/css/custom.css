@@ -4,9 +4,17 @@
 /* Wufoo Styles
 ------------------------------------------------------------------*/
 
-/* Logo */
+/* Overall */
+.wufoo {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif !important; }
+
+.wufoo * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 /* Backgrounds */
-.wufoo input.text, .wufoo textarea.textarea{background:#FFFFFF url(/images/fieldbg.gif) repeat-x top}
 .wufoo .focused{background:#FFF7C0}
 .wufoo .instruct{background-color:#F5F5F5}
 
@@ -15,12 +23,40 @@
 .wufoo .instruct{border:1px solid #e6e6e6}
 
 /* Typography */
-.wufoo .info h2{font-size:160%;font-family:inherit;color:#000000}
-.wufoo .info div{font-size:95%;font-family:inherit;color:#444444}
+.wufoo .info h2{font-size:160%;color:#000000}
+.wufoo .info div{font-size:16px;color:#444444}
 .wufoo .section h3{font-size:110%;font-family:inherit;background:#FFFFFF;color:#000000}
 .wufoo .section div{font-size:85%;font-family:inherit;color:#444444}
-.wufoo label.desc, .wufoo legend.desc{font-size:95%;font-family:inherit;color:#444444}
+.wufoo label.desc, .wufoo legend.desc{font-size:16px;font-family:inherit;color:#444444}
 .wufoo li div, .wufoo li div label, .wufoo li span label{font-family:inherit;color:#444444}
 .wufoo input.text, .wufoo textarea.textarea, .wufoo select.select, .wufoo label.choice{font-size:100%;font-family:inherit;color:#333333}
 .wufoo label.choice{color:#444444}
 .wufoo .instruct{font-size:80%;font-family:inherit;color:#444444; }
+.wufoo input.text {
+  display: block;
+  width: 100%;
+  margin-bottom: 4px;
+  background: white;
+  border: 1px solid #e6e6e6 !important;
+  padding: 6px 7px !important;
+  font-size: 14px !important;
+  color: #747474 !important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+.wufoo input.btTxt {
+  cursor: pointer;
+  background: #2fbeec;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 8px 14px;
+  font-weight: bold;
+}
+.wufoo input.btTxt:hover {
+  background: #04b3ed;
+}

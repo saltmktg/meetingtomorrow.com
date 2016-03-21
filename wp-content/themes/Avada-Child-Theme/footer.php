@@ -186,11 +186,11 @@
 	<!-- Pricelist Form -->
 	<div class="fusion-modal modal fade modal-2 pricelist_tab_popup" tabindex="-1" role="dialog" aria-labelledby="modal-heading-2" aria-hidden="true">
 	  <style type="text/css">.modal-2 .modal-header, .modal-2 .modal-footer{border-color:#ebebeb;}</style>
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Just need pricing? Download our Price List PDF</h3>
+					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Just need pricing? <span style="font-size: 17px;">Download our Price List PDF</span></h3>
 				</div>
 				<div class="modal-body">
 					<div id="wufoo-r1pq4xf3135ngw7">
