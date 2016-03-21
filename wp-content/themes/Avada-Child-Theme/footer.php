@@ -190,7 +190,7 @@
 			<div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Just need pricing? <span style="font-size: 17px;">Download our Price List PDF</span></h3>
+					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Just need pricing? <span style="font-size: 17px; display: block;">Download our Price List PDF</span></h3>
 				</div>
 				<div class="modal-body">
 					<div id="wufoo-r1pq4xf3135ngw7">
