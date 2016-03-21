@@ -1439,7 +1439,7 @@ div.share-box.fusion-sharing-box.boxed-icons { background: white !important; }
   50% { margin-top: 4px; }
   100% { margin-top: 0px; } }
 .pricelist_tab_popup .modal-footer { margin-top: 0; padding: 12px 20px; }
-.pricelist_tab_popup .modal-body { padding: 15px 20px 10px; }
+.pricelist_tab_popup .modal-body { padding: 15px 20px 10px; max-height: 345px; }
 
 .pricelist_tab_popup .modal-footer .fusion-button { background: #bbb !important; }
 
