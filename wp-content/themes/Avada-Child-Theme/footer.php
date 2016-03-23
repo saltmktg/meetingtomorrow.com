@@ -445,13 +445,16 @@
 		// Script will check to see if the element exists. If it doesn't, the parameters won't be
 		// added for that element AND any of the following elements below it.
 		// Since nsIframeSidetab and nsExitIntent will be on every page, keep those first. nsIframe goes last
-		// because it's only on certain pages.             
+		// because it's only on certain pages.      
 
-		document.getElementById("nsIframeSidetab").src = document.getElementById("nsIframeSidetab").src + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		var loc = window.location.toString();
+    params = loc.split('?')[1];     
 
-		document.getElementById("nsIframeExitIntent").src = document.getElementById("nsIframeExitIntent").src + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		document.getElementById("nsIframeSidetab").src = document.getElementById("nsIframeSidetab").src + '&?' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
 
-		document.getElementById("nsIframe").src = document.getElementById("nsIframe").src + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		document.getElementById("nsIframeExitIntent").src = document.getElementById("nsIframeExitIntent").src + '&?' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+
+		document.getElementById("nsIframe").src = document.getElementById("nsIframe").src + '&?' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
                                   
         return false; 
   } 
