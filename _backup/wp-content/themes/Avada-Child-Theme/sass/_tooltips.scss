@@ -1,0 +1,122 @@
+// Tooltips for About Us page headshot gallery
+.mt-people-gallery {
+  text-align: center; }
+
+.mt-people-wrapper {
+  float: none;
+  display: inline-block;
+  margin: 6px;
+  width: 84px; 
+  img {
+    border-radius: 50%;
+    border: 5px solid #eee; } }
+
+.mt-people-name {  
+  display: block;
+  font-weight: 700; 
+  font-size: 15px;
+  text-transform: uppercase; }
+
+.mt-people-name,
+.mt-people-position,
+.mt-people-year {
+   }
+
+.mt-people-position,
+.mt-people-year {
+  font-style: italic; }
+
+.mt-people-info {
+  margin-top: 13px; }
+
+div.tooltip-wrap {
+  position: relative;
+  display: inline-block; }
+
+div.tooltip-wrap .tooltip-content {
+  position: absolute;
+  padding: 16px 18px 19px;
+  width: 400px;
+  color: #FFFFFF;
+  background: #000000;  
+  text-align: left;
+  font-size: 14px !important;
+  line-height: 1.5;
+  visibility: hidden; }
+
+div.tooltip-wrap .tooltip-content:after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-bottom: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent; }
+
+div.tooltip-wrap:hover .tooltip-content {
+  visibility: visible;
+  opacity: 0.8;
+  top: 89px;
+  left: 50%;
+  margin-left: -200px; /* Half of 'div.tooltip-wrap .tooltip-content' width */
+  z-index: 999; }
+
+
+// Custom Tooltip Styling
+#customTooltip {
+  text-align: left;
+  color: #fff;
+  background: rgba(0, 0, 0, .8);
+  opacity: .8;
+  width: 400px;
+  position: absolute;
+  z-index: 100;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  padding: 16px 18px 19px; }
+ 
+#customTooltip:after /* triangle decoration */ {
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid rgba(0, 0, 0, .8);
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  margin-left: -9px; }
+ 
+#customTooltip.top:after {
+  border-bottom-color: transparent;
+  border-top: 9px solid rgba(0, 0, 0, .8);
+  top: -20px;
+  bottom: auto; }
+
+#customTooltip.left:after {
+  left: 9px;
+  margin: 0; }
+
+#customTooltip.right:after {   
+  right: 9px;
+  left: auto;
+  margin: 0; }
+
+#customTooltip span:first-child {
+  display: block;
+  font-weight: 700; 
+  font-size: 15px;
+  text-transform: uppercase; }
+
+#customTooltip span:nth-child(2),
+#customTooltip span:nth-child(3) {
+  font-style: italic; }
+
+#customTooltip span:nth-child(4) {
+  margin-top: 13px;
+  display: block; }
+
+#customTooltip div {
+  margin-bottom: 0; }

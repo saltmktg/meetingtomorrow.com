@@ -1,0 +1,189 @@
+// Disable CSS outline on form inputs
+#main input {
+  outline: none; }
+
+// Contact Page Form
+.contact-form-container {
+  border: 1px solid $light-gray-3;
+  background: #f3f3f3;
+  padding: 25px 30px;
+  @media (max-width: $bp5) {} }
+
+
+// Careers Form
+.careers-form .label {
+  display: inline-block;
+  margin-bottom: 5px; }
+
+.careers-form .button {
+  display: inline-block;
+  margin-top: 5px; }
+
+
+//Quote Form
+.quote-form-wrap .wpcf7 form.wpcf7-form {
+  padding: 12px 13px 15px;
+  background: $light-gray;
+  p {
+    margin-bottom: 8px; }
+  input,
+  textarea {
+    padding: 7px;
+    border: 0;
+    font-family: $sans-serif-family;
+    @include box-shadow(none);
+    @include border-radius(5px); }
+  input[type="submit"] {
+    margin-top: 6px;
+    width: 100%; }
+  .ajax-loader {
+    display: none; } }
+
+.quote-form-wrap .wpcf7 form.wpcf7-form input[type="text"],
+.quote-form-wrap .wpcf7 form.wpcf7-form input[type="email"],
+.quote-form-wrap .wpcf7 form.wpcf7-form textarea {
+  color: #777 !important; }
+
+.quote-form-wrap .wpcf7 form.wpcf7-form .event-details textarea {
+  max-width: 100%;
+  height: 120px; }
+
+.quote-form-header, 
+.quote-form-header-base {
+  padding: 10px 13px;
+  line-height: 24px;
+  background: $main-blue;
+  color: white;
+  font-size: 20px;
+  font-weight: 700; }
+
+.quote-form-header-alt {
+  padding: 9px 18px;
+  line-height: 24px;
+  background: $main-gray;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0 !important;
+    font-size: 20px !important;
+    line-height: 26px !important;
+    color: white !important;
+    font-weight: 700 !important; } }
+
+// Quote Form Purchase
+.fsSubmit {
+  input[type="submit"] {
+    width: 200px !important;
+    max-width: 100% !important;
+    @media (max-width: $bp3) {
+      width: 100% !important; } } }
+
+// Quote Form A
+form.wpcf7-form .quote-form-wrap-alt {
+  padding: 13px 18px 15px;
+  background: $light-gray;
+  p {
+    margin-bottom: 12px; }
+  input,
+  textarea {
+    padding: 7px;
+    border: 0;
+    font-family: $sans-serif-family;
+    @include box-shadow(none);
+    @include border-radius(4px); }
+  input[type="submit"] {
+    margin-top: 6px;
+    width: 100%; }
+  .ajax-loader {
+    display: none; } 
+  p:first-child {
+    margin-bottom: 10px !important;
+  }
+  p.name, p.email    { float: left;  width: 48.5%; }
+  p.company, p.phone { float: right; width: 48.5%; }
+}  
+
+form.wpcf7-form .quote-form-wrap-alt input[type="text"],
+form.wpcf7-form .quote-form-wrap-alt input[type="email"],
+form.wpcf7-form .quote-form-wrap-alt textarea {
+  color: #777 !important; }
+
+form.wpcf7-form .quote-form-wrap-alt textarea {
+  max-width: 100%;
+  height: 120px; }
+
+
+// Netsuite Quote Form Wrapper
+.quote-form-content {
+  padding: 3px 3px 4px 3px;
+  background: $light-gray-3; }
+
+/* Fix for iframe extending beyond wrapper in iOS 
+ * More info here: http://stackoverflow.com/questions/23083462/how-to-get-an-iframe-to-be-responsive-in-ios-safari */
+.quote-form-content iframe {
+  width: 1px;
+  min-width: 100%;
+  *width: 100%; }
+
+// Sock Monkey Form
+.sock-monkey-form-wrap .wpcf7,
+.sock-monkey-form-wrap .monkey-form-header {
+  width: 50%;
+  margin: 0 auto; 
+  @media (max-width: $bp5) {
+    width: 70%; } 
+  @media (max-width: $bp3) {
+    width: 100%; } }
+
+.sock-monkey-form-wrap .wpcf7 {
+  padding: 5px 35px 10px;
+  background: #eee; }
+
+.sock-monkey-form-wrap .monkey-form-header {
+  /* Same left and right padding as .sock-monkey-form-wrap .wpcf7 */
+  padding: 10px 35px;  
+  background: #aaa;
+  line-height: 22px;
+  font-size: 18px;
+  color: white;
+  font-weight: bold; }
+
+.sock-monkey-form-wrap .wpcf7 .label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px; }
+
+
+// ContactUs.com Sidebar Form Tabs
+#cttus-live-tabs-rtv {
+  top: 135px !important; }
+
+
+// Main Form Wrap
+.quote-form-header {
+  text-transform: capitalize; }
+
+.quote-form-header .quote-form-product-title {
+  display: inline; }
+
+.quote-form-header .quote-form-product-title:first-letter {
+  display: inline;
+  text-transform: none !important; }
+
+.quote-notes {
+  padding: 6px 10px 5px;
+  font-size: 15px;
+  line-height: 21px; }
+
+.quote-notes-intro { margin-bottom: 4px; }
+
+// FeedPress Email Subscription Form
+.email-subscribe-form form input[type="text"] {
+  height: 36px;
+  font-size: 13px !important;
+  color: #777 !important; }
+
+.email-subscribe-form input[type="submit"] {
+  &:hover {
+    opacity: .9; } }

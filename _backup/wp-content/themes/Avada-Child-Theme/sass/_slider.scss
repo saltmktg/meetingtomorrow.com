@@ -1,0 +1,248 @@
+// Testimonial Slider
+.quote-slider-wrap {
+  width: 100%;
+  padding: 25px 20px 20px 20px;
+  position: relative;
+  overflow: hidden;
+  background: #f2f2f2;
+  border-top: 12px solid $main-orange;
+  border-bottom: 1px solid $main-orange;
+  @media (max-width: $bp3-alt) {
+    padding: 20px; } }
+
+.quote-box-arrow {
+  position: absolute;
+  left: 7.75%;
+  top: -1px;
+  width: 0; 
+  height: 0; 
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;  
+  border-top: 11px solid $main-orange;
+  @media (max-width: $bp3-alt) {
+    display: none; } }
+
+.rslides .quote-img {
+  float: left;
+  width: 13.5%;
+  @media (max-width: $bp3-alt) {
+    width: 30%;
+    margin-right: 15px; } }
+
+.rslides .quote-img img {
+  padding: 4px;
+  background: white;
+  border: 1px solid #e8e8e8;
+  @include box-shadow (0 1px 2px rgba(150, 150, 150, .1));
+  @media (max-width: $bp3-alt) {
+    margin-bottom: 10px; } }
+
+.rslides .quote-content {
+  float: right; 
+  width: 81.5%;
+  @media (max-width: $bp3-alt) {
+    width: 100%;
+    float: none; } }
+
+.rslides .quote-text {
+  line-height: 1.5;
+  font-size: 17px;
+  font-family: $serif-family;
+  @media (max-width: $bp3-alt) {
+    font-size: 16px; } }
+
+.rslides .quote-author-info {
+  clear: both;
+  width: 85%;
+  line-height: 1.45;
+  @media (max-width: $bp3-alt) {
+    width: 75%; } }
+
+.rslides .quote-name, 
+.rslides .quote-company {
+  display: inline-block; 
+  font-size: 15px;
+  @media (max-width: $bp3-alt) {
+    font-size: 15px;
+    line-height: 1.35; } }
+
+.rslides .quote-name {
+  font-weight: bold; }
+
+.rslides .quote-view-all {
+  opacity: 0.9;
+  font-size: 12px;
+  margin-top: 10px; }
+
+.quote-slider-wrap .rslides_nav {
+  z-index: 3;
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  opacity: 0.7;
+  text-indent: -9999px;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  width: 21px;
+  transition: all .125s ease;
+  &:hover {
+    opacity: 1; } }
+
+.quote-slider-wrap .rslides_nav.prev {
+  right: 36px;
+  background: url("http://meetingtomorrow.com/wp-content/uploads/2015/08/arrow-left-blue.png");    
+  background: url("http://meetingtomorrow.com/wp-content/uploads/2015/08/arrow-left-blue.svg"), 
+    linear-gradient(transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: left 91%; } 
+
+.quote-slider-wrap .rslides_nav.next {
+  right: 13px;
+  background: url("http://meetingtomorrow.com/wp-content/uploads/2015/08/arrow-right-blue.png");    
+  background: url("http://meetingtomorrow.com/wp-content/uploads/2015/08/arrow-right-blue.svg"), 
+    linear-gradient(transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: right 91%; }
+
+/* Full Width Testimonial Slider */
+.fw-quote-slider-wrap {
+  position: relative;
+  padding: 30px 0;
+  min-height: 395px;
+  text-align: center;
+  color: white !important;
+  h2 {
+    font-size: 36px;
+    margin: 0 0 35px;
+    color: white !important;
+    font-weight: 700 !important; } }
+
+.fw-quote-icon {
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  margin-right: 17px;
+  background: url("img/icon-talk-bubbles-white.png") no-repeat;    
+  background: url("img/icon-talk-bubbles-white.svg") no-repeat, 
+    linear-gradient(transparent, transparent);
+  height: 26px;
+  width: 31px; }
+
+.rslides .fw-quote-box {
+  width: 100%; }
+
+.rslides .fw-quote-content {
+  width: 70%;
+  margin: 0 auto; }
+
+.rslides .fw-quote-text {
+  text-align: center;
+  font-size: 21px;
+  line-height: 32px;
+  font-style: italic;
+  font-family: $serif-family;
+  @media (max-width: $bp3-alt) {
+    font-size: 18px;
+    line-height: 25px; } }
+
+.rslides .fw-quote-img {
+  overflow: auto;
+  width: 90px;
+  margin: 35px auto 15px;
+  text-align: center; }
+
+.rslides .fw-quote-img.headshot {
+  overflow: auto;
+  width: 90px;
+  margin: 35px auto 15px;
+  text-align: center; }
+
+.rslides .fw-quote-img.logo {
+  overflow: auto;
+  width: 120px;
+  margin: 35px auto 15px;
+  text-align: center; }
+
+.rslides .fw-quote-img img {
+  padding: 3px;
+  background: white;
+  border: 1px solid #e8e8e8;
+  @include box-shadow (0 1px 4px rgba(0, 0, 0, .5));
+  display: block; }
+
+.rslides .fw-quote-name {
+  margin-top: 1px;
+  font-weight: 700;
+  line-height: 24px;
+  display: block;
+  @media (max-width: $bp3-alt) {
+    font-size: 15px; } }
+
+.rslides .fw-quote-company {
+  line-height: 24px;
+  display: block;
+  @media (max-width: $bp3-alt) {
+    font-size: 15px; } }
+
+.fw-quote-slider-wrap .rslides_nav {
+  z-index: 3;
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  opacity: 0.25;
+  text-indent: -9999px;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  width: 21px;
+  transition: all .125s ease;
+  &:hover {
+    opacity: 0.8; } }
+
+.fw-quote-slider-wrap .rslides_nav.prev {
+  left: 10px;
+  background: url("img/icon-arrow-left-alt.png");
+  background: url("img/icon-arrow-left-alt.svg"),
+    linear-gradient(transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: left 160px; 
+  @media (max-width: $bp3-alt) {
+    left: -10px; } }
+
+.fw-quote-slider-wrap .rslides_nav.next {
+  right: 10px;
+  background: url("img/icon-arrow-right-alt.png");
+  background: url("img/icon-arrow-right-alt.svg"),
+    linear-gradient(transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: right 160px;
+  @media (max-width: $bp3-alt) {
+    right: -10px; } }
+
+/*! http://responsiveslides.com v1.54 by @viljamis */
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0; }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0; }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left; }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0; }

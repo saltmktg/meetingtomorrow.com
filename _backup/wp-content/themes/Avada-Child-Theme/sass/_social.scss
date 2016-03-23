@@ -1,0 +1,107 @@
+.fusion-sharing-box {
+  margin-bottom: 15px; }
+
+.fusion-sharing-box h4 {
+  width: 85px;
+  color: $main-gray !important;
+  font-weight: 700; }
+
+.fusion-sharing-box .fusion-social-networks {
+  text-align: left; }
+
+.fusion-social-networks.boxed-icons .fusion-social-network-icon {
+  @include box-shadow(none); }
+
+.fusion-sharing-box.boxed-icons {
+  padding: 15px 0; }
+
+div.share-box.fusion-sharing-box.boxed-icons {
+  background: white !important; }
+
+//==================================================
+
+$twitter:       #00aced;
+$facebook:      #3b5998;
+$googleplus:    #dd4b39;
+$pinterest:     #cb2027;
+$linkedin:      #007bb6;
+$youtube:       #bb0000;
+$vimeo:         #aad450;
+$tumblr:        #32506d;
+$instagram:     #3f729b;
+$flickr:        #ff0084;
+$dribbble:      #ea4c89;
+$quora:         #a82400;
+$foursquare:    #0072b1;
+$forrst:        #5B9A68;
+$vk:            #45668e;
+$wordpress:     #21759b;
+$stumbleupon:   #EB4823;
+$yahoo:         #7B0099;
+$blogger:       #fb8f3d;
+$soundcloud:    #ff3a00;
+$rss:           #f26522;
+$skype:         #00aff0;
+$paypal:        #253b80;
+$dropbox:       #007ee5;
+$mail:          #449a88;
+$reddit:        #ff4500;
+$rss:           #ec7f4c;
+
+
+//==================================================
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-feed.fusionicon-feed {
+  background-color: $rss !important; border-color: $rss !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-facebook.fusionicon-facebook {
+  background-color: $facebook !important; border-color: $facebook !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-mail.fusionicon-mail {
+  background-color: $mail !important; border-color: $mail !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-rss.fusionicon-rss {
+  background-color: $rss !important; border-color: $rss !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-twitter.fusionicon-twitter {
+  background-color: $twitter !important; border-color: $twitter !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-vimeo.fusionicon-vimeo {
+  background-color: $vimeo !important; border-color: $vimeo !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-pinterest.fusionicon-pinterest {
+  background-color: $pinterest !important; border-color: $pinterest !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-tumblr.fusionicon-tumblr {
+  background-color: $tumblr !important; border-color: $tumblr !important; }  
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-dribbble.fusionicon-dribbble {
+  background-color: $dribbble !important; border-color: $dribbble !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-linkedin.fusionicon-linkedin {
+  background-color: $linkedin !important; border-color: $linkedin !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-blogger.fusionicon-blogger {
+  background-color: $blogger !important; border-color: $blogger !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-skype.fusionicon-skype {
+  background-color: $skype !important; border-color: $skype !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-paypal.fusionicon-paypal {
+  background-color: $paypal !important; border-color: $paypal !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-dropbox.fusionicon-dropbox {
+  background-color: $dropbox !important; border-color: $dropbox !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-soundcloud.fusionicon-soundcloud {
+  background-color: $soundcloud !important; border-color: $soundcloud !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-vk.fusionicon-vk {
+  background-color: $vk !important; border-color: $vk !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-googleplus.fusionicon-googleplus {
+  background-color: $googleplus !important; border-color: $googleplus !important; }
+
+#main a.fusion-social-network-icon.fusion-tooltip.fusion-reddit.fusionicon-reddit {
+  background-color: $reddit !important; border-color: $reddit !important; }
+
