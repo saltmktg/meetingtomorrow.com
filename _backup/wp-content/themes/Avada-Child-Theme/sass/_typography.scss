@@ -1,0 +1,32 @@
+// Variables
+$sans-serif-family:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+$serif-family:        Georgia, 'Times New Roman', 'Times', serif !important;
+
+//==================================================
+h1 { 
+  font-weight: 700 !important;
+  margin-top: 15px;
+  margin-bottom: 25px; }
+
+.post-content h4 {
+  margin-bottom: 5px; }
+
+.alt-h2 {
+  font-size: 21px !important;
+  line-height: 25px !important; }
+
+.alt-h3 {
+  color: $main-gray !important;
+  font-size: 17px !important;
+  font-weight: 400 !important; }
+
+.txt-center { text-align: center !important; }
+
+.txt-thin     { font-weight: 300 !important; }
+.txt-normal   { font-weight: 400 !important; }
+.txt-semibold { font-weight: 600 !important; }
+
+.capitalize         { text-transform: capitalize !important; }
+.lowercase          { text-transform: lowercase !important; }
+.uppercase          { text-transform: uppercase !important; }
+.no-text-transform  { text-transform: none !important; }

@@ -1,0 +1,38 @@
+.accordion-expand,
+.accordion-collapse {
+  cursor: pointer;
+  font-weight: 700;
+  color: #a00; }
+
+.accordion {
+  width: 100%; }
+
+.accordion .accordion-menu-nested {
+  font-size: 14px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+.accordion .accordion-menu-nested li {
+  padding: 7px 0 7px 25px;
+  border-bottom: 1px solid #cacaca; }
+
+.accordion-header {
+  padding: 8px 10px;
+  border-bottom: 1px solid #cacaca; 
+  background: #fff;
+  font-weight: 700;
+  color: $main-blue;
+  cursor: pointer; }
+
+/*.accordion-content {
+  padding: 10px; } */
+
+.visually-hidden { 
+/* More accessible way to hide content. 
+   Read more here: http://css-tricks.com/places-its-tempting-to-use-display-none-but-dont/ */
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; padding: 0; border: 0; }

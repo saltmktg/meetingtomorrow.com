@@ -1,0 +1,28 @@
+body {
+  min-width: 0 !important; }
+
+#main {
+  @media (max-width: $bp3) {
+    padding-right: 20px !important;
+    padding-left: 20px !important; }
+  @media (max-width: $bp1) {
+    padding-right: 10px !important;
+    padding-left: 10px !important; } }
+
+.error404,
+.search-no-results {
+  #main {
+    padding: 40px 0 60px; } 
+  #sidebar h3 {
+    font-weight: bold !important;
+    color: $main-gray !important; } }
+
+.error404 #content {
+  margin-bottom: 50px; }
+
+#wrapper .fusion-column.last {
+  margin-right: 0; }
+
+  #header-sticky .avada-row,#header .avada-row, #main .avada-row, .footer-area .avada-row,#slidingbar-area .avada-row, #footer .avada-row, .page-title, .header-social .avada-row, #small-nav .avada-row, .tfs-slider .slide-content-container .slide-content { 
+    max-width: 1100px; 
+    margin: 0 auto; }

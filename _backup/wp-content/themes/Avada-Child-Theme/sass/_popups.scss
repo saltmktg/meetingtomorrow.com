@@ -1,0 +1,299 @@
+/* Sidetab Quote Form */
+.quote-tab {
+  position: fixed;
+  right: 0;
+  top: 140px;
+  z-index: 9999999;
+  -webkit-animation: slide 0.75s forwards;
+     -moz-animation: slide 0.75s forwards;
+      -ms-animation: slide 0.75s forwards;
+       -o-animation: slide 0.75s forwards;
+          animation: slide 0.75s forwards;
+  img {
+    height: 140px; }
+  @media (max-width: 600px) {
+    display: none; } }
+
+/* Slide in */
+@-webkit-keyframes slide {
+    0%   { right: -100px; }
+    100% { right: 0; }
+}
+
+@keyframes slide {
+    0%   { right: -100px; }
+    100% { right: 0; }
+}
+
+.quote-tab-img-wrap {
+  /*overflow: auto;*/
+  &:hover {
+    -webkit-animation: slideUpDown .35s;
+       -moz-animation: slideUpDown .35s;
+        -ms-animation: slideUpDown .35s;
+         -o-animation: slideUpDown .35s;
+            animation: slideUpDown .35s; } }
+
+/* Slide up, then down */
+@-webkit-keyframes slideUpDown {
+    0%   {margin-top: 0px;}
+    50%  {margin-top: 4px}
+    100% {margin-top: 0px;}
+}
+
+@keyframes slideUpDown {
+    0%   {margin-top: 0px;}
+    50%  {margin-top: 4px}
+    100% {margin-top: 0px;}
+}
+
+.quote_tab_popup {
+  .modal-footer {
+    margin-top: 0;
+    padding: 12px 20px; }
+  .modal-body {
+    padding: 15px 20px 10px; } }
+
+.quote_tab_popup .modal-footer .fusion-button {
+  background: #bbb !important; }
+
+/* Sidetab Mobile Quote Form */
+.quote-tab-mobile {
+  position: fixed;
+  right: 0;
+  top: 140px;
+  z-index: 9999999;
+  -webkit-animation: slide 0.75s forwards;
+     -moz-animation: slide 0.75s forwards;
+      -ms-animation: slide 0.75s forwards;
+       -o-animation: slide 0.75s forwards;
+          animation: slide 0.75s forwards;
+  img {
+    height: 100px; }
+  @media (min-width: 601px) {
+    display: none; } }
+
+
+/* Sidetab Pricelist Form */
+.pricelist-tab {
+  position: fixed;
+  right: 0;
+  top: 300px;
+  z-index: 9999999;
+  cursor: pointer;
+  -webkit-animation: slide 0.75s forwards;
+     -moz-animation: slide 0.75s forwards;
+      -ms-animation: slide 0.75s forwards;
+       -o-animation: slide 0.75s forwards;
+          animation: slide 0.75s forwards;
+  img {
+    height: 140px; }
+  @media (max-width: 600px) {
+    display: none; } }
+
+/* Slide in */
+@-webkit-keyframes slide {
+    0%   { right: -100px; }
+    100% { right: 0; }
+}
+
+@keyframes slide {
+    0%   { right: -100px; }
+    100% { right: 0; }
+}
+
+.pricelist-tab-img-wrap {
+  /*overflow: auto;*/
+  &:hover {
+    -webkit-animation: slideUpDown .35s;
+       -moz-animation: slideUpDown .35s;
+        -ms-animation: slideUpDown .35s;
+         -o-animation: slideUpDown .35s;
+            animation: slideUpDown .35s; } }
+
+/* Slide up, then down */
+@-webkit-keyframes slideUpDown {
+    0%   {margin-top: 0px;}
+    50%  {margin-top: 4px}
+    100% {margin-top: 0px;}
+}
+
+@keyframes slideUpDown {
+    0%   {margin-top: 0px;}
+    50%  {margin-top: 4px}
+    100% {margin-top: 0px;}
+}
+
+.pricelist_tab_popup {
+  .modal-footer {
+    margin-top: 0;
+    padding: 12px 20px; }
+  .modal-body {
+    padding: 15px 20px 10px; } }
+
+.pricelist_tab_popup .modal-footer .fusion-button {
+  background: #bbb !important; }
+
+/**
+ * Ouibounce Exit Intent Popup 
+ * More info here: https://github.com/carlsednaoui/ouibounce
+ */
+ #ouibounce-modal {
+  font-family: 'Open Sans', sans-serif;
+  display: none;
+  position: fixed;
+  z-index: 999999999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#ouibounce-modal .underlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;  
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  cursor: pointer;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
+#ouibounce-modal .ob-modal {
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  background-color: #ebebeb;
+  z-index: 1;
+  position: relative;
+  z-index: 99999;
+  margin: auto;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 4px;
+  -webkit-animation: popin 0.3s;
+  animation: popin 0.3s;
+}
+#ouibounce-modal .ob-modal-title {
+  color: #747474;
+  padding: 15px 25px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.5384615384615385;
+  border-bottom: 1px solid #e5e5e5;
+}
+#ouibounce-modal .ob-close {
+  font-size: 30px;
+  margin-top: -3px;
+}
+#ouibounce-modal .ob-modal-body {
+  padding: 15px 20px;
+  font-size: 0.9em;
+}
+#ouibounce-modal p {
+  color: #344a5f;
+  line-height: 1.3em;
+}
+#ouibounce-modal .ob-modal-footer {
+  padding: 12px 20px;
+  text-align: right;
+  width: 100%;
+  border-top: 1px solid #e5e5e5;
+}
+#ouibounce-modal .ob-modal-footer p {
+  cursor: pointer;
+  display: inline;
+  border-bottom: 1px solid #344a5f;
+}
+#ouibounce-modal .ob-modal-footer .fusion-button {
+  background: #bbb !important; 
+}
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes popin {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  /*85% {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }*/
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@-ms-keyframes popin {
+  0% {
+    -ms-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  /*85% {
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }*/
+
+  100% {
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes popin {
+  0% {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  /*85% {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }*/
+
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,99 @@
+// Code below outputs to:
+// .w5px  { width: 5px; }
+// .w10px { width: 10px; }
+// .w15px { width: 15px; }
+// And so on...
+@for $i from 1 through 80 {
+  .w#{$i * 5}px { width: 5px * $i; }
+}
+
+// Code below outputs to:
+// .h5px  { height: 5px; }
+// .h10px { height: 10px; }
+// .h15px { height: 15px; }
+// And so on...
+@for $i from 1 through 80 {
+  .h#{$i * 5}px { height: 5px * $i; }
+}
+
+/* Code below outputs to:
+// .w5pct  { width: 5%; }
+// .w10pct { width: 10%; }
+// .w15pct { width: 15%; }
+// And so on... */
+@for $i from 1 through 30 {
+  .w#{$i * 5}pct { width: 5% * $i; margin: 0 auto; }
+}
+
+// Code below outputs to:
+// .top-mar-5   { margin-top: 5px; }
+// .top-mar-10  { margin-top: 10px; }
+// .top-mar-15  { margin-top: 15px; }
+// And so on...
+@for $i from 0 through 20 {
+  .top-mar-#{$i * 5} { margin-top: 5px * $i !important; }
+}
+
+// Code below outputs to:
+// .bot-mar-5   { margin-bottom: 5px; }
+// .bot-mar-10  { margin-bottom: 10px; }
+// .bot-mar-15  { margin-bottom: 15px; }
+// And so on...
+@for $i from 0 through 20 {
+  .bot-mar-#{$i * 5} { margin-bottom: 5px * $i !important; }
+}
+
+// Code below outputs to:
+// .border-radius-1  { border-radius: 1px; }
+// .border-radius-2  { border-radius: 2px; }
+// .border-radius-3  { border-radius: 3px; }
+// And so on...
+@for $i from 0 through 20 {
+  .border-radius-#{$i * 1} { border-radius: 1px * $i; }
+}
+
+.is-hidden {
+  display: none; }
+
+// Line Heights
+.lh-1-0 { line-height: 1.0 !important; }
+.lh-1-1 { line-height: 1.1 !important; }
+.lh-1-2 { line-height: 1.2 !important; }
+.lh-1-3 { line-height: 1.3 !important; }
+.lh-1-4 { line-height: 1.4 !important; }
+.lh-1-5 { line-height: 1.5 !important; }
+.lh-1-6 { line-height: 1.6 !important; }
+
+.hidden { display: none; }
+
+.pull-up-1 {
+  position: relative;
+  z-index: 999;
+  top: -23px; }
+
+.overflow-auto {
+  overflow: auto; }
+
+.overflow-hidden {
+  overflow: hidden; }
+
+
+// About Us video styles (can be used elsewhere)
+.border-white-1 { 
+  border: 10px solid white; }
+
+.box-shadow-1 {
+  @include box-shadow(0px 0px 5px 5px rgba(0,0,0,0.1));
+}
+
+.img-100w {
+  @media (max-width: $bp3-alt) {
+    float: none !important;
+    display: block !important;
+    margin-bottom: 15px; }
+}
+
+.align-left-custom {
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
