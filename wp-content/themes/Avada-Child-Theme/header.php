@@ -1417,7 +1417,7 @@ if( get_post_meta( $c_pageID, 'pyre_display_header', true) != 'no' ) {
 $body_classes[] = 'mobile-menu-design-' . $smof_data['mobile_menu_design'];
 ?>
 
-<body <?php body_class( $body_classes ); ?> data-spy="scroll" onload="populateHiddenFields(document.forms['ga-tracking-form'])">
+<body <?php body_class( $body_classes ); ?> data-spy="scroll" onload="populateHiddenFields(document.forms['ga-tracking-form'])" onload="_googWcmGet('phone-number-link', '1.877.633.8866')">>
 	<?php $boxed_side_header_right = false; ?>
 	<?php if( ( ( $smof_data['layout'] == 'Boxed' && get_post_meta( $c_pageID, 'pyre_page_bg_layout', true ) == 'default' ) || get_post_meta( $c_pageID, 'pyre_page_bg_layout', true ) == 'boxed' ) && $smof_data['header_position'] != 'Top' ): ?>
 	<?php if( $smof_data['slidingbar_widgets'] && ! is_page_template( 'blank.php' ) && $smof_data['header_position'] == 'Right' || $smof_data['header_position'] == 'Left' ): ?>
