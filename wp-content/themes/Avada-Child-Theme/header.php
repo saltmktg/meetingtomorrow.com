@@ -3,7 +3,8 @@
 <head>
 
 	<!-- Google Analytics Experiment for Dallas Computer Rentals Page -->
-	<?php if (is_page(1066) ):?>
+	
+		<!-- Google Analytics Content Experiment code -->
 		<script>function utmx_section(){}function utmx(){}(function(){var
 		k='312498-3',d=document,l=d.location,c=d.cookie;
 		if(l.search.indexOf('utm_expid='+k)>0)return;
@@ -16,7 +17,8 @@
 		valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 		'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
 		</script><script>utmx('url','A/B');</script>
-	<?php endif; ?> 
+		<!-- End of Google Analytics Content Experiment code -->
+	
 
 
   <meta charset="utf-8">
