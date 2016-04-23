@@ -22,7 +22,6 @@ RewriteRule ^category/(.*)$ /$1 [R=301,L]
 RewriteRule ^cms-category/(.*)$ /$1 [R=301,L]
 
 # Force HTTPS
-RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
