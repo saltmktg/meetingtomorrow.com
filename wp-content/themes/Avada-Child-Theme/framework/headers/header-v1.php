@@ -18,7 +18,7 @@
 			<!-- Start Info & Search Box -->
 			<div class="info-box-wrap">
 				<div class="info-box">
-			    <div class="header-phone-icon"><img src="http://meetingtomorrow.com/wp-content/uploads/2015/03/icon-phone.png" alt="Call Now"></div>
+			    <div class="header-phone-icon"><img src="https://meetingtomorrow.com/wp-content/uploads/2015/03/icon-phone.png" alt="Call Now"></div>
 			    <div class="header-call-box">
 			      <div class="header-call-now">Call Now (businesses only)</div>
 			      <div class="header-phone-number"><a href="tel:1.877.633.8866" class="phone-number-link">1.877.633.8866</a></div>
@@ -77,12 +77,12 @@
 		</div>
 		<div class="mobile-info-box">
 		  <div class="mobile-phone-box">
-		  	<img src="http://meetingtomorrow.com/wp-content/uploads/2015/03/icon-phone.png" alt="" class="mobile-icon-phone">
+		  	<img src="//meetingtomorrow.com/wp-content/uploads/2015/03/icon-phone.png" alt="" class="mobile-icon-phone">
 		  	<a class="header-phone-link" href="tel:1.877.633.8866" class="phone-number-link">1.877.633.8866</a>
 		  </div>
 		  <div class="mobile-chat-box">		    
-		  	<img src="http://meetingtomorrow.com/wp-content/uploads/2015/03/icon-chat.png" alt="" class="mobile-icon-chat">
-		  	<div data-id="e1f6108b40" class="livechat_button"><a class="white" href="http://www.livechatinc.com/?partner=lc_3484832&amp;utm_source=chat_button">Chat Live</a></div>
+		  	<img src="//meetingtomorrow.com/wp-content/uploads/2015/03/icon-chat.png" alt="" class="mobile-icon-chat">
+		  	<div data-id="e1f6108b40" class="livechat_button"><a class="white" href="//www.livechatinc.com/?partner=lc_3484832&amp;utm_source=chat_button">Chat Live</a></div>
 		  </div>
 		</div>
 	</header>

@@ -137,7 +137,7 @@
 	<!-- Quote Tab -->	
 	<a class="fusion-modal-text-link quote-tab-content" data-toggle="modal" data-target=".quote_tab_popup" href="#">
 		<div class="quote-tab">
-			<div class="quote-tab-img-wrap"><img src="http://meetingtomorrow.com/wp-content/uploads/2015/07/quote-tab.png" alt="Get a Free Quote!"></div> 
+			<div class="quote-tab-img-wrap"><img src="https://meetingtomorrow.com/wp-content/uploads/2015/07/quote-tab.png" alt="Get a Free Quote!"></div> 
 		</div>
 		<div class="quote-tab-mobile">
 			<div class="quote-tab-img-wrap"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/tab-quote-mobile.png" alt="Get a Free Quote!"></div> 
@@ -180,7 +180,7 @@
   <!-- Pricelist Tab -->	
   <a class="fusion-modal-text-link" data-toggle="modal" data-target=".pricelist_tab_popup" href="#">
 		<div class="pricelist-tab">
-			<div class="pricelist-tab-img-wrap"><img src="http://meetingtomorrow.com/wp-content/uploads/2015/07/pricelist-tab.png" alt="Download a Pricelist"></div> 
+			<div class="pricelist-tab-img-wrap"><img src="https://meetingtomorrow.com/wp-content/uploads/2015/07/pricelist-tab.png" alt="Download a Pricelist"></div> 
 		</div>
 	</a>
 	<!-- Pricelist Form -->
