@@ -21,10 +21,6 @@ RewriteRule ^category/(.*)$ /$1 [R=301,L]
 #Rewrite anything in /cms-category/ directory to root directory
 RewriteRule ^cms-category/(.*)$ /$1 [R=301,L]
 
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
 
 # BEGIN W3TC Browser Cache
 <IfModule mod_mime.c>
