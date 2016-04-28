@@ -187,14 +187,15 @@ RewriteRule ^cms-category/(.*)$ /$1 [R=301,L]
 </IfModule>
 </FilesMatch>
 # END W3TC CDN
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /
+RewriteBase /meetingtomorrow.com/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
+RewriteRule . /meetingtomorrow.com/index.php [L]
 </IfModule>
 
 # END WordPress

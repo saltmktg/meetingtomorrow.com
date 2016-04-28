@@ -22,13 +22,13 @@ define('WP_CACHE', true); // Added by W3 Total Cache
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'meetingt_wp');
+define('DB_NAME', 'meetingtom-prod');
 
 /** MySQL database username */
-define('DB_USER', 'meetingt_mtwp');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'Fn03Lc7#*H');
+define('DB_PASSWORD', 'root');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -38,9 +38,6 @@ define('DB_CHARSET', 'utf8');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
-
-/** Force SSL on WordPress Backend **/
-define('FORCE_SSL_ADMIN', true);
 
 /**#@+
  * Authentication Unique Keys and Salts.
