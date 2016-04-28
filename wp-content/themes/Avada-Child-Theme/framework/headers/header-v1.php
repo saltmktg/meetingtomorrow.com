@@ -78,7 +78,7 @@
 		<div class="mobile-info-box">
 		  <div class="mobile-phone-box">
 		  	<img src="//meetingtomorrow.com/wp-content/uploads/2015/03/icon-phone.png" alt="" class="mobile-icon-phone">
-		  	<a class="header-phone-link" href="tel:1.877.633.8866" class="phone-number-link" onClick="ga('send', 'event', 'Click-to-Call', 'Click', 'Call Initiated');">1.877.633.8866</a>
+		  	<a class="header-phone-link" href="tel:1.877.633.8866" class="phone-number-link" onClick="ga('send', 'event', 'Click-to-Call', 'Click', 'Call Initiated');">Call Now</a>
 		  </div>
 		  <div class="mobile-chat-box">		    
 		  	<img src="//meetingtomorrow.com/wp-content/uploads/2015/03/icon-chat.png" alt="" class="mobile-icon-chat">
