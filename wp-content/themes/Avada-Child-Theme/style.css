@@ -909,6 +909,10 @@ a.header-phone-link:hover { color: white !important; }
 .city-computer-page-banner h1 { margin-top: 20px; font-size: 35px !important; }
 .city-computer-page-banner p { max-width: 80%; margin: 0 auto 20px; }
 
+.sidebar-price-blurb { display: none; }
+
+.city-computer-pages .sidebar-price-blurb { display: block; }
+
 h2.header-bar-gray { padding: 5px 15px; color: #777 !important; font-size: 18px !important; background: #f4f4f4; }
 
 .header-bar-gray { background: #f4f4f4; padding: 6px 15px; }

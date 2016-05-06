@@ -310,6 +310,12 @@
     max-width: 80%;
     margin: 0 auto 20px; } }
 
+.sidebar-price-blurb {
+  display: none; }
+
+.city-computer-pages .sidebar-price-blurb {
+  display: block; }
+
 h2.header-bar-gray {
   padding: 5px 15px;
   color: $main-gray !important; 
