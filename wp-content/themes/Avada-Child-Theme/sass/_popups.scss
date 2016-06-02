@@ -136,9 +136,185 @@
   background: #bbb !important; }
 
 /**
+ * Ouibounce Exit Intent Popup on "How To Pages" 
+ * More info here: https://github.com/carlsednaoui/ouibounce
+ */
+ #ouibounce-modal-alt {
+  font-family: 'Open Sans', sans-serif;
+  display: none;
+  position: fixed;
+  z-index: 999999999;
+  top: 0;
+  left: 500px;
+  width: 100%;
+  height: 100%;
+}
+:not(.page-id-1362 #ouibounce-modal-alt) {
+  display: none !important; 
+}
+:not(.page-id-1571 #ouibounce-modal-alt) {
+  display: none !important; 
+}
+#ouibounce-modal-alt .underlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;  
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  cursor: pointer;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
+#ouibounce-modal-alt .ob-modal {
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  background-color: #ebebeb;
+  z-index: 1;
+  position: relative;
+  z-index: 99999;
+  margin: auto;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 4px;
+  -webkit-animation: popin 0.3s;
+  animation: popin 0.3s;
+}
+#ouibounce-modal-alt .ob-modal-title {
+  color: #747474;
+  padding: 15px 25px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.5384615384615385;
+  border-bottom: 1px solid #e5e5e5;
+}
+#ouibounce-modal-alt .ob-close {
+  font-size: 30px;
+  margin-top: -3px;
+}
+#ouibounce-modal-alt .ob-modal-body {
+  padding: 15px 20px;
+  font-size: 0.9em;
+}
+#ouibounce-modal-alt p {
+  color: #344a5f;
+  line-height: 1.3em;
+}
+#ouibounce-modal-alt .ob-modal-footer {
+  padding: 12px 20px;
+  text-align: right;
+  width: 100%;
+  border-top: 1px solid #e5e5e5;
+}
+#ouibounce-modal-alt .ob-modal-footer p {
+  cursor: pointer;
+  display: inline;
+  border-bottom: 1px solid #344a5f;
+}
+#ouibounce-modal-alt .ob-modal-footer .fusion-button {
+  background: #bbb !important; 
+}
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes popin {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  /*85% {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }*/
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@-ms-keyframes popin {
+  0% {
+    -ms-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  /*85% {
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }*/
+
+  100% {
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes popin {
+  0% {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  /*85% {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }*/
+
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/**
  * Ouibounce Exit Intent Popup 
  * More info here: https://github.com/carlsednaoui/ouibounce
  */
+ .page-id-1362 #ouibounce-modal, 
+ .page-id-1571 #ouibounce-modal {
+    display: none !important; 
+ }
+
  #ouibounce-modal {
   font-family: 'Open Sans', sans-serif;
   display: none;

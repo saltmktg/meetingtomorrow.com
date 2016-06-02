@@ -222,35 +222,33 @@
 
 	<!-- Exit Intent Form -->
 	<!-- Ouibounce Modal -->
-	<?php if(!is_page('1362') || (!is_page('1571') { ?>
-	  <div id="ouibounce-modal">
-	    <div class="underlay"></div>
-	    <div class="ob-modal">
-	      <div class="ob-modal-title">
-	        <button class="close ob-close" type="button" aria-hidden="true">&times;</button>
-	        Get a Quick Quote
-	      </div>
-	      <div class="ob-modal-body">
-	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+  <div id="ouibounce-modal">
+    <div class="underlay"></div>
+    <div class="ob-modal">
+      <div class="ob-modal-title">
+        <button class="close ob-close" type="button" aria-hidden="true">&times;</button>
+        Get a Quick Quote
+      </div>
+      <div class="ob-modal-body">
+        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
-	        <!-- Form with hidden fields for GA reporting -->
-					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
-					    <input type='hidden' name='source' /> 
-					    <input type='hidden' name='medium' /> 
-					    <input type='hidden' name='term' /> 
-					    <input type='hidden' name='content' /> 
-					    <input type='hidden' name='campaign' /> 
-					    <input type='hidden' name='gclid' />
-					    <input type='hidden' name='segment' />
-					    <input type='hidden' name='numVisits' />
-					</form>
-	      </div>
-	      <div class="ob-modal-footer">
-	        <a class="fusion-button button-default button-small button default small">Close</a>
-	      </div>
-	    </div>
-	  </div>
-	<?php } ?>
+        <!-- Form with hidden fields for GA reporting -->
+				<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
+				    <input type='hidden' name='source' /> 
+				    <input type='hidden' name='medium' /> 
+				    <input type='hidden' name='term' /> 
+				    <input type='hidden' name='content' /> 
+				    <input type='hidden' name='campaign' /> 
+				    <input type='hidden' name='gclid' />
+				    <input type='hidden' name='segment' />
+				    <input type='hidden' name='numVisits' />
+				</form>
+      </div>
+      <div class="ob-modal-footer">
+        <a class="fusion-button button-default button-small button default small">Close</a>
+      </div>
+    </div>
+  </div>
   <!-- End Ouibounce Modal --> 
 
   <script>
@@ -278,6 +276,67 @@
       e.stopPropagation();
     });
   </script>
+
+
+  <!-- Alternate Exit Intent Form -->
+	<!-- Ouibounce Modal -->
+  <div id="ouibounce-modal-alt">
+    <div class="underlay"></div>
+    <div class="ob-modal">
+      <div class="ob-modal-title">
+        <button class="close ob-close" type="button" aria-hidden="true">&times;</button>
+        Get a Slow Quote
+      </div>
+      <div class="ob-modal-body">
+        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+
+        <!-- Form with hidden fields for GA reporting -->
+				<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
+				    <input type='hidden' name='source' /> 
+				    <input type='hidden' name='medium' /> 
+				    <input type='hidden' name='term' /> 
+				    <input type='hidden' name='content' /> 
+				    <input type='hidden' name='campaign' /> 
+				    <input type='hidden' name='gclid' />
+				    <input type='hidden' name='segment' />
+				    <input type='hidden' name='numVisits' />
+				</form>
+      </div>
+      <div class="ob-modal-footer">
+        <a class="fusion-button button-default button-small button default small">Close</a>
+      </div>
+    </div>
+  </div>
+  <!-- End Ouibounce Modal -->
+
+  <script>
+    // if you want to use the 'fire' or 'disable' fn,
+    // you need to save OuiBounce to an object
+    // More info here: https://github.com/carlsednaoui/ouibounce
+    var _ouibounce = ouibounce(document.getElementById('ouibounce-modal-alt'), {
+      timer: 0,
+      delay: 300
+    });
+
+    jQuery('body').on('click', function() {
+      jQuery('#ouibounce-modal-alt').hide();
+    });
+
+    jQuery('#ouibounce-modal-alt .ob-modal-footer').on('click', function() {
+      jQuery('#ouibounce-modal-alt').hide();
+    });
+
+    jQuery('#ouibounce-modal-alt .ob-close').on('click', function() {
+      jQuery('#ouibounce-modal-alt').hide();
+    });
+
+    jQuery('#ouibounce-modal-alt .ob-modal').on('click', function(e) {
+      e.stopPropagation();
+    });
+  </script>
+
+
+
 
 	<!-- Fitvids.js code - more info here: http://fitvidsjs.com -->
 	<script>
