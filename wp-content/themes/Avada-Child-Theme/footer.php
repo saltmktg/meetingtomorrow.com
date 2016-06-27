@@ -133,7 +133,48 @@
 
 	<?php echo $smof_data['space_body']; ?>
 
-	
+	<!-- Quote Form Popup -->
+	<!-- Quote Tab -->	
+	<a class="fusion-modal-text-link quote-tab-content" data-toggle="modal" data-target=".quote_tab_popup" href="#">
+		<div class="quote-tab">
+			<div class="quote-tab-img-wrap"><img src="https://meetingtomorrow.com/wp-content/uploads/2015/07/quote-tab.png" alt="Get a Free Quote!"></div> 
+		</div>
+		<div class="quote-tab-mobile">
+			<div class="quote-tab-img-wrap"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/tab-quote-mobile.png" alt="Get a Free Quote!"></div> 
+		</div>
+	</a>
+  <!-- Quote Form -->
+	<div class="fusion-modal modal fade modal-2 quote_tab_popup" tabindex="-1" role="dialog" aria-labelledby="modal-heading-2" aria-hidden="true">
+		<style type="text/css">.modal-2 .modal-header, .modal-2 .modal-footer{border-color:#ebebeb;}</style>
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Get a Quick Quote</h3>
+				</div>
+				<div class="modal-body">
+					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=4add9c12de957fabde18&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+
+					<!-- Form with hidden fields for GA reporting -->
+					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
+					    <input type='hidden' name='source' /> 
+					    <input type='hidden' name='medium' /> 
+					    <input type='hidden' name='term' /> 
+					    <input type='hidden' name='content' /> 
+					    <input type='hidden' name='campaign' /> 
+					    <input type='hidden' name='gclid' />
+					    <input type='hidden' name='segment' />
+					    <input type='hidden' name='numVisits' />
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a class="fusion-button button-default button-small button default small" data-dismiss="modal">Close</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- End Quote Form Popup -->
 
   <!-- Pricelist Popup Form -->
   <!-- Pricelist Tab -->	
