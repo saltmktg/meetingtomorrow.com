@@ -4,3 +4,4 @@ Disallow: /wp-content/plugins/
 Disallow: /wp-admin/
 Disallow: /webcast/
 Disallow: /thank-you
+Disallow: /campaign

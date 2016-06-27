@@ -799,6 +799,8 @@ a.header-phone-link:hover { color: white !important; }
 .feat-box-1 ul, .feat-box-1 ol { padding-left: 25px; /* Matches padding of box */ margin: 0; }
 .feat-box-1 li { padding-bottom: 2px; }
 
+.page-id-15413 .home-block { margin: 0; background: rgba(0, 0, 0, 0.8); }
+
 .logo-slider-wrap { position: relative; top: -22px; margin-bottom: -47px; max-height: 150px; overflow: hidden; /*@media (max-width: $bp3-alt) { display: none; }*/ }
 
 .logo-slider { position: relative; top: 18px; margin: 0 0 7px; padding: 0; list-style-type: none; text-align: center; }
@@ -978,6 +980,9 @@ h2.header-bar-gray { padding: 5px 15px; color: #777777 !important; font-size: 18
 .fusion-testimonials.quote-custom .testimonial-image { max-width: 58px; }
 
 .quote-custom .company-name { font-size: 14px !important; line-height: 21px !important; }
+
+a.fw-reviews-link { color: white !important; text-decoration: none; }
+a.fw-reviews-link:hover { color: white !important; text-decoration: underline; }
 
 .es-carousel-wrapper .es-nav .es-nav-prev::before, .es-carousel-wrapper .es-nav .es-nav-next::before { font-size: 41px; color: #2fbeec; }
 

@@ -519,6 +519,13 @@ h2.header-bar-gray {
   font-size: 14px !important;
   line-height: 21px !important; }
 
+a.fw-reviews-link {
+  color: white !important;
+  text-decoration: none;
+  &:hover {
+    color: white !important;
+    text-decoration: underline; } }
+
 
 // Client Slider 
 .es-carousel-wrapper .es-nav .es-nav-prev::before, 

@@ -9,6 +9,12 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+ <?php 
+  if ( is_page(array( 15669, 15749))) { 
+    echo "<META NAME='ROBOTS' CONTENT='NOINDEX'>"; 
+   }
+  ?>
+
   <!-- Prevent flash of unstyled content. More info here: http://www.learningjquery.com/2008/10/1-way-to-avoid-the-flash-of-unstyled-content/ -->
   <style type="text/css">
     .js-styles .quote-slider-wrap .rslides .quote-box:nth-child(n+2) { display: none; }
