@@ -153,7 +153,7 @@
 					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Get a Quick Quote</h3>
 				</div>
 				<div class="modal-body">
-					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=4add9c12de957fabde18&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=4add9c12de957fabde18&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
 					<!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
@@ -230,7 +230,7 @@
 	        Get a Quick Quote
 	      </div>
 	      <div class="ob-modal-body">
-	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
 	        <!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
@@ -493,30 +493,6 @@
 		  $grid.isotope('layout');
 		});
   </script>  
-
-  <!-- Exit Intent Form on How-To Pages -->
-   <script type="text/javascript">
-      bioEp.init({
-        html: '<div id="bio_ep_content">' +
-        '<img src="https://meetingtomorrow.com/wp-content/themes/Avada-Child-Theme/img/tag-orange.png" alt="Claim your discount!" />' +
-        '<div class="headline">Get 10% off your next order*</div>' +
-        '<input type="email" placeholder="Email Address">' +
-        '<button>Get My Discount Code Now!</button>' +
-        '<div class="subline">Limited time offer: Expires MM/DD/YY<div>' +
-        '<div class="note">*New customers only, min. order of $500.<div>' +
-        '</div>',
-        css: '#bio_ep {width: 310px; height: 320px; color: #333; background-color: #fafafa; text-align: center; padding: 25px 22px; border-radius: 4px;}' +
-        '#bio_ep_content {font-family: "Open Sans", Helvetica, Arial, sans-serif;}' +
-        '#bio_ep_content img {width: 82px;}' +
-        '#bio_ep_close {margin: -37px 0 0 -17px; padding-left: 1px; font-size: 13px; font-weight: 400; width: 25px; height: 25px;}' +
-        '#bio_ep_content .headline {display: block; color: #ec7f4c; font-size: 28px; font-weight: 600; line-height: 30px; margin: 10px 0 10px;}' +
-        '#bio_ep_content .subline {margin-top: 5px;}' +
-        '#bio_ep_content .subline, #bio_ep_content .note {display: block; font-size: 13px; line-height: 1.4;}' +
-        '.bio_btn {display: inline-block; margin: 18px 0 0 0; padding: 7px; color: #fff; font-size: 14px; font-weight: 600; background-color: #70bb39; border: 1px solid #47ad0b; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; border-radius: 0; text-decoration: none;}',
-        fonts: ['//fonts.googleapis.com/css?family=Titillium+Web:300,400,600'],
-        cookieExp: 0
-    });
-    </script>
 
 </body>
 </html>
