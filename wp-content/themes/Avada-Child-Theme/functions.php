@@ -19,10 +19,18 @@ function avada_child_scripts() {
   wp_enqueue_script( 'main-child', get_stylesheet_directory_uri() . '/js/main-child.js', '', '1.0', true );
   wp_enqueue_script( 'rslides', get_stylesheet_directory_uri() . '/js/responsiveslides.min.js', '', '1.0', true );    
   wp_enqueue_script( 'isotope', get_stylesheet_directory_uri() . '/js/isotope.min.js', '', '1.0', true );
-  wp_enqueue_script( 'bioep', get_stylesheet_directory_uri() . '/js/bioep.min.js', '', '1.0', true );
-  wp_enqueue_script( 'bioep-init', get_stylesheet_directory_uri() . '/js/bioep-init.js', '', '1.0', true );
 }
 add_action('wp_enqueue_scripts', 'avada_child_scripts');
+
+//==================================================
+
+// Defer parsing of JavaScript
+function defer_parsing_of_js ( $url ) {
+if ( FALSE === strpos( $url, '.js' ) ) return $url;
+if ( strpos( $url, 'jquery.js' ) ) return $url;
+return "$url' defer ";
+}
+add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
 
 //==================================================
 
