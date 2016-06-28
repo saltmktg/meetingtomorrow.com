@@ -148,6 +148,7 @@ if ( !class_exists( 'NelioABCptAltExpEditionPageController' ) ) {
 			// Experiment information
 			$view->set_basic_info(
 				$experiment->get_id(),
+				$experiment->get_key_id(),
 				$experiment->get_name(),
 				$experiment->get_description(),
 				$experiment->get_finalization_mode(),
@@ -189,14 +190,10 @@ if ( !class_exists( 'NelioABCptAltExpEditionPageController' ) ) {
 			// Before saving the experiment, we have to get the alternative we
 			// want to edit (after saving it, its IDs and/or its values may have
 			// change).
-			$post_id = '' . $_POST['content_to_edit'];
-			if ( strpos( $post_id, ':' ) ) {
-				$aux = explode( ':', $post_id );
-				$post_id = $aux[1];
-			}
+			$alt_id = $_POST['content_to_edit'];
 			$alt_to_edit = false;
 			foreach ( $experiment->get_alternatives() as $alt ) {
-				if ( $alt->get_value() == $post_id )
+				if ( $alt->get_id() == $alt_id )
 					$alt_to_edit = $alt;
 			}
 
@@ -218,17 +215,13 @@ if ( !class_exists( 'NelioABCptAltExpEditionPageController' ) ) {
 			$exp = new NelioABPostAlternativeExperiment( $_POST['exp_id'] );
 			$exp->set_original( $_POST['exp_original'] );
 			$exp = $this->compose_basic_alt_exp_using_post_data( $exp );
-			if ( isset( $_POST['custom_post_types'] ) )
+			if ( isset( $_POST['custom_post_types'] ) ) {
 				$exp->set_post_type( $_POST['custom_post_types'] );
-			foreach ( $exp->get_appspot_alternatives() as $alt ) {
-				$id = '' . $alt->get_id();
-				$aux = explode( ':', $id );
-				$alt->set_id( $aux[0] );
-				$alt->set_value( $aux[1] );
 			}
-			foreach ( $exp->get_local_alternatives() as $alt ) {
-				$alt->set_value( $alt->get_id() );
+			foreach ( $exp->get_alternatives() as $alt ) {
+				$alt->set_value( $alt->get_value() );
 			}
+
 			global $nelioab_admin_controller;
 			$nelioab_admin_controller->data = $exp;
 		}

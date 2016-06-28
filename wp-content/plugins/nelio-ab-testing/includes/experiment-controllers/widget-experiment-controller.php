@@ -395,6 +395,51 @@ if ( !class_exists( 'NelioABWidgetExpAdminController' ) ) {
 		/**
 		 *
 		 */
+		public static function update_alternatives_ids( $exp_id, $new_ids ) {
+
+			$sidebars_widgets = get_option( 'sidebars_widgets', array() );
+			$widgets_in_experiments = self::get_widgets_in_experiments();
+
+			// Remove unused widgets.
+			foreach ( $widgets_in_experiments as &$aux ) {
+				$found = false;
+				foreach ( $new_ids as $old_alt_id => $new_alt_id ) {
+					if ( $aux['exp'] == $exp_id && $aux['alt'] == $old_alt_id ) {
+						$found = true;
+					}
+				}//end foreach
+				if ( ! $found && $aux['exp'] == $exp_id ) {
+					$aux['exp'] = 'widget-to-remove';
+				}//end if
+			}//end foreach
+
+			self::remove_widgets_in_experiment( $sidebars_widgets, $widgets_in_experiments, 'widget-to-remove' );
+
+
+			// Fix widgets with new IDs.
+			foreach ( $new_ids as $old_alt_id => $new_alt_id ) {
+
+				if ( $old_alt_id == $new_alt_id ) {
+					continue;
+				}//end if
+
+				foreach ( $widgets_in_experiments as &$aux ) {
+					if ( $aux['exp'] == $exp_id && $aux['alt'] == $old_alt_id ) {
+						$aux['alt'] = $new_alt_id;
+					}//end if
+				}//end foreach
+
+			}//end foreach
+
+			self::set_widgets_in_experiments( $widgets_in_experiments );
+			update_option( 'sidebars_widgets', $sidebars_widgets );
+
+		}//end update_alternatives_ids()
+
+
+		/**
+		 *
+		 */
 		private static function is_widget_in_experiment( $widget, &$arr ) {
 			$widget = preg_replace( '/^widget-[0-9]+_/', '', $widget );
 			if ( isset( $arr[$widget] ) ) {

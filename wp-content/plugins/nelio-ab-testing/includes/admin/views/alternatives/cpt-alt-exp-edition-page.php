@@ -59,16 +59,6 @@ if ( !class_exists( 'NelioABCptAltExpEditionPage' ) ) {
 			return NelioABExperiment::CPT_ALT_EXP;
 		}
 
-		/**
-		 * Overriding default method, because in post experiments we need the ID
-		 * of the post, not the ID of the alternative
-		 */
-		public function set_alternatives( $alternatives ) {
-			$this->alternatives = array();
-			foreach ( $alternatives as $alt )
-				$this->add_alternative( $alt['id'] . ':' . $alt['value'], $alt['name'] );
-		}
-
 		protected function get_save_experiment_name() {
 			return _e( 'Save', 'nelioab' );
 		}
@@ -172,6 +162,7 @@ if ( !class_exists( 'NelioABCptAltExpEditionPage' ) ) {
 					// Events
 					$('#custom_post_types').on('change', function() {
 						switch_custom_post_type( $('#custom_post_types').attr('value') );
+						$( '#based_on' ).data( 'current-type', $('#custom_post_types').attr('value') );
 					});
 
 					<?php

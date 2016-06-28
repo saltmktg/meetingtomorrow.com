@@ -2,6 +2,20 @@
 /*   PROMOS            */
 /* ------------------- */
 
+.nelioab-feature.three-col {
+	display: table;
+	margin: 0;
+	padding: 0;
+}
+
+.nelioab-feature.three-col > div {
+	box-sizing: border-box;
+	display: table-cell;
+	margin: 0;
+	padding: 1em;
+	width: 32%;
+}
+
 #nelioab-promo-notice {
 	position: relative;
 }
@@ -256,6 +270,11 @@ span.nelio-ftcode {
 /*      DASHBOARD      */
 /* ------------------- */
 
+.progress-bar-container .progress-bar {
+	-webkit-transition: width 600ms ease-in-out;
+	transition: width 600ms ease-in-out;
+}
+
 .nelio-rss-item {
     display: block;
     margin-bottom: 1em;
@@ -288,6 +307,7 @@ body.toplevel_page_nelioab-dashboard #poststuff .nelio-card {
 body.toplevel_page_nelioab-dashboard #poststuff .nelio-card h3 {
 	cursor: hand;
 	cursor: pointer;
+	margin: 0;
 }
 
 body.toplevel_page_nelioab-dashboard #poststuff .nelio-card h3:first-child .tab-type {
@@ -588,18 +608,6 @@ form.nelio-exp-form div#content-theme-alts {
 	cursor: default;
 }
 
-body #exp-tabs .nav-tab,
-body #exp-tabs .nav-tab:hover {
-	cursor:default;
-	background-color: #e4e4e4;
-	background: rgba( 0, 0, 0, 0.05 );
-}
-
-body #exp-tabs .nav-tab-active,
-body #exp-tabs .nav-tab-active:hover {
-	background: none;
-}
-
 body #goal-list .nelio-card {
 	overflow: hidden;
 	width: 100%;
@@ -626,6 +634,7 @@ body #goal-list .nelio-card h3 .row-actions a {
 
 body #goal-list .nelio-card h3:hover .row-actions {
 	visibility: visible;
+	left: 0;
 }
 
 body #goal-list .nelio-card .new-actions {
@@ -763,6 +772,112 @@ body #goal-list .nelio-card .new-actions a.action.form-submit.gf {
 /* -------------------- */
 /* EDITING ALTERNATIVES */
 /* -------------------- */
+
+#alt-editor-progress {
+	height: 4em;
+	max-width: 750px;
+	position: relative;
+	width: 100%;
+}
+
+#alt-editor-progress .tab {
+	display: inline-block;
+	width: auto;
+}
+
+#alt-editor-progress .tab {
+	cursor: default;
+	display: inline-block;
+	font-weight: normal;
+	height: 3em;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	max-width: 8em;
+	width: 8em;
+}
+
+#alt-editor-progress .tab-name {
+	text-transform: uppercase;
+	font-size: 10px;
+	color: #666;
+}
+
+#alt-editor-progress .active-tab .tab-name {
+	color: #333;
+}
+
+#alt-editor-progress .tab-1 {
+	left: 0;
+}
+
+#alt-editor-progress.tabs-num-2 .tab-2 {
+	right: 0;
+}
+
+#alt-editor-progress.tabs-num-3 .tab-2 {
+	left: 50%;
+	margin-left: -4em;
+}
+
+#alt-editor-progress .tab-3 {
+	right: 0;
+}
+
+#alt-editor-progress .active-tab {
+	font-weight: bold;
+}
+
+#alt-editor-progress .tab-indicator {
+	background: #fafafa;
+	border-radius: 50%;
+	border: 0.3em solid #ccc;
+	box-sizing: border-box;
+	display: inline-block;
+	height: 1.2em;
+	width: 1.2em;
+	-webkit-transition: all 300ms ease-in-out;
+	-moz-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
+}
+
+#alt-editor-progress .bar-holder {
+	background: #ccc;
+	box-sizing: border-box;
+	height: 0.3em;
+	left: 0;
+	margin: 0 3.5em;
+	position: relative;
+	top: 0.5em;
+	width: auto;
+}
+
+#alt-editor-progress .bar {
+	background: #0073aa;
+	height: 100%;
+	-webkit-transition: all 300ms ease-in-out;
+	-moz-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
+}
+
+/* Completed step 1 */
+
+#alt-editor-progress .active-tab .tab-1,
+#alt-editor-progress .active-tab .tab-indicator {
+	background: #00a2ee;
+	border-color: #0073aa;
+}
+
+/* Completed step 1 */
+
+#alt-editor-progress .completed-tab .tab-indicator {
+	background: #0073aa;
+	border-color: #0073aa;
+}
+
+/** OTHER STUFF **/
 
 #alt-table > thead > tr > th.column-headline_image {
 	width:48px;

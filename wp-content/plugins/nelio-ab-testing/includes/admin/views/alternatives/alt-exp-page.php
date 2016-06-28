@@ -45,6 +45,7 @@ if ( !class_exists( 'NelioABPostAltExpCreationPage' ) ) {
 			$this->goals = array();
 			$this->basic_info = array(
 				'id'          => -1,
+				'key_id'      => -1,
 				'name'        => '',
 				'description' => '',
 				'otherNames'  => array() );
@@ -68,8 +69,9 @@ if ( !class_exists( 'NelioABPostAltExpCreationPage' ) ) {
 			return $this->form_name;
 		}
 
-		public function set_basic_info( $id, $name, $description, $fin_mode, $fin_value ) {
+		public function set_basic_info( $id, $key_id, $name, $description, $fin_mode, $fin_value ) {
 			$this->basic_info['id'] = $id;
+			$this->basic_info['key_id'] = $key_id;
 			$this->basic_info['name'] = $name;
 			$this->basic_info['description'] = $description;
 			$this->basic_info['finalization_mode'] = $fin_mode;
@@ -77,20 +79,7 @@ if ( !class_exists( 'NelioABPostAltExpCreationPage' ) ) {
 		}
 
 		public function set_alternatives( $alternatives ) {
-			$this->alternatives = array();
-			foreach ( $alternatives as $alt )
-				$this->add_alternative( $alt['id'], $alt['name'] );
-		}
-
-		public function add_alternative( $id, $name, $new = false ) {
-			array_push( $this->alternatives,
-				array(
-					'id' => $id,
-					'name' => $name,
-					'isNew' => $new,
-					'wasDeleted' => false,
-				)
-			);
+			$this->alternatives = $alternatives;
 		}
 
 		public function add_goal( $goal ) {
@@ -113,6 +102,7 @@ if ( !class_exists( 'NelioABPostAltExpCreationPage' ) ) {
 				<input type="hidden" name="nelioab_save_exp_post" value="true" />
 				<input type="hidden" name="<?php echo $this->get_form_name(); ?>" value="true" />
 				<input type="hidden" name="exp_id" id="exp_id" value="<?php echo $this->basic_info['id']; ?>" />
+				<input type="hidden" name="exp_key_id" id="exp_id" value="<?php echo $this->basic_info['key_id']; ?>" />
 				<input type="hidden" name="nelioab_exp_type" value="<?php echo $this->get_alt_exp_type(); ?>" />
 				<input type="hidden" name="content_to_edit" id="content_to_edit" />
 				<input type="hidden" name="other_names" id="other_names" value="<?php
@@ -133,14 +123,26 @@ if ( !class_exists( 'NelioABPostAltExpCreationPage' ) ) {
 						echo rawurlencode( json_encode( $this->goals ) );
 					?>" />
 
-				<h3 id="exp-tabs" class="nav-tab-wrapper" style="margin:0em;padding:0em;padding-left:2em;margin-bottom:2em;"><?php
-					$active = ' nav-tab-active';
-					foreach ( $this->tabs as $tab ) {
-						printf( '<span id="tab-%1$s" class="nav-tab%3$s">%2$s</span>',
-							$tab['id'], $tab['name'], $active );
-						$active = '';
-					}
-				?></h3>
+				<div id="alt-editor-progress" class="tabs-num-<?php echo count( $this->tabs ); ?>">
+					<div class="bar-holder">
+						<div class="bar" style="width:0;"></div>
+					</div>
+					<div class="tab-holder">
+						<?php
+							$active = ' active-tab';
+							$i = 1;
+							foreach ( $this->tabs as $tab ) { ?>
+								<div id="tab-<?php echo $tab['id']; ?>" class="tab tab-<?php echo $i . $active; ?>">
+									<div class="tab-indicator"></div>
+									<div class="tab-name"><?php echo $tab['name']; ?></div>
+								</div>
+								<?php
+								$active = '';
+								++$i;
+							}//end foreach
+						?>
+					</div>
+				</div>
 
 				<div>
 					<div id="set-of-content-blocks"><?php
@@ -178,7 +180,7 @@ if ( !class_exists( 'NelioABPostAltExpCreationPage' ) ) {
 						// Prepare a function for setting up the alternatives table
 						var setupAlternativesTable = function() {
 							<?php $this->print_code_for_setup_alternative_table(); ?>
-							NelioABEditExperiment.useTab(jQuery('#exp-tabs .nav-tab-active').attr('id'));
+							NelioABEditExperiment.useTab(jQuery('#alt-editor-progress .active-tab').attr('id'));
 						};
 
 						// Load scripts one by one and, once they're ready, prepare the table

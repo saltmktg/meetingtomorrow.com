@@ -550,7 +550,7 @@ if ( !class_exists( 'NelioABSettings' ) ) {
 
 			$new_input['def_conv_value'] = self::DEFAULT_CONVERSION_VALUE;
 			if ( isset( $input['def_conv_value'] ) )
-				$new_input['def_conv_value'] = sanitize_text_field( $input['def_conv_value'] );
+				$new_input['def_conv_value'] = absint( $input['def_conv_value'] );
 
 			$new_input['plugin_available_to'] = self::DEFAULT_PLUGIN_AVAILABLE_TO;
 			if ( isset( $input['plugin_available_to'] ) )

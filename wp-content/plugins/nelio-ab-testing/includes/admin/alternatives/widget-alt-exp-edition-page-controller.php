@@ -93,6 +93,7 @@ if ( !class_exists( 'NelioABWidgetAltExpEditionPageController' ) ) {
 			// Experiment information
 			$view->set_basic_info(
 				$experiment->get_id(),
+				$experiment->get_key_id(),
 				$experiment->get_name(),
 				$experiment->get_description(),
 				$experiment->get_finalization_mode(),

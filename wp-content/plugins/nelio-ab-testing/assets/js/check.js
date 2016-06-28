@@ -222,7 +222,7 @@ NelioAB.checker.buildUrl = function( url, myParams, getParams ) {
 		else {
 			var val = '' + myParams[i][1];
 			if ( val.length > 0 )
-				val = '=' + val;
+				val = '=' + encodeURIComponent( val );
 			url += myParams[i][0] + val + '&';
 		}
 	}
@@ -233,7 +233,7 @@ NelioAB.checker.buildUrl = function( url, myParams, getParams ) {
 		if ( !NelioAB.checker.nabMatcher.test( name ) ) {
 			var val = '' + getParams[i][1];
 			if ( val.length > 0 )
-				val = '=' + val;
+				val = '=' + encodeURIComponent( val );
 			url += name + val + '&';
 		}
 	}

@@ -18,7 +18,7 @@
  */
 
 
-if( !class_exists( 'NelioABAltExpGoal' ) ) {
+if ( ! class_exists( 'NelioABAltExpGoal' ) ) {
 
 	require_once( NELIOAB_MODELS_DIR . '/goals/actions/action.php' );
 	require_once( NELIOAB_MODELS_DIR . '/goals/actions/page-accessed-action.php' );
@@ -188,6 +188,7 @@ if( !class_exists( 'NelioABAltExpGoal' ) ) {
 		public static function decode_from_appengine( $exp, $json ) {
 
 			$result = new NelioABAltExpGoal( $exp );
+
 			$result->set_id( $json->key->id );
 			$result->set_name( $json->name );
 			$result->set_benefit( $json->benefit );
@@ -272,10 +273,14 @@ if( !class_exists( 'NelioABAltExpGoal' ) ) {
 		 */
 		public function encode_for_appengine() {
 			$res = array(
+				'key'        => array(
+					'id' => $this->get_id(),
+				),
 				'name'       => $this->get_name(),
 				'benefit'    => $this->get_benefit(),
 				'kind'       => $this->get_textual_kind(),
-				'isMainGoal' => $this->is_main_goal()
+				'isMainGoal' => $this->is_main_goal(),
+				'order'      => $this->get_order(),
 			);
 
 			$page_accessed_actions = array();
@@ -375,14 +380,17 @@ if( !class_exists( 'NelioABAltExpGoal' ) ) {
 			/** @var NelioABAlternativeExperiment $experiment */
 			$experiment = $this->get_experiment();
 
-			$url = sprintf(
-				NELIOAB_BACKEND_URL . '/goal/alternativeexp/%s/result',
-				$this->get_id()
-			);
+			// Results object here.
+			$goal_results = $this->get_local_results();
 
-			$json_data = null;
-			$json_data = NelioABBackend::remote_get( $url );
-			$json_data = json_decode( $json_data['body'], true );
+			if ( $goal_results ) {
+				$json_data = json_decode( urldecode( $goal_results['data'] ), true );
+			}//end if
+
+			if ( empty( $json_data ) ) {
+				$err = NelioABErrCodes::RESULTS_NOT_AVAILABLE_YET;
+				throw new Exception( NelioABErrCodes::to_string( $err ), $err );
+			}//end if
 
 			$results->set_total_visitors( $json_data['totalVisitors'] );
 			$results->set_total_conversions( $json_data['totalConversions'] );
@@ -391,6 +399,14 @@ if( !class_exists( 'NelioABAltExpGoal' ) ) {
 			$results->set_conversions_history( $json_data['historyConversions'] );
 			$results->set_first_update( $json_data['firstUpdate'] );
 			$results->set_last_update( $json_data['lastUpdate'] );
+
+			// NELIO LOCAL EXPS UPDATE. Auto stop experiment (if needed).
+			if ( $experiment->get_status() === NelioABExperiment::STATUS_RUNNING ) {
+				if ( isset( $json_data['expStatus'] ) &&
+						$json_data['expStatus'] === NelioABExperiment::STATUS_FINISHED ) {
+					$experiment->stop();
+				}//end if
+			}//end if
 
 			$confidence = 0;
 			if ( isset( $json_data['resultStatus'] ) )
@@ -490,8 +506,129 @@ if( !class_exists( 'NelioABAltExpGoal' ) ) {
 			}
 
 			return $results;
-		}
+		}//end get_results()
 
+
+		/**
+		 * PHPDOC
+		 *
+		 * @since PHPDOC
+		 */
+		public function sync() {
+
+			/** @var NelioABAlternativeExperiment $experiment */
+			$experiment = $this->get_experiment();
+			$goal_results = $this->get_local_results();
+			$previous_total_visitors = 0;
+			$previous_total_conversions = 0;
+			$previous_last_update = 0;
+
+			if ( $goal_results ) {
+
+				if ( isset( $goal_results['data'] ) ) {
+					$json_data = json_decode( urldecode( $goal_results['data'] ) );
+					if ( isset( $json_data->totalVisitors ) ) {
+						$previous_total_visitors = $json_data->totalVisitors;
+					}//end if
+					if ( isset( $json_data->totalConversions ) ) {
+						$previous_total_conversions = $json_data->totalConversions;
+					}//end if
+				}//end if
+
+				if ( isset( $json_data->lastUpdate ) ) {
+					$previous_last_update = $json_data->lastUpdate;
+				}//end if
+
+				if ( isset( $goal_results['last_check'] ) ) {
+					$last_check = $goal_results['last_check'];
+				} else {
+					$last_check = 0;
+				}//end if
+
+				if ( $this->is_new_enough( $last_check ) ) {
+					wp_send_json( 'nelioab-results-are-ok' );
+				}//end if
+
+			}//end if
+
+			// Now, maybe we didn't have any results, or they were too old. In
+			// any case, if we don't have results ready, we need to go look for
+			// them in AE:
+			try {
+
+				$url = sprintf(
+					NELIOAB_BACKEND_URL . '/goal/alternativeexp/%s/result',
+					$this->get_id()
+				);
+
+				$json_data = null;
+				$json_data = NelioABBackend::remote_get( $url );
+				$json_data = json_decode( urldecode( $json_data['body'] ), true );
+
+				if ( ! isset( $json_data['beErrCode'] ) || $json_data['beErrCode'] !== 0 ) {
+					include_once( NELIOAB_UTILS_DIR . '/backend.php' );
+					$err = NelioABErrCodes::BACKEND_UNKNOWN_ERROR;
+					throw new Exception( NelioABErrCodes::to_string( $err ), $err );
+				}//end if
+
+				unset( $json_data['etag'] );
+
+				$last_update = $json_data['lastUpdate'];
+
+				// The results we just got from AE might be too old too...
+				// If that was the case, then we need to make sure that,
+				// in just a few minutes, when the user refreshes the UI,
+				// we'll make a new request to AE to see if it has already
+				// computed the new data. Otherwise, we're good to go.
+				if ( ! $this->is_new_enough( strtotime( $last_update ) ) ) {
+					$last_check_time = $this->get_time_for_recheck_in_five_minutes();
+				} else {
+					$last_check_time = time();
+				}//end if
+
+				$found = false;
+				$goal_result_set = get_post_meta( $experiment->get_id(), 'nelioab_goal_results', true );
+				if ( empty( $goal_result_set ) ) {
+					$goal_result_set = array();
+				}//end if
+
+				$num_of_goals = count( $goal_result_set );
+				for ( $i = 0; $i < $num_of_goals; ++$i ) {
+
+					if ( $goal_result_set[ $i ]['id'] === $this->get_id() ) {
+						$goal_result_set[ $i ]['last_check'] = $last_check_time;
+						$goal_result_set[ $i ]['data'] = urlencode( json_encode( $json_data ) );
+						$found = true;
+						break;
+					}//end if
+
+				}//end foreach
+
+				if ( ! $found ) {
+					array_push( $goal_result_set, array(
+						'id'         => $this->get_id(),
+						'last_check' => $last_check_time,
+						'data'       => urlencode( json_encode( $json_data ) ),
+					) );
+				}//end if
+
+				update_post_meta( $experiment->get_id(), 'nelioab_goal_results', $goal_result_set );
+
+				if ( $previous_last_update === $last_update ) {
+					wp_send_json( 'nelioab-results-are-ok' );
+				} else if ( $previous_total_visitors == $json_data->totalVisitors && $previous_total_conversions == $json_data->totalConversions ) {
+					wp_send_json( 'nelioab-results-are-ok' );
+				} else {
+					wp_send_json( 'nelioab-new-results-available' );
+				}//end if
+
+			} catch ( Exception $e ) {
+
+				wp_send_json( 'Exception: ' . $e->getMessage() . "\nGoal ID:" . $this->get_id() );
+
+			}//end try
+
+		}//end sync()
 
 		/**
 		 * PHPDOC

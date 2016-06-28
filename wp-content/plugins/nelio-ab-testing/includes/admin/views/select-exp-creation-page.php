@@ -74,7 +74,7 @@ if ( !class_exists( 'NelioABSelectExpCreationPage' ) ) {
 			);
 
 			// WOOCOMMERCE PRODUCT SUMMARY
-			if ( current_user_can( 'manage_woocommerce' ) ) {
+			if ( NelioABWooCOmmerceSupport::is_plugin_active() && current_user_can( 'manage_woocommerce' ) ) {
 				$this->print_beautiful_box(
 					'wc-product-summary',
 					__( 'WooCommerce Product Summary', 'nelioab' ),

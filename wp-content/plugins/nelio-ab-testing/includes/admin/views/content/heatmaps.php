@@ -39,7 +39,7 @@
 			$exp = NelioABExperimentsManager::get_experiment_by_id( $_GET['id'], $exp_type );
 
 			if ( $exp_type == NelioABExperiment::HEATMAP_EXP ) {
-				$url = sprintf( NELIOAB_BACKEND_URL . '/exp/hm/%s/result', $exp->get_id() );
+				$url = sprintf( NELIOAB_BACKEND_URL . '/exp/hm/%s/result', $exp->get_key_id() );
 				$post_id = $exp->get_post_id();
 				global $nelioab_controller;
 				if ( $post_id == NelioABController::FRONT_PAGE__YOUR_LATEST_POSTS )
@@ -50,19 +50,41 @@
 					$err = NelioABErrCodes::TOO_FEW_PARAMETERS;
 					throw new Exception( NelioABErrCodes::to_string( $err ), $err );
 				}
-				$url = sprintf( NELIOAB_BACKEND_URL . '/exp/post/%s/hm/%s/result', $exp->get_id(), $_GET['post'] );
+				$url = sprintf( NELIOAB_BACKEND_URL . '/exp/post/%s/hm/%s/result', $exp->get_key_id(), $_GET['post'] );
 				$post_id = $_GET['post'];
 			}
 
 			$result = NelioABBackend::remote_get( $url );
 			$result = json_decode( $result['body'] );
 
+			// NELIO LOCAL EXPS UPDATE. Auto stop experiment (if needed).
+			if ( $exp->get_status() === NelioABExperiment::STATUS_RUNNING ) {
+				if ( isset( $result->expStatus ) &&
+						$result->expStatus === NelioABExperiment::STATUS_FINISHED ) {
+					$exp->stop();
+				}//end if
+			}//end if
+
+			if ( $exp_type == NelioABExperiment::HEATMAP_EXP ) {
+				$summary = array();
+				if ( isset( $result->data ) ) {
+					foreach ( $result->data as $item ) {
+						if ( ! $item->click ) {
+							$summary[ $item->resolution ] = $item->views;
+						}//end if
+					}//end if
+				}//end if
+				update_post_meta( $exp->get_id(), 'nelioab_hm_summary', $summary );
+			}//end if
+
 			$counter = 0;
 			if ( isset( $result->data ) ) {
 				foreach ( $result->data as $heatmap ) {
 					if ( isset( $heatmap->value ) ) {
 						$value = json_decode( $heatmap->value );
-						$counter += $value->max;
+						if ( isset( $value->max ) ) {
+							$counter += $value->max;
+						}
 					}
 				}
 			}

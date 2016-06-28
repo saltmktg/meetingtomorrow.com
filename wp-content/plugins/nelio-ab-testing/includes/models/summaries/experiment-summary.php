@@ -51,16 +51,13 @@ if ( !class_exists( 'NelioABExperimentSummary' ) ) {
 		/**
 		 * Extracts all the information from the JSON object and saves it in this experiment summary.
 		 *
-		 * @param Object $json the JSON object as retrieved from AppEngine.
-		 *                     It contains all the summarized information about
-		 *                     this experiment. The method will extract it and
-		 *                     initialize this experiment summary instance.
+		 * @param Object $exp TODO
 		 *
 		 * @return void
 		 *
-		 * @since 3.0.0
+		 * @since 4.4.0
 		 */
-		public abstract function load_json4ae( $json );
+		public abstract function build_summary( $exp );
 
 
 		/**
@@ -90,19 +87,19 @@ if ( !class_exists( 'NelioABExperimentSummary' ) ) {
 
 
 		// @Implements
-		public function save() {}
+		public function do_save() {}
 
 
 		// @Implements
-		public function remove() {}
+		public function do_remove() {}
 
 
 		// @Implements
-		public function start() {}
+		public function pre_start() {}
 
 
 		// @Implements
-		public function stop() {}
+		public function do_stop() {}
 
 	}//NelioABExperimentSummary
 

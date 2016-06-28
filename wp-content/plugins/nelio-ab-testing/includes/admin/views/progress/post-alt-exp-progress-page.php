@@ -107,9 +107,7 @@ if ( !class_exists( 'NelioABPostAltExpProgressPage' ) ) {
 		private function make_link_for_heatmap( $exp, $id, $primary = false ) {
 			include_once( NELIOAB_UTILS_DIR . '/wp-helper.php' );
 			$url = sprintf(
-				str_replace(
-					'https://', 'http://',
-					admin_url( 'admin.php?nelioab-page=heatmaps&id=%1$s&exp_type=%2$s&post=%3$s' ) ),
+					admin_url( 'admin.php?nelioab-page=heatmaps&id=%1$s&exp_type=%2$s&post=%3$s' ),
 				$exp->get_id(), $exp->get_type(), $id );
 
 			if ( $primary ) {
@@ -248,12 +246,13 @@ if ( !class_exists( 'NelioABPostAltExpProgressPage' ) ) {
 
 			$action_links = $this->get_action_links( $exp, $exp->get_originals_id(), $winner );
 			$aux = sprintf(
-				' <a class="button" href="javascript:window.open(\'%s\');">%s</a>',
-				$link, __( 'View Content', 'nelioab' ) );
+				' <a class="button" href="%s" target="_blank">%s</a>',
+				esc_url( $link ), __( 'View Content', 'nelioab' ) );
 			array_unshift( $action_links, $aux );
 
 			$buttons = implode( ' ', $action_links );
 
+			$js_link = json_encode( $link );
 			$result = <<<HTML
 				<div class="nelio-alternative original-alternative postbox nelio-card">
 					<div class="alt-info-header masterTooltip" $winner_color title="$original">
@@ -300,8 +299,8 @@ if ( !class_exists( 'NelioABPostAltExpProgressPage' ) ) {
 						'$pageviews_label');
 
 					jQuery('#$id').click(function() {
-						if ('$link')
-							window.open('$link');
+						if ( $js_link )
+							window.open( $js_link );
 					})
 				});
 				</script>
@@ -343,9 +342,9 @@ HTML;
 				$link = get_permalink( $alt->get_value() );
 
 				if ( $this->is_ori_page )
-					$link = esc_url( add_query_arg( array(
+					$link = add_query_arg( array(
 							'preview' => 'true',
-						), $link ) );
+						), $link );
 
 				if ( $link ) {
 					$name = $this->trunk( $alt->get_name() );
@@ -420,8 +419,8 @@ HTML;
 				$action_links = $this->get_action_links( $exp, $alt->get_value(), $winner );
 				if ( current_user_can( 'edit_post', $alt->get_value() ) ) {
 					$aux = sprintf(
-						' <a class="button" href="javascript:window.open(\'%s\');">%s</a>',
-						$link, __( 'View Content', 'nelioab' ) );
+						' <a class="button" href="%s" target="_blank">%s</a>',
+						esc_url( $link ), __( 'View Content', 'nelioab' ) );
 				} else {
 					$aux = sprintf(
 						' <a class="button disabled" href="#">%s</a>',
@@ -436,6 +435,7 @@ HTML;
 					$alt_improvement_factor = '';
 				}
 
+				$js_link = json_encode( $link );
 				$result = <<<HTML
 				<div class="nelio-alternative alternative-$i postbox nelio-card">
 					<div class="alt-info-header" $winner_color>
@@ -485,9 +485,9 @@ HTML;
 						$pageviews,
 						'$pageviews_label');
 
-					jQuery('#$id').click(function() {
-						if ('$link')
-							window.open('$link');
+					jQuery( '#$id' ).click(function() {
+						if ( $js_link )
+							window.open( $js_link );
 					})
 				});
 				</script>

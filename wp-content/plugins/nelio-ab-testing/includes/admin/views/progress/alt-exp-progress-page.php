@@ -60,7 +60,7 @@ if ( !class_exists( 'NelioABAltExpProgressPage' ) ) {
 
 			// Sort aux alphabetically...
 			usort( $aux, array( 'NelioABAltExpProgressPage', 'sort_by_name' ) );
-			usort( $aux, array( 'NelioABAltExpProgressPage', 'sort_by_id' ) );
+			// usort( $aux, array( 'NelioABAltExpProgressPage', 'sort_by_id' ) );
 
 			// And add them in sorted
 			foreach ( $aux as $goal )
@@ -128,12 +128,13 @@ if ( !class_exists( 'NelioABAltExpProgressPage' ) ) {
 			// If there's only one goal, but it's not set as the main goal (weird),
 			// I use it by default. It should not happen, but sometimes it does. This
 			// fragment resolves the issue.
-			if ( !$this->goal )
-				if ( count( $this->goals ) == 1 )
-					$this->goal = $this->goals[0];
+			if ( ! $this->goal && count( $this->goals ) == 1 ) {
+				$this->goal = $this->goals[0];
+			}
 
-			if ( !$this->goal )
+			if ( ! $this->goal ) {
 				return;
+			}
 
 			try {
 				$this->results = $this->goal->get_results();
@@ -1153,6 +1154,54 @@ HTML;
 					});
 				})(jQuery);
 			</script>
+
+
+			<script type="text/javascript">
+			(function( $ ) {
+				var $loader = $( 'span.nelioab-results-loader' );
+				$loader.addClass( 'is-active' );
+				$.ajax({
+					url: ajaxurl,
+					async: true,
+					data: {
+						action: "nelioab_update_results",
+						exp: <?php echo json_encode( $this->exp->get_id() ); ?>,
+						goal: <?php echo json_encode( $this->goal->get_id() ); ?>
+					},
+					success: function( result ) {
+						$loader.removeClass( 'is-active' );
+						if ( result.indexOf( 'nelioab-new-results-available' ) >= 0 ) {
+							console.log( result );
+							var $div = $( '#message-div' );
+							$div.html( <?php
+								$message = sprintf(
+									_x( 'Hey! It looks like there are <strong>new results available. <a href="%s">Refresh!</a></strong>', 'HTML formatted string', 'nelioab' ),
+									'javascript:window.location.reload()'
+								);
+								echo json_encode( '<p style="font-size:1.3em;">' . $message . '</p>' );
+							?> );
+							$div.show();
+						} else if ( result.indexOf( 'nelioab-results-are-ok' ) >= 0 ) {
+							// Nothing to be done
+							<?php
+							if ( NELIOAB_SHOW_LOCAL_EXPS ) { ?>
+								console.log( 'Results are valid and there\'s no need to look for new data.' );
+							<?php
+							} ?>
+						} else {
+							<?php
+							if ( NELIOAB_SHOW_LOCAL_EXPS ) { ?>
+								console.log( 'Nelio A/B Testing Update Results Message\n', result );
+							<?php
+							} ?>
+						}//end if
+					},//end success()
+					error: function() {
+						$loader.removeClass( 'is-active' );
+					}//end error()
+				});
+			})( jQuery );
+			</script>
 			<?php
 		}
 
@@ -1171,6 +1220,7 @@ HTML;
 				$best_alt = '';
 
 			$arrow = '';
+			$arrow_gain = '';
 			$stats_color = 'auto';
 			$gain = '';
 
@@ -1213,6 +1263,7 @@ HTML;
 			}
 
 			$print_improvement = false;
+			$print_gain        = false;
 
 			if ( is_numeric( $best_alt_improvement_factor ) ) {
 
@@ -1222,6 +1273,7 @@ HTML;
 				$aux = ( $ori_conversions * $this->goal->get_benefit() * $best_alt_improvement_factor )/100;
 
 				$print_improvement = true;
+				$print_gain = true;
 				// format improvement factor
 				if ( $best_alt_improvement_factor < 0 ) {
 					$arrow                       = 'fa-arrow-down';
@@ -1236,16 +1288,26 @@ HTML;
 					$stats_color = 'black';
 				}
 
+				$arrow_gain = $arrow;
+
 				if ( $aux > 0 ) {
 					$gain = sprintf( __( '%1$s%2$s', 'nelioab', 'money' ),
 						NelioABSettings::get_conv_unit(),
 						number_format_i18n( $aux, 2 )
 					);
 				} else {
-					$gain = sprintf( __( '%1$s%2$s', 'nelioab', 'money' ),
-						NelioABSettings::get_conv_unit(),
-						number_format_i18n( $aux * -1, 2 )
-					);
+					if ( $exp->get_type() == NelioABExperiment::HEADLINE_ALT_EXP ||
+						  $exp->get_type() == NelioABExperiment::WC_PRODUCT_SUMMARY_ALT_EXP ) {
+						$gain       = '';
+						$print_gain = false;
+						$arrow_gain = 'fa-arrow-none';
+					}
+					else {
+						$gain = sprintf( __( '%1$s%2$s', 'nelioab', 'money' ),
+							NelioABSettings::get_conv_unit(),
+							number_format_i18n( $aux * -1, 2 )
+						);
+					}
 				}
 			}
 
@@ -1271,7 +1333,7 @@ HTML;
 				</div>
 				<div id="alt-stats" style="color:<?php echo $stats_color; ?>;">
 					<span class="alt-if"><i class="fa <?php echo $arrow; ?>" style="vertical-align: top;"></i><?php if ( $print_improvement ) printf( '%s%%', $best_alt_improvement_factor ); ?></span>
-					<span class="alt-ii"><i class="fa <?php echo $arrow; ?>" style="vertical-align: top;"></i><?php if ( $print_improvement ) echo $gain; ?></span>
+					<span class="alt-ii"><i class="fa <?php echo $arrow_gain; ?>" style="vertical-align: top;"></i><?php if ( $print_gain ) echo $gain; ?></span>
 				</div>
 			</div>
 		<?php
@@ -1366,6 +1428,7 @@ HTML;
 			<div id="exp-info-header">
 				<?php echo $this->get_experiment_icon( $exp ); ?>
 				<span class="exp-title"><?php echo $exp->get_name(); ?></span>
+				<div style="position:absolute;right:1em;top:1em;background:white;color:grey;font-family:monospace;font-size:10px;">ID:<?php echo $exp->get_key_id(); ?></div>
 			</div>
 
 			<?php
@@ -1463,7 +1526,6 @@ HTML;
 				<span><?php _e( 'Description', 'nelioab' ) ?></span>
 				<span><?php echo $descr; ?></span>
 			</div>
-
 		<?php
 		}
 
@@ -1842,7 +1904,7 @@ HTML;
 				$color = 'color:"' . $this->colorscheme['primary'] . '"';
 				if ( $rate == $max_value )
 					$color = 'color:"#b0d66f"';
-				$rate = number_format( $aux->get_conversion_rate(), 2 );
+				$rate = number_format( $aux->get_conversion_rate(), 2, '.', '' );
 				$str = "{ y:$rate, $color }";
 				array_push( $data, $str );
 			}
@@ -1912,8 +1974,9 @@ HTML;
 			// Retrieve the results of each alternative, highlighting the
 			// one whose improvement factor equals $max_value
 			$data = array();
+
 			foreach( $alt_results as $aux ) {
-				$factor = number_format( $aux->get_improvement_factor(), 2 );
+				$factor = number_format( $aux->get_improvement_factor(), 2, '.', '' );
 				$color = 'color:"' . $this->colorscheme['primary'] . '"';
 				if ( $factor == $max_value )
 					$color = 'color:"#b0d66f"';

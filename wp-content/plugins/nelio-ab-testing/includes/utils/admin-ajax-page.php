@@ -109,9 +109,6 @@ if ( !class_exists( 'NelioABAdminAjaxPage' ) ) {
 		public function get_content_with_ajax_and_render( $controller_file, $controller_class ) {
 			$this->is_data_pending  = true;
 
-			$controller_file = str_replace( '\\', '\\\\', $controller_file );
-			$controller_file = str_replace( '"', '\\"', $controller_file );
-
 			$this->controller_file  = $controller_file;
 			$this->controller_class = $controller_class;
 
@@ -249,8 +246,8 @@ if ( !class_exists( 'NelioABAdminAjaxPage' ) ) {
 							echo "\n\t\t\t\t\t\t\"$param[0]\" : " . json_encode( $param[1] ) . ",";
 						?>
 
-						"filename"  : "<?php echo $this->controller_file; ?>",
-						"classname" : "<?php echo $this->controller_class; ?>"
+						"classfi"  : <?php echo json_encode( $this->controller_file ); ?>,
+						"classname" : <?php echo json_encode( $this->controller_class ); ?>
 					};
 
 					// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -275,7 +272,7 @@ if ( !class_exists( 'NelioABAdminAjaxPage' ) ) {
 							"<div style='color:#999;text-align:left;max-width:600px;margin:auto;'>" +
 								"<br /><br /><b>Details:</b><br />" +
 								"<u>Class</u>: " + data.classname + "<br />" +
-								"<u>File</u>: " + data.filename + "<br />" +
+								"<u>File</u>: " + data.classfi + "<br />" +
 							"</div>");
 						}
 					});

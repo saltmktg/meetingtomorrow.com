@@ -41,7 +41,11 @@ if ( !class_exists( 'NelioABSelectExpProgressPageController' ) ) {
 			if ( $error ) return;
 
 			$title = __( 'Results of the Experiment', 'nelioab' );
-			$view = new NelioABEmptyAjaxPage( $title );
+			$loader = sprintf(
+				'<span class="nelioab-results-loader spinner" title="%s" style="float:none;margin-top:-4px;"></span>',
+				esc_attr( __( 'Checking if there are new results available...', 'nelioab' ) )
+			);
+			$view = new NelioABEmptyAjaxPage( $title . ' ' . $loader );
 
 			$controller = NelioABSelectExpProgressPageController::attempt_to_load_proper_controller();
 			if ( $controller != NULL ) {

@@ -133,6 +133,12 @@
 
 	<?php echo $smof_data['space_body']; ?>
 
+	<script>
+    jQuery(".quote-tab-content").on("click", function(){
+      jQuery("#sidetabContent").load("inc/sidetab-quote-form.php");
+    });
+  </script>
+
 	<!-- Quote Form Popup -->
 	<!-- Quote Tab -->	
 	<a class="fusion-modal-text-link quote-tab-content" data-toggle="modal" data-target=".quote_tab_popup" href="#">
@@ -153,7 +159,7 @@
 					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Get a Quick Quote</h3>
 				</div>
 				<div class="modal-body">
-					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=4add9c12de957fabde18&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+					<div id="sidetabContent"></div>
 
 					<!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
@@ -230,7 +236,7 @@
 	        Get a Quick Quote
 	      </div>
 	      <div class="ob-modal-body">
-	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=AACffht_JbRmDTPrYhOS7xCYeyKnSLM3M4w%3D&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
 	        <!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 

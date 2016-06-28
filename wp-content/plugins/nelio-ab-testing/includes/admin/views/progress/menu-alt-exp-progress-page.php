@@ -88,8 +88,8 @@ if ( !class_exists( 'NelioABMenuAltExpProgressPage' ) ) {
 					}
 				}
 				$link = 'nav-menus.php?' .
-					'nelioab_exp=' . $exp_id . '&nelioab_alt=' . $menu_alt_id .
-					'&nelioab_check=' . md5( $exp_id . $menu_alt_id . $menu_id ) .
+					'nelioab_exp=' . $exp_id .
+					'&nelioab_check=' . md5( $exp_id . $menu_id ) .
 					'&menu=' . $menu_id;
 			}
 

@@ -421,15 +421,15 @@ if ( !class_exists( 'NelioABExperimentsPage' ) ) {
 					$actions = array();
 					$actions['edit'] = sprintf( $url, 'edit', $exp->get_id(), $exp->get_type(), __( 'Edit' ) );
 					$actions['start'] = sprintf( $url_dialog, 'start', $exp->get_id(), $exp->get_type(), __( 'Start', 'nelioab' ), 0 );
-					$actions['schedule'] = sprintf( $url, 'schedule', $exp->get_id(), $exp->get_type(), __( 'Schedule' ) );
+					// $actions['schedule'] = sprintf( $url, 'schedule', $exp->get_id(), $exp->get_type(), __( 'Schedule' ) );
 					$actions['duplicate'] = sprintf( $url_duplicate, 'duplicate', $exp->get_id(), $exp->get_type(), __( 'Duplicate' ), 'nelioab' );
 					$actions['trash'] = sprintf( $url, 'trash', $exp->get_id(), $exp->get_type(), __( 'Trash' ) );
 					break;
 				case NelioABExperiment::STATUS_SCHEDULED:
 					$actions = array(
 						'start'           => sprintf( $url_dialog, 'start', $exp->get_id(), $exp->get_type(), __( 'Start Now', 'nelioab' ), 0 ),
-						'schedule'        => sprintf( $url, 'schedule', $exp->get_id(), $exp->get_type(), __( 'Reschedule' ) ),
-						'cancel-schedule' => sprintf( $url, 'cancel-schedule', $exp->get_id(), $exp->get_type(), __( 'Cancel Schedule', 'nelioab' ), 1 ),
+						// 'schedule'        => sprintf( $url, 'schedule', $exp->get_id(), $exp->get_type(), __( 'Reschedule' ) ),
+						// 'cancel-schedule' => sprintf( $url, 'cancel-schedule', $exp->get_id(), $exp->get_type(), __( 'Cancel Schedule', 'nelioab' ), 1 ),
 						'duplicate'       => sprintf( $url_duplicate, 'duplicate', $exp->get_id(), $exp->get_type(), __( 'Duplicate', 'nelioab' ) ),
 					);
 					break;

@@ -171,7 +171,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 		 */
 		public static function do_first_load() {
 			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			$running_exps = NelioABExperimentsManager::get_running_experiments_from_cache();
+			$running_exps = NelioABExperimentsManager::get_running_experiments();
 			$exp_and_alt_list = array();
 
 			self::$links_info = array(
@@ -197,7 +197,11 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 								foreach ( $aux as $pair ) {
 									try {
 										$pair = explode( ':', $pair );
-										$exp_and_alt_list[$pair[0]] = $pair[1];
+										foreach ( $running_exps as $exp ) {
+											if ( $exp->get_key_id() == $pair[0] ) {
+												$exp_and_alt_list[ $exp->get_id() ] = $pair[1];
+											}
+										}
 									}
 									catch ( Exception $e ) {}
 								}
@@ -267,7 +271,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 				$exp = NULL;
 
 				require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-				$running_exps = NelioABExperimentsManager::get_running_experiments_from_cache();
+				$running_exps = NelioABExperimentsManager::get_running_experiments();
 				for ( $i = 0; $i < count( $running_exps ) && !$exp; ++$i ) {
 					$aux = $running_exps[$i];
 					if ( $aux instanceof NelioABAlternativeExperiment &&
@@ -300,7 +304,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 		 */
 		private static function prepare_environment( $env ) {
 			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			$running_exps = NelioABExperimentsManager::get_running_experiments_from_cache();
+			$running_exps = NelioABExperimentsManager::get_running_experiments();
 
 			self::$ids = array();
 
@@ -327,7 +331,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 							/** @var NelioABPostAlternativeExperiment $exp */
 							self::add_regular_exp( $exp, $alt );
 							array_push( self::$ids, $exp->get_id() );
-							self::$links_info['others'][$exp->get_id()] = array(
+							self::$links_info['others'][$exp->get_key_id()] = array(
 								'ori' => $exp->get_originals_id(),
 								'alt' => $alt );
 							break;
@@ -335,7 +339,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 							/** @var NelioABHeadlineAlternativeExperiment $exp */
 							self::add_headline_exp( $exp, $alt );
 							array_push( self::$ids, $exp->get_id() );
-							self::$links_info['others'][$exp->get_id()] = array(
+							self::$links_info['others'][$exp->get_key_id()] = array(
 								'ori' => $exp->get_originals_id(),
 								'alt' => $alt );
 							break;
@@ -343,7 +347,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 							/** @var NelioABHeadlineAlternativeExperiment $exp */
 							self::add_wc_product_summary_exp( $exp, $alt );
 							array_push( self::$ids, $exp->get_id() );
-							self::$links_info['others'][$exp->get_id()] = array(
+							self::$links_info['others'][$exp->get_key_id()] = array(
 								'ori' => $exp->get_originals_id(),
 								'alt' => $alt );
 							break;
@@ -394,7 +398,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 				case NelioABExperiment::CPT_ALT_EXP:
 					self::add_regular_exp( $exp, $alt_index );
 					array_push( self::$ids, $exp->get_id() );
-					self::$links_info['others'][$exp->get_id()] = array(
+					self::$links_info['others'][$exp->get_key_id()] = array(
 						'ori' => $exp->get_originals_id(),
 						'alt' => $alt_index );
 					break;
@@ -402,7 +406,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 					/** @var NelioABHeadlineAlternativeExperiment $exp */
 					self::add_headline_exp( $exp, $alt_index );
 					array_push( self::$ids, $exp->get_id() );
-					self::$links_info['others'][$exp->get_id()] = array(
+					self::$links_info['others'][$exp->get_key_id()] = array(
 						'ori' => $exp->get_originals_id(),
 						'alt' => $alt_index );
 					break;
@@ -410,7 +414,7 @@ if ( !class_exists( 'NelioABVisitor' ) ) {
 					/** @var NelioABHeadlineAlternativeExperiment $exp */
 					self::add_wc_product_summary_exp( $exp, $alt_index );
 					array_push( self::$ids, $exp->get_id() );
-					self::$links_info['others'][$exp->get_id()] = array(
+					self::$links_info['others'][$exp->get_key_id()] = array(
 						'ori' => $exp->get_originals_id(),
 						'alt' => $alt_index );
 					break;

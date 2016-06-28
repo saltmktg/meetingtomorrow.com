@@ -42,8 +42,8 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 
 			// Making sure we're accessing the proper page with proper params
 			if ( 'nav-menus.php' == $pagenow && isset( $_GET['menu'] ) ) {
-				if ( isset( $_GET['nelioab_exp'] ) && isset( $_GET['nelioab_alt'] ) ) {
-					$key = $_GET['nelioab_exp'] . $_GET['nelioab_alt'] . $_GET['menu'];
+				if ( isset( $_GET['nelioab_exp'] ) ) {
+					$key = $_GET['nelioab_exp'] . $_GET['menu'];
 					if ( !isset( $_GET['nelioab_check'] ) || $_GET['nelioab_check'] != md5( $key ) )
 						wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 					else
@@ -91,7 +91,7 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 		 *
 		 */
 		public function commit() {
-			if ( $this->menus_in_exps )
+			if ( is_array( $this->menus_in_exps ) )
 				update_option( 'nelioab_menus_in_experiments', $this->menus_in_exps );
 		}
 
@@ -110,13 +110,11 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 		private function validate( $arr, $check = 'check' ) {
 			if ( !isset( $arr['nelioab_exp'] ) || empty( $arr['nelioab_exp'] ) )
 				return false;
-			if ( !isset( $arr['nelioab_alt'] ) || empty( $arr['nelioab_alt'] ) )
-				return false;
 			if ( 'check' === $check && ( !isset( $arr['nelioab_check'] ) || empty( $arr['nelioab_check'] ) ) )
 				return false;
 
 			if ( 'check' === $check )
-				return ( hash( 'md5', $arr['nelioab_exp'] . $arr['nelioab_alt'] ) == $arr['nelioab_check'] );
+				return ( hash( 'md5', $arr['nelioab_exp'] ) == $arr['nelioab_check'] );
 			else
 				return true;
 		}
@@ -210,17 +208,17 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 		}
 
 
-		public function create_alternative_menu( $exp, $alt = 'pending' ) {
+		public function create_alternative_menu( $exp ) {
 			$menu_id = wp_create_nav_menu( 'Menu' . microtime() );
-			if ( !$menu_id )
+			if ( ! $menu_id )
 				return false;
-			$this->link_menu_to_experiment( $menu_id, $exp, $alt );
+			$this->link_menu_to_experiment( $menu_id, $exp );
 			return $menu_id;
 		}
 
 
-		public function duplicate_menu_and_create_alternative( $ori, $exp, $alt = 'pending' ) {
-			$new_id = $this->create_alternative_menu( $exp, $alt );
+		public function duplicate_menu_and_create_alternative( $ori, $exp ) {
+			$new_id = $this->create_alternative_menu( $exp );
 			if ( !$new_id )
 				return false;
 			$ori = intval( $ori );
@@ -267,6 +265,7 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 
 				$i++;
 			}
+
 		}
 
 
@@ -283,10 +282,7 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 			if ( is_object( $menu ) )
 				$menu = $menu->term_id;
 			if ( isset( $this->menus_in_exps[$menu] ) ) {
-				return array(
-					'exp' => $this->menus_in_exps[$menu]['exp'],
-					'alt' => $this->menus_in_exps[$menu]['alt']
-				);
+				return $this->menus_in_exps[$menu];
 			}
 			else {
 				return false;
@@ -297,10 +293,10 @@ if ( !class_exists( 'NelioABMenuExpAdminController' ) ) {
 		/**
 		 *
 		 */
-		public function link_menu_to_experiment( $menu, $exp, $alt ) {
+		public function link_menu_to_experiment( $menu, $exp ) {
 			if ( is_object( $menu ) )
 				$menu = $menu->term_id;
-			$this->menus_in_exps[$menu] = array( 'exp' => $exp, 'alt' => $alt );
+			$this->menus_in_exps[$menu] = $exp;
 		}
 
 

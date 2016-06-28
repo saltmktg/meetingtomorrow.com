@@ -105,7 +105,17 @@ if ( !class_exists( 'NelioABCssAltExpEditionPage' ) ) {
 
 				'edit-content'	=> sprintf(
 						'<a style="cursor:pointer;" onClick="javascript:' .
-							'NelioABAltTable.editContent(jQuery(this).closest(\'tr\'));' .
+							'$nelioabClickedAlt = jQuery(this);' .
+							'(function(){' .
+							'var id=-9000; ' .
+							'$nelioabClickedAlt.closest(\'tbody\').find( \'tr\' ).each(function(){' .
+							'if ( ! jQuery(this).hasClass(\'nelioab-quick-edit-row\') && ' .
+							'! jQuery(this).hasClass(\'deleted\') && ' .
+							'! jQuery(this).hasClass(\'new-alt-form\') ) {' .
+							'jQuery(this).data( \'alt-id\', id );' .
+							'--id;' .
+							'} } ); })();' .
+							'NelioABAltTable.editContent($nelioabClickedAlt.closest(\'tr\'));' .
 							'">%s</a>',
 						__( 'Save Experiment & Edit Content' ) ),
 
@@ -143,17 +153,6 @@ if ( !class_exists( 'NelioABCssAltExpEditionPage' ) ) {
 			</td></tr>
 			<?php
 			parent::display_rows();
-		}
-
-		protected function get_edit_code( $alt ){
-			return sprintf(
-				'<a style="cursor:pointer;" onClick="javascript:' .
-					'jQuery(\'#content_to_edit\').attr(\'value\', %s);' .
-					'submitAndRedirect(\'%s\',true)' .
-					'">%s</a>',
-				$alt->get_id(),
-				'edit_alt_content',
-				__( 'Save Experiment & Edit CSS', 'nelioab' ) );
 		}
 
 		protected function print_additional_info_for_new_alt_form() {

@@ -169,68 +169,23 @@ if ( !class_exists( 'NelioABHeatmapExperiment' ) ) {
 
 
 		// @Implements
-		public function save() {
-			// 1. UPDATE OR CREATE THE EXPERIMENT
-			// -------------------------------------------------------------------------
+		public function do_save() {
 
-			/** @var string $url */
-			if ( $this->get_id() < 0 ) {
-				$url = sprintf(
-					NELIOAB_BACKEND_URL . '/site/%s/exp/hm',
-					NelioABAccountSettings::get_site_id()
-				);
-			}
-			else {
-				$url = sprintf(
-					NELIOAB_BACKEND_URL . '/exp/hm/%s/update',
-					$this->get_id()
-				);
-			}
+			// Nothing to be done.
 
-			if ( $this->get_status() != NelioABExperiment::STATUS_PAUSED &&
-			     $this->get_status() != NelioABExperiment::STATUS_RUNNING &&
-			     $this->get_status() != NelioABExperiment::STATUS_FINISHED &&
-			     $this->get_status() != NelioABExperiment::STATUS_TRASH )
-				$this->set_status( $this->determine_proper_status() );
-
-			$body = array(
-				'name'                  => $this->get_name(),
-				'description'           => $this->get_description(),
-				'post'                  => $this->get_post_id(),
-				'status'                => $this->get_status(),
-				'kind'                  => $this->get_textual_type(),
-				'finalizationMode'      => $this->get_finalization_mode(),
-				'finalizationModeValue' => $this->get_finalization_value(),
-			);
-
-			$result = NelioABBackend::remote_post( $url, $body );
-
-			$exp_id = $this->get_id();
-			if ( $exp_id < 0 ) {
-				if ( is_wp_error( $result ) )
-					return;
-				$json = json_decode( $result['body'] );
-				$exp_id = $json->key->id;
-				$this->id = $exp_id;
-			}
-
-			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			NelioABExperimentsManager::update_experiment( $this );
-		}
+		}//end do_save()
 
 
 		// @Implements
-		public function remove() {
-			$url = sprintf(
-				NELIOAB_BACKEND_URL . '/exp/hm/%s/delete',
-				$this->get_id()
-			);
-			NelioABBackend::remote_post( $url );
-		}
+		public function do_remove() {
+
+			// Nothing to be done.
+
+		}//end do_save()
 
 
 		// @Implements
-		public function start() {
+		public function pre_start() {
 
 			if ( get_post_status( $this->get_originals_id() ) == 'draft' ) {
 				if ( get_post_type( $this->get_originals_id() ) == 'page' ) {
@@ -244,7 +199,7 @@ if ( !class_exists( 'NelioABHeatmapExperiment' ) ) {
 			// Checking whether the experiment can be started or not...
 			require_once( NELIOAB_UTILS_DIR . '/backend.php' );
 			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			$running_exps = NelioABExperimentsManager::get_running_experiments_from_cache();
+			$running_exps = NelioABExperimentsManager::get_running_experiments();
 			foreach ( $running_exps as $running_exp ) {
 				/** @var NelioABGlobalAlternativeExperiment $running_exp */
 				// $running_exp can actually be anything, but we're focusing
@@ -265,32 +220,18 @@ if ( !class_exists( 'NelioABHeatmapExperiment' ) ) {
 				}
 			}
 
-			// If everything is OK, we can start it!
-
-			// If the experiment is already running, quit
-			if ( $this->get_status() == NelioABExperiment::STATUS_RUNNING )
-				return;
-
-			require_once( NELIOAB_UTILS_DIR . '/backend.php' );
-			$url = sprintf(
-				NELIOAB_BACKEND_URL . '/exp/hm/%s/start',
-				$this->get_id()
-			);
-			NelioABBackend::remote_post( $url );
-			$this->set_status( NelioABExperiment::STATUS_RUNNING );
-		}
+		}//end pre_start()
 
 
 		// @Implements
-		public function stop() {
+		public function do_stop() {
 			require_once( NELIOAB_UTILS_DIR . '/backend.php' );
 			$url = sprintf(
 				NELIOAB_BACKEND_URL . '/exp/hm/%s/stop',
-				$this->get_id()
+				$this->get_key_id()
 			);
 			NelioABBackend::remote_post( $url );
-			$this->set_status( NelioABExperiment::STATUS_FINISHED );
-		}
+		}//end do_stop()
 
 
 		// @Implements
@@ -300,14 +241,19 @@ if ( !class_exists( 'NelioABHeatmapExperiment' ) ) {
 
 
 		// @Implements
-		public static function load( $id ) {
-			$json_data = NelioABBackend::remote_get( NELIOAB_BACKEND_URL . '/exp/hm/' . $id );
-			$json_data = json_decode( $json_data['body'] );
+		public static function load( $post ) {
+			if ( is_int( $post ) ) {
+				$post = get_post( $post );
+			}
 
-			$exp = new NelioABHeatmapExperiment( $json_data->key->id );
+			$exp = new NelioABHeatmapExperiment( $post->ID );
+			$json_data = $exp->post_content2json( $post->post_content );
+
+			$exp->set_key_id( $json_data->key->id );
 			$exp->set_type_using_text( $json_data->kind );
 			$exp->set_name( $json_data->name );
 			$exp->set_post_id( $json_data->post );
+			$exp->set_creation_date( $json_data->creation );
 			if ( isset( $json_data->description ) )
 				$exp->set_description( $json_data->description );
 			$exp->set_status( $json_data->status );
@@ -324,6 +270,18 @@ if ( !class_exists( 'NelioABHeatmapExperiment' ) ) {
 
 			return $exp;
 		}
+
+		// @Implements
+		public function encode_for_appengine() {
+
+			// 1. PREPARE THE OBJECT.
+			$result = parent::encode_for_appengine();
+			$result['key']['kind'] = 'HeatmapExperiment';
+			$result['post']        = $this->get_originals_id();
+
+			return $result;
+
+		}//end encode_for_appengine()
 
 	}//NelioABHeatmapExperiment
 

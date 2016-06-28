@@ -93,6 +93,7 @@ if ( !class_exists( 'NelioABCssAltExpEditionPageController' ) ) {
 			// Experiment information
 			$view->set_basic_info(
 				$experiment->get_id(),
+				$experiment->get_key_id(),
 				$experiment->get_name(),
 				$experiment->get_description(),
 				$experiment->get_finalization_mode(),
@@ -147,11 +148,7 @@ if ( !class_exists( 'NelioABCssAltExpEditionPageController' ) ) {
 
 			// 2. Redirect to the edit page
 			$exp_id =  $experiment->get_id();
-			$css_alt_id = 0;
-			if ( isset( $_POST['content_to_edit'] ) ) {
-				$css_alt_id = $_POST['content_to_edit'];
-				$css_alt_id = $experiment->get_real_id_for_alt( $css_alt_id );
-			}
+			$css_alt_id = $_POST['content_to_edit'];
 			echo '[NELIOAB_LINK]' . admin_url( 'admin.php?page=nelioab-css-edit&exp_id=' . $exp_id . '&css_id=' . $css_alt_id ) . '[/NELIOAB_LINK]';
 			die();
 		}

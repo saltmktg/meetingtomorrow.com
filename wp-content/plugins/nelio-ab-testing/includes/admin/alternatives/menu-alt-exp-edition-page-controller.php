@@ -93,6 +93,7 @@ if ( !class_exists( 'NelioABMenuAltExpEditionPageController' ) ) {
 			// Experiment information
 			$view->set_basic_info(
 				$experiment->get_id(),
+				$experiment->get_key_id(),
 				$experiment->get_name(),
 				$experiment->get_description(),
 				$experiment->get_finalization_mode(),
@@ -138,6 +139,9 @@ if ( !class_exists( 'NelioABMenuAltExpEditionPageController' ) ) {
 			$experiment = $nelioab_admin_controller->data;
 			try {
 				$experiment->save();
+				$id = $experiment->get_id();
+				NelioABExperimentsManager::refresh();
+				$experiment = NelioABExperimentsManager::get_experiment_by_id( $id );
 			}
 			catch ( Exception $e ) {
 				require_once( NELIOAB_ADMIN_DIR . '/error-controller.php' );
@@ -146,27 +150,27 @@ if ( !class_exists( 'NelioABMenuAltExpEditionPageController' ) ) {
 
 			// 2. Redirect to the edit page
 			$exp_id =  $experiment->get_id();
-			$menu_alt_id = 0;
 			$menu_id = false;
 			if ( isset( $_POST['content_to_edit'] ) ) {
 				$menu_alt_id = $_POST['content_to_edit'];
-				$menu_alt_id = $experiment->get_real_id_for_alt( $menu_alt_id );
 				foreach ( $experiment->get_alternatives() as $alt ) {
-					if ( $alt->get_id() == $menu_alt_id )
+					if ( $alt->get_id() == $menu_alt_id ) {
 						$menu_id = $alt->get_value();
+					}
 				}
 			}
+
 			echo '[NELIOAB_LINK]' . admin_url(
-				'nav-menus.php?nelioab_exp=' . $exp_id . '&nelioab_alt=' . $menu_alt_id .
-				'&nelioab_check=' . md5( $exp_id . $menu_alt_id . $menu_id ) .
-				'&menu=' . $menu_id . '&back_to_edit=1' ) . '[/NELIOAB_LINK]';
+				'nav-menus.php?nelioab_exp=' . $exp_id . '&menu=' . $menu_id .
+				'&nelioab_check=' . md5( $exp_id . $menu_id ) .
+				'&back_to_edit=1' ) . '[/NELIOAB_LINK]';
 			die();
 		}
 
 		public function build_experiment_from_post_data() {
 			$exp = new NelioABMenuAlternativeExperiment( $_POST['exp_id'] );
 			$exp = $this->compose_basic_alt_exp_using_post_data( $exp );
-			$exp->set_original_ids( $_POST['original_appengine_id'], $_POST['exp_original'] );
+			$exp->set_originals_id( $_POST['original_appengine_id'], $_POST['exp_original'] );
 			global $nelioab_admin_controller;
 			$nelioab_admin_controller->data = $exp;
 		}

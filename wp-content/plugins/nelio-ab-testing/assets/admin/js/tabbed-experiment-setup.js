@@ -4,7 +4,7 @@
 	/* PREVIOUS BUTTON */
 	$( '#controllers .previous' ).click( function() {
 		if ( $(this).hasClass( 'disabled' ) ) return;
-		var prev = $( '#exp-tabs .nav-tab-active' ).prev();
+		var prev = $( '#alt-editor-progress .active-tab' ).prev();
 		if ( prev.length > 0 )
 			NelioABEditExperiment.useTab( prev.first().attr('id') );
 	});
@@ -12,7 +12,7 @@
 	/* NEXT BUTTON */
 	$( '#controllers .next' ).click( function() {
 		if ( $(this).hasClass( 'disabled' ) ) return;
-		var next = $( '#exp-tabs .nav-tab-active' ).next();
+		var next = $( '#alt-editor-progress .active-tab' ).next();
 		if ( next.length > 0 )
 			NelioABEditExperiment.useTab( next.first().attr('id') );
 	});
@@ -56,7 +56,7 @@ var NelioABEditExperiment = {
 	useTab: function( id ) {
 		var $ = jQuery;
 
-		var ct = $( '#exp-tabs .nav-tab-active' );
+		var ct = $( '#alt-editor-progress .active-tab' );
 		var nt = $( '#' + id );
 
 		// If I can evaluate the current tab, I evaluate it
@@ -102,17 +102,37 @@ var NelioABEditExperiment = {
 		}
 		// ..or I animate to the new tab
 		else {
-			ct.removeClass( 'nav-tab-active' );
-			nt.addClass( 'nav-tab-active' );
+			ct.removeClass( 'active-tab' );
+			nt.addClass( 'active-tab' );
 			$( '#' + ct.attr( 'id' ).replace( 'tab', 'content' ) ).fadeOut(200);
 			$( '#controllers' ).fadeOut(200);
-			$( '#' + nt.attr( 'id' ).replace( 'tab', 'content' ) ).delay(200).fadeIn(200);
+			$( '#' + nt.attr( 'id' ).replace( 'tab', 'content' ) ).delay(250).fadeIn(200);
 			$( '#controllers' ).fadeIn(200);
 			for ( var i = 0; i < buttonsToHide.length; ++i )
-				buttonsToHide[i].delay(200).fadeOut(10);
+				buttonsToHide[i].delay(250).fadeOut(10);
 			for ( var i = 0; i < buttonsToShow.length; ++i )
-				buttonsToShow[i].delay(200).fadeIn(10);
+				buttonsToShow[i].delay(300).fadeIn(10);
 		}
+
+		// Mark completed steps.
+		var markAsCompleted = true;
+		var $tabs = $( '#alt-editor-progress .tab' );
+		var currentTab = 0;
+		var tabCounter = 0;
+		$tabs.each( function() {
+			var $t = $( this );
+			if ( $t.hasClass( 'active-tab' ) ) {
+				markAsCompleted = false;
+				currentTab = tabCounter;
+			}//end if
+			if ( markAsCompleted ) {
+				$t.addClass( 'completed-tab' );
+			} else {
+				$t.removeClass( 'completed-tab' );
+			}//end if
+			tabCounter++;
+		});//end each
+		$( '#alt-editor-progress .bar' ).css( 'width', Math.round( (currentTab*100) / ($tabs.length-1) ) + '%' );
 
 		NelioABEditExperiment.manageProgress(true,true);
 		$( document ).trigger( 'tab-changed', [ id ] );
@@ -930,7 +950,7 @@ var NelioABGoalCards = {
 
 	// ACTIVATING DEFAULT TAB (OR OVERRIDING IF AVAILABLE ON PARAMS)
 	var getParams = window.location.search.replace('?', '').split('&');
-	var currentTab = jQuery( '#exp-tabs .nav-tab-active' ).attr( 'id' );
+	var currentTab = jQuery( '#alt-editor-progress .active-tab' ).attr( 'id' );
 	for ( var i = 0; i < getParams.length; ++i ) {
 		var start = getParams[i].indexOf( 'ctab' );
 		if ( start === 0 ) {
@@ -940,8 +960,8 @@ var NelioABGoalCards = {
 			break;
 		}
 	}
-	jQuery( '#exp-tabs .nav-tab-active' ).removeClass('nav-tab-active');
-	jQuery( '#' + currentTab ).addClass('nav-tab-active');
+	jQuery( '#alt-editor-progress .active-tab' ).removeClass('active-tab');
+	jQuery( '#' + currentTab ).addClass('active-tab');
 
 })(jQuery);
 

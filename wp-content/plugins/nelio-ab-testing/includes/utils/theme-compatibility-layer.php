@@ -34,7 +34,7 @@ if ( !class_exists( 'NelioABThemeCompatibilityLayer' ) ) {
 		public static function make_compat() {
 			// Let's check if there's a theme experiment running
 			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			$running_exps = NelioABExperimentsManager::get_running_experiments_from_cache();
+			$running_exps = NelioABExperimentsManager::get_running_experiments();
 			$found = false;
 			foreach ( $running_exps as $exp ) {
 				/** @var NelioABExperiment $exp */

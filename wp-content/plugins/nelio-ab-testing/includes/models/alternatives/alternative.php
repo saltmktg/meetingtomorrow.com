@@ -317,6 +317,36 @@ if ( !class_exists( 'NelioABAlternative' ) ) {
 		/**
 		 * Returns PHPDOC
 		 *
+		 * @return array PHPDOC
+		 *
+		 * @since PHPDOC
+		 */
+		public function json4local( $exp_id, $exp_kind ) {
+
+			$result = array(
+				'key' => array(
+					'id'   => $this->id,
+					'kind' => 'Alternative',
+				),
+				'name'  => $this->name,
+				'kind'  => $exp_kind,
+				'percOfAppearance' => 0,
+			);
+
+			if ( NelioABExperiment::CSS_ALT_EXP_STR == $exp_kind ) {
+				$result['content'] = '' . $this->value;
+			} else {
+				$result['value'] = '' . $this->value;
+			}//end if
+
+			return $result;
+
+		}//end json4local()
+
+
+		/**
+		 * Returns PHPDOC
+		 *
 		 * @param object $json_alt PHPDOC
 		 *
 		 * @return NelioABAlternative PHPDOC

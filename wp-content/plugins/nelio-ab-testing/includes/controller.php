@@ -563,6 +563,10 @@ if ( !class_exists( 'NelioABController' ) ) {
 		 * @since 3.3.2
 		 */
 		public function load_tracking_script() {
+			$site_id = NelioABAccountSettings::get_site_id();
+			if ( empty( $site_id ) ) {
+				return;
+			}//end if
 			wp_localize_script( 'nelioab_tracking_script', 'NelioABParams',
 				$this->tracking_script_params );
 			wp_enqueue_script( 'nelioab_tracking_script' );

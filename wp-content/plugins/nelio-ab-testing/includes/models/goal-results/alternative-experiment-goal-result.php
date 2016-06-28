@@ -111,6 +111,15 @@ if ( !class_exists( 'NelioABAltExpGoalResult' ) ) {
 		/**
 		 * PHPDOC
 		 *
+		 * @since 4.4.0
+		 * @var int
+		 */
+		private $confidence;
+
+
+		/**
+		 * PHPDOC
+		 *
 		 * @return NelioABAltExpGoalResult PHPDOC
 		 *
 		 * @since PHPDOC
@@ -128,8 +137,21 @@ if ( !class_exists( 'NelioABAltExpGoalResult' ) ) {
 		}
 
 
+		/**
+		 * Returns PHPDOC
+		 *
+		 * @return int PHPDOC
+		 *
+		 * @since 4.4.0
+		 */
+		public function get_confidence() {
+			return $this->confidence;
+		}//end get_confidence
+
+
 		public function set_summary_status( $status, $confidence ) {
 			$this->summary_status = $status;
+			$this->confidence = $confidence;
 			if ( NelioABGTest::WINNER == $this->summary_status ) {
 				if ( NelioABSettings::get_min_confidence_for_significance() <= $confidence )
 					$this->summary_status = NelioABGTest::WINNER_WITH_CONFIDENCE;

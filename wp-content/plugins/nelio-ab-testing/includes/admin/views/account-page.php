@@ -331,11 +331,11 @@ if ( !class_exists( 'NelioABAccountPage' ) ) {
 						<?php
 							$the_total_quota = $this->user_info['total_quota'];
 							$the_quota       = $this->user_info['quota'];
-							$quota_color     = '#00AA00';
+							$quota_color     = '#54ae65';
 							if ( $the_quota < ( $the_total_quota * 0.15 ) )
-								$quota_color = '#FF9532';
+								$quota_color = '#e38000';
 							if ( $the_quota < ( $the_total_quota * 0.05 ) )
-								$quota_color = 'red';
+								$quota_color = 'c81212';
 						?>
 						<b><?php
 							printf( __( '<span style="font-size:120%%;color:%1$s;">%2$s</span> Page Views' ),

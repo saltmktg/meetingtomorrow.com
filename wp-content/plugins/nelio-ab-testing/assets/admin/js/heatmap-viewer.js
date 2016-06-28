@@ -90,17 +90,42 @@ function scaleTo(w,h,scale) {
  * whether they have data or not.
  */
 function highlightData(isClick) {
-	var values;
-	if ( isClick ) values = NelioABHeatmapLabels.cm;
-	else values = NelioABHeatmapLabels.hm;
-	if ( nelioab__pre_phone_click.max > 0 ) jQuery("#mobile").attr('title',values.phone).removeClass("disabled");
-	else jQuery("#mobile").attr('title',values.phoneNo).addClass("disabled");
-	if ( nelioab__pre_tablet_click.max > 0 ) jQuery("#tablet").attr('title',values.tablet).removeClass("disabled");
-	else jQuery("#tablet").attr('title',values.tabletNo).addClass("disabled");
-	if ( nelioab__pre_desktop_click.max > 0 ) jQuery("#desktop").attr('title',values.desktop).removeClass("disabled");
-	else jQuery("#desktop").attr('title',values.desktopNo).addClass("disabled");
-	if ( nelioab__pre_hd_click.max > 0 ) jQuery("#hd").attr('title',values.hd).removeClass("disabled");
-	else jQuery("#hd").attr('title',values.hdNo).addClass("disabled");
+	var labels;
+	if ( isClick ) labels = NelioABHeatmapLabels.cm;
+	else labels = NelioABHeatmapLabels.hm;
+
+	if ( isClick ) {
+		if ( nelioab__pre_phone_click.max > 0 ) jQuery("#mobile").attr('title',labels.phone).removeClass("disabled");
+		else jQuery("#mobile").attr('title',labels.phoneNo).addClass("disabled");
+	} else {
+		if ( nelioab__pre_phone.max > 0 ) jQuery("#mobile").attr('title',labels.phone).removeClass("disabled");
+		else jQuery("#mobile").attr('title',labels.phoneNo).addClass("disabled");
+	}
+
+	if ( isClick ) {
+		if ( nelioab__pre_tablet_click.max > 0 ) jQuery("#tablet").attr('title',labels.tablet).removeClass("disabled");
+		else jQuery("#tablet").attr('title',labels.tabletNo).addClass("disabled");
+	} else {
+		if ( nelioab__pre_tablet.max > 0 ) jQuery("#tablet").attr('title',labels.tablet).removeClass("disabled");
+		else jQuery("#tablet").attr('title',labels.tabletNo).addClass("disabled");
+	}
+
+	if ( isClick ) {
+		if ( nelioab__pre_desktop_click.max > 0 ) jQuery("#desktop").attr('title',labels.desktop).removeClass("disabled");
+		else jQuery("#desktop").attr('title',labels.desktopNo).addClass("disabled");
+	} else {
+		if ( nelioab__pre_desktop.max > 0 ) jQuery("#desktop").attr('title',labels.desktop).removeClass("disabled");
+		else jQuery("#desktop").attr('title',labels.desktopNo).addClass("disabled");
+	}
+
+	if ( isClick ) {
+		if ( nelioab__pre_hd_click.max > 0 ) jQuery("#hd").attr('title',labels.hd).removeClass("disabled");
+		else jQuery("#hd").attr('title',labels.hdNo).addClass("disabled");
+	} else {
+		if ( nelioab__pre_hd.max > 0 ) jQuery("#hd").attr('title',labels.hd).removeClass("disabled");
+		else jQuery("#hd").attr('title',labels.hdNo).addClass("disabled");
+	}
+
 }
 
 

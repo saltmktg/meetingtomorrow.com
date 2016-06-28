@@ -96,6 +96,21 @@ if( !class_exists( 'NelioABHeadlineAlternative' ) ) {
 			return $alt;
 		}
 
+		//@Overrides
+		public function json4local( $exp_id, $exp_kind ) {
+			return array(
+				'key' => array(
+					'id'   => $this->id,
+					'kind' => 'Alternative',
+				),
+				'name'  => $this->name,
+				'value' => json_encode( $this->value ),
+				'kind'  => $exp_kind,
+				'percOfAppearance' => 0,
+			);
+		}//end json4local()
+
+
 	}//NelioABHeadlineAlternative
 
 }

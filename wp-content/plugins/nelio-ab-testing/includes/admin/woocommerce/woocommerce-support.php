@@ -187,7 +187,7 @@ if ( !class_exists( 'NelioABWooCommerceSupport' ) ) {
 			}
 
 			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			$running_experiments = NelioABExperimentsManager::get_running_experiments_from_cache();
+			$running_experiments = NelioABExperimentsManager::get_running_experiments();
 
 			// Let's start by selecting the relevant experiments.
 			// A relevant experiment is a running experiment that was in the environment
@@ -445,7 +445,11 @@ if ( !class_exists( 'NelioABWooCommerceSupport' ) ) {
 				$value = $alt->get_value();
 				// This first IF is a safeguard...
 				if ( is_array( $value ) && isset( $value['excerpt'] ) && !empty( $value['excerpt'] ) ) {
-					return $value['excerpt'];
+					remove_filter( 'woocommerce_short_description',
+						array( &$this, 'replace_product_summary_description' ), 10 );
+					$excerpt = apply_filters( 'woocommerce_short_description', $value['excerpt'] );
+					add_filter( 'woocommerce_short_description',
+						array( &$this, 'replace_product_summary_description' ), 10 );
 				}
 			}
 			return $excerpt;
@@ -542,7 +546,7 @@ if ( !class_exists( 'NelioABWooCommerceSupport' ) ) {
 		 * @since PHPDOC
 		 */
 		private function add_active_product_summary_experiment( $exp, $alt ) {
-			$exp_id = $exp->get_id();
+			$exp_id = $exp->get_key_id();
 			$alt_id = $alt->get_id();
 			foreach ( $this->applied_product_summaries as $info )
 				if ( $info['exp'] == $exp_id )

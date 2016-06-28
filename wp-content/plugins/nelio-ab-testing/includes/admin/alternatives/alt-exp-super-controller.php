@@ -136,14 +136,15 @@ if ( !class_exists( 'NelioABAltExpSuperController' ) ) {
 			global $nelioab_admin_controller;
 			$exp = $nelioab_admin_controller->data;
 
-			$exp->discard_changes();
-
 			// 2. Redirect to the appropiate page
 			echo '[SUCCESS]' . admin_url( 'admin.php?page=nelioab-experiments&action=list' );
 			die();
 		}
 
 		protected function compose_basic_alt_exp_using_post_data( $exp ) {
+			if ( isset( $_POST['exp_key_id'] ) ) {
+				$exp->set_key_id( $_POST['exp_key_id'] );
+			}
 			$exp->set_name( stripslashes( $_POST['exp_name'] ) );
 			$exp->set_description( stripslashes( $_POST['exp_descr'] ) );
 			if ( isset( $_POST['exp_finalization_mode'] ) )

@@ -66,6 +66,7 @@ if ( !class_exists( 'NelioABExperimentsPageController' ) ) {
 				// Scheduled Date is relevant for scheduling an experiment
 				$view->keep_request_param( 'name', stripslashes( $_GET['name'] ) );
 
+			include( NELIOAB_ADMIN_DIR . '/sync-exp-status.php' );
 			$view->get_content_with_ajax_and_render( __FILE__, __CLASS__ );
 		}
 
@@ -133,9 +134,6 @@ if ( !class_exists( 'NelioABExperimentsPageController' ) ) {
 				$view->filter_by_status( $_REQUEST['status'] );
 			$view->render_content();
 
-			// Update cache
-			NelioABExperimentsManager::update_running_experiments_cache();
-
 			die();
 		}
 
@@ -192,7 +190,6 @@ if ( !class_exists( 'NelioABExperimentsPageController' ) ) {
 					throw new Exception( NelioABErrCodes::to_string( $err ), $err );
 				}
 				$exp->start();
-				NelioABExperimentsManager::update_running_experiments_cache( 'now' );
 			}
 			catch ( Exception $e ) {
 				global $nelioab_admin_controller;
@@ -251,7 +248,6 @@ if ( !class_exists( 'NelioABExperimentsPageController' ) ) {
 				$exp = NelioABExperimentsManager::get_experiment_by_id( $exp_id, $exp_type );
 				NelioABExperimentsManager::current_user_can( $exp, 'stop', 'throw-exception'  );
 				$exp->stop();
-				NelioABExperimentsManager::update_running_experiments_cache( 'now' );
 			}
 			catch ( Exception $e ) {
 				require_once( NELIOAB_ADMIN_DIR . '/error-controller.php' );

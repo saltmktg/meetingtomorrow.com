@@ -144,7 +144,7 @@ ul.nelio-goals {
     max-height: 220px;
     margin-top: 2px;
     display: none;
-    overflow-y: hidden;
+    overflow-y: scroll;
     min-width: 200px;
     left: auto;
     right: 0;

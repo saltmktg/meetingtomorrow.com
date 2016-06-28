@@ -139,25 +139,22 @@ if ( !class_exists( 'NelioABGlobalAlternativeExperiment' ) ) {
 
 
 		// @Implements
-		public function remove() {
-			// 1. We remove the experiment itself
-			$url = sprintf(
-				NELIOAB_BACKEND_URL . '/exp/global/%s/delete',
-				$this->get_id()
-			);
+		public function do_remove() {
 
-			NelioABBackend::remote_post( $url );
-		}
+			// Nothing to be done.
+
+		}//end do_remove()
 
 
 		// @Implements
-		public function discard_changes() {
-			// Nothing to be done, here
-		}
+		public function do_save() {
 
+			// Nothing to be done.
+
+		}//end do_save()
 
 		// @Implements
-		public function start() {
+		public function pre_start() {
 			// If the experiment is already running, quit
 			if ( $this->get_status() == NelioABExperiment::STATUS_RUNNING )
 				return;
@@ -165,7 +162,7 @@ if ( !class_exists( 'NelioABGlobalAlternativeExperiment' ) ) {
 			// Checking whether the experiment can be started or not...
 			require_once( NELIOAB_UTILS_DIR . '/backend.php' );
 			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			$running_exps = NelioABExperimentsManager::get_running_experiments_from_cache();
+			$running_exps = NelioABExperimentsManager::get_running_experiments();
 			$this_exp_origins = $this->get_origins();
 			array_push( $this_exp_origins, -1 );
 
@@ -226,86 +223,57 @@ if ( !class_exists( 'NelioABGlobalAlternativeExperiment' ) ) {
 				}
 			}
 
-			// If everything is OK, we can start it!
-			$url = sprintf(
-				NELIOAB_BACKEND_URL . '/exp/global/%s/start',
-				$this->get_id()
-			);
-			try {
-				NelioABBackend::remote_post( $url );
-				$this->set_status( NelioABExperiment::STATUS_RUNNING );
-			}
-			catch ( Exception $e ) {
-				throw $e;
-			}
-		}
+		}//end pre_start()
 
 
 		// @Implements
-		public function stop() {
+		public function do_stop() {
 			$url = sprintf(
 				NELIOAB_BACKEND_URL . '/exp/global/%s/stop',
-				$this->get_id()
+				$this->get_key_id()
 			);
 			NelioABBackend::remote_post( $url );
 			$this->set_status( NelioABExperiment::STATUS_FINISHED );
+		}//end do_stop()
+
+
+		// @Implements
+		public function get_exp_kind_url_fragment() {
+			return 'global';
 		}
 
 
 		// @Implements
-		public function save() {
-			// 1. UPDATE OR CREATE THE EXPERIMENT
-			if ( $this->get_id() < 0 ) {
-				$url = sprintf(
-					NELIOAB_BACKEND_URL . '/site/%s/exp/global',
-					NelioABAccountSettings::get_site_id()
-				);
-			}
-			else {
-				$url = sprintf(
-					NELIOAB_BACKEND_URL . '/exp/global/%s/update',
-					$this->get_id()
-				);
-			}
+		public function encode_for_appengine() {
 
-			if ( $this->get_status() != NelioABExperiment::STATUS_PAUSED &&
-			     $this->get_status() != NelioABExperiment::STATUS_RUNNING &&
-			     $this->get_status() != NelioABExperiment::STATUS_FINISHED &&
-			     $this->get_status() != NelioABExperiment::STATUS_TRASH )
-				$this->set_status( $this->determine_proper_status() );
-
-			$body = array(
-				'name'                  => $this->get_name(),
-				'description'           => $this->get_description(),
-				'origin'                => $this->get_origins(),
-				'status'                => $this->get_status(),
-				'kind'                  => $this->get_textual_type(),
-				'finalizationMode'      => $this->get_finalization_mode(),
-				'finalizationModeValue' => $this->get_finalization_value(),
+			// 1. ADD ALTERNATIVES TO THE RESULT.
+			$alternatives = array();
+			$alt = $this->get_original();
+			array_push(
+				$alternatives,
+				$alt->json4local( $this->get_id(), $this->get_textual_type() )
 			);
-
-			/** @var array $result */
-			$result = NelioABBackend::remote_post( $url, $body );
-
-			$exp_id = $this->get_id();
-			if ( $exp_id < 0 ) {
-				if ( is_wp_error( $result ) )
-					return 0;
-				$json = json_decode( $result['body'] );
-				$exp_id = $json->key->id;
-				$this->id = $exp_id;
+			foreach ( $this->get_alternatives() as $alt ) {
+				if ( ! $alt->was_removed() ) {
+					array_push(
+						$alternatives,
+						$alt->json4local( $this->get_id(), $this->get_textual_type() )
+					);
+				}
 			}
 
-			// 1.1 SAVE GOALS
-			// -------------------------------------------------------------------------
-			$this->make_goals_persistent();
+			// 2. PREPARE THE OBJECT.
+			$result = parent::encode_for_appengine();
+			$result['key']['kind']    = 'GlobalAlternativeExperiment';
+			$result['origin']         = array( -1 );
+			$result['testsTitleOnly'] = false;
+			$result['showHeatmap']    = $this->are_heatmaps_tracked();
+			$result['alternatives']   = $alternatives;
 
-			return $this->get_id();
-		}
+			return $result;
 
-		public function get_exp_kind_url_fragment() {
-			return 'global';
-		}
+		}//end encode_for_appengine()
+
 
 	}//NelioABGlobalAlternativeExperiment
 

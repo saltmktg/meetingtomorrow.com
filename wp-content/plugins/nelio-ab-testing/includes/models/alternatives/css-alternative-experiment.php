@@ -36,30 +36,20 @@ if ( !class_exists( 'NelioABCssAlternativeExperiment' ) ) {
 		 * @since PHPDOC
 		 * @var array
 		 */
-		private $new_ids;
-
-
-		/**
-		 * PHPDOC
-		 *
-		 * @since PHPDOC
-		 * @var array
-		 */
-		private $original_appspot_css;
+		private $original_css;
 
 
 		// @Override
 		public function clear() {
 			parent::clear();
 			$this->set_type( NelioABExperiment::CSS_ALT_EXP );
-			$this->new_ids = array();
-			$this->original_appspot_css = $this->create_css_alternative( 'FakeOriginalCss' );
+			$this->original_css = $this->create_css_alternative( 'FakeOriginalCss' );
 		}
 
 
 		// @Override
 		public function get_original() {
-			return $this->original_appspot_css;
+			return $this->original_css;
 		}
 
 
@@ -72,14 +62,14 @@ if ( !class_exists( 'NelioABCssAlternativeExperiment' ) ) {
 
 
 		// @Override
-		public function set_appspot_alternatives( $alts ) {
+		public function set_alternatives( $alts ) {
 			$aux = array();
 			if ( count( $alts ) > 0 ) {
-				$this->original_appspot_css = $alts[0];
+				$this->original_css = $alts[0];
 				for ( $i = 1; $i < count( $alts ); $i++ )
 					array_push( $aux, $alts[$i] );
 			}
-			parent::set_appspot_alternatives( $aux );
+			parent::set_alternatives( $aux );
 		}
 
 
@@ -108,119 +98,23 @@ if ( !class_exists( 'NelioABCssAlternativeExperiment' ) ) {
 		}
 
 
+		// @Implements
+		public function do_save() {
+
+			foreach ( $this->get_alternatives() as $alt ) {
+				if ( $alt->get_value() == -1 ) {
+					$alt->set_value( '' );
+				}//end if
+			}//end foreach
+
+		}//end do_save()
+
+
 		// @Override
 		protected function determine_proper_status() {
 			if ( count( $this->get_alternatives() ) <= 0 )
 				return NelioABExperiment::STATUS_DRAFT;
 			return parent::determine_proper_status();
-		}
-
-
-		// @Override
-		public function save() {
-			// 0. WE CHECK WHETHER THE EXPERIMENT IS COMPLETELY NEW OR NOT
-			// -------------------------------------------------------------------------
-			$is_new = $this->get_id() < 0;
-
-
-			// 1. SAVE THE EXPERIMENT AND ITS GOALS
-			// -------------------------------------------------------------------------
-			$exp_id = parent::save();
-
-
-			// 2. UPDATE THE ALTERNATIVES
-			// -------------------------------------------------------------------------
-
-			// 2.0. FIRST OF ALL, WE CREATE A FAKE ORIGINAL FOR NEW EXPERIMENTS
-			/** @var NelioABAlternative $original */
-			$original = $this->get_original();
-			if ( $is_new && $original->get_id() < 0 ) {
-				$body = array(
-					'name'    => $original->get_name(),
-					'content' => '',
-					'kind'    => $this->get_textual_type(),
-				);
-				try {
-					/** @var int $result */
-					$result = NelioABBackend::remote_post(
-						sprintf( NELIOAB_BACKEND_URL . '/exp/global/%s/alternative', $exp_id ),
-						$body );
-					$original->set_id( $result );
-				}
-				catch ( Exception $e ) {
-				}
-			}
-
-			// 2.1. UPDATE CHANGES ON ALREADY EXISTING APPSPOT ALTERNATIVES
-			foreach ( $this->get_appspot_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
-				if ( $alt->was_removed() || !$alt->is_dirty() )
-					continue;
-
-				$body = array( 'name' => $alt->get_name() );
-				NelioABBackend::remote_post(
-					sprintf( NELIOAB_BACKEND_URL . '/alternative/%s/update', $alt->get_id() ),
-					$body );
-			}
-
-			// 2.2. REMOVE FROM APPSPOT THE REMOVED ALTERNATIVES
-			foreach ( $this->get_appspot_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
-				if ( !$alt->was_removed() )
-					continue;
-
-				$url = sprintf(
-					NELIOAB_BACKEND_URL . '/alternative/%s/delete',
-					$alt->get_id()
-				);
-
-				NelioABBackend::remote_post( $url );
-			}
-
-			// 2.3. CREATE LOCAL ALTERNATIVES IN APPSPOT
-			$this->new_ids = array();
-			foreach ( $this->get_local_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
-				if ( $alt->was_removed() )
-					continue;
-				$body = array(
-					'name'    => $alt->get_name(),
-					'content' => '',
-					'kind'    => $this->get_textual_type(),
-				);
-
-				try {
-					/** @var array $result */
-					$result = NelioABBackend::remote_post(
-						sprintf( NELIOAB_BACKEND_URL . '/exp/global/%s/alternative', $exp_id ),
-						$body );
-					/** @var object $result */
-					$result = json_decode( $result['body'] );
-					$this->new_ids[$alt->get_id()] = $result->key->id;
-				}
-				catch ( Exception $e ) {
-				}
-			}
-
-			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			NelioABExperimentsManager::update_experiment( $this );
-		}
-
-
-		/**
-		 * Returns PHPDOC
-		 *
-		 * @param int $id PHPDOC
-		 *
-		 * @return int PHPDOC
-		 *
-		 * @since PHPDOC
-		 */
-		public function get_real_id_for_alt( $id ) {
-			if ( isset( $this->new_ids[$id] ) )
-				return $this->new_ids[$id];
-			else
-				return $id;
 		}
 
 
@@ -236,39 +130,33 @@ if ( !class_exists( 'NelioABCssAlternativeExperiment' ) ) {
 		 * @since PHPDOC
 		 */
 		public function update_css_alternative( $alt_id, $name, $content ) {
-			$body = array(
-				'name'    => $name,
-				'content' => $content,
-			);
-			NelioABBackend::remote_post(
-				sprintf( NELIOAB_BACKEND_URL . '/alternative/%s/update', $alt_id ),
-				$body );
-
 			foreach ( $this->get_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
 				if ( $alt->get_id() == $alt_id ) {
 					$alt->set_name( $name );
 					$alt->set_value( $content );
 					break;
-				}
-			}
-
-			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			NelioABExperimentsManager::update_experiment( $this );
+				}//end if
+			}//end foreach
+			$this->save();
 		}
 
 
 		// @Implements
-		public static function load( $id ) {
-			$json_data = NelioABBackend::remote_get( NELIOAB_BACKEND_URL . '/exp/global/' . $id );
-			$json_data = json_decode( $json_data['body'] );
+		public static function load( $post ) {
+			if ( is_int( $post ) ) {
+				$post = get_post( $post );
+			}
 
-			$exp = new NelioABCssAlternativeExperiment( $json_data->key->id );
+			$exp = new NelioABCssAlternativeExperiment( $post->ID );
+			$json_data = $exp->post_content2json( $post->post_content );
+
+			$exp->set_key_id( $json_data->key->id );
 			$exp->set_type_using_text( $json_data->kind );
 			$exp->set_name( $json_data->name );
 			if ( isset( $json_data->description ) )
 				$exp->set_description( $json_data->description );
 			$exp->set_status( $json_data->status );
+			$exp->set_creation_date( $json_data->creation );
 			$exp->set_finalization_mode( $json_data->finalizationMode );
 			if ( isset( $json_data->finalizationModeValue ) )
 				$exp->set_finalization_value( $json_data->finalizationModeValue );
@@ -285,17 +173,14 @@ if ( !class_exists( 'NelioABCssAlternativeExperiment' ) ) {
 				foreach ( $json_data->alternatives as $json_alt ) {
 					$alt = new NelioABAlternative( $json_alt->key->id );
 					$alt->set_name( $json_alt->name );
-					if ( isset( $json_alt->content ) )
-						$alt->set_value( $json_alt->content->value );
-					else
-						$alt->set_value( '' );
+					$alt->set_value( $json_alt->content );
 					array_push ( $alternatives, $alt );
 				}
 			}
-			$exp->set_appspot_alternatives( $alternatives );
+			$exp->set_alternatives( $alternatives );
 
 			return $exp;
-		}
+		}//end load()
 
 	}//NelioABCssAlternativeExperiment
 

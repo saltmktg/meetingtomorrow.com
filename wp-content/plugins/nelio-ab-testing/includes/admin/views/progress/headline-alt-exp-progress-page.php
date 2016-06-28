@@ -260,12 +260,18 @@ if ( !class_exists( 'NelioABHeadlineAltExpProgressPage' ) ) {
 			$exp             = $this->exp;
 			$ori             = $exp->get_original();
 			$ori_id          = $exp->get_originals_id();
-			$link            = get_permalink( $ori_id );
 			$ori_label       = __( 'Original Version', 'nelioab' );
 			$ori_name        = __( 'Original', 'nelioab' );
 
-			$post      = get_post( $ori_id );
-			$excerpt   = $post->post_excerpt;
+			$post = get_post( $ori_id );
+			if ( $post ) {
+				$name = $this->trunk( $this->ori );
+				$excerpt   = $post->post_excerpt;
+			} else {
+				$name = __( '(Not found)', 'nelioab' );
+				$excerpt = '';
+			}
+
 			$image_id  = get_post_thumbnail_id( $ori_id );
 			$aux       = wp_get_attachment_image_src( $image_id );
 			$image_src = ( count( $aux ) > 0 ) ? $aux[0] : '';
@@ -275,13 +281,6 @@ if ( !class_exists( 'NelioABHeadlineAltExpProgressPage' ) ) {
 			$conversion_views_label = __( 'Conversions / Views', 'nelioab' );
 			$conversion_rate_label  = __( 'Conversion Rate', 'nelioab' );
 			$view_label             = __( 'Preview', 'nelioab' );
-
-			if ( $link ) {
-				$name = $this->trunk( $this->ori );
-			}
-			else {
-				$name = __( '(Not found)', 'nelioab' );
-			}
 
 			$original = __( 'This is the original version', 'nelioab' );
 			$icon = $this->get_experiment_icon( $exp );
@@ -396,12 +395,6 @@ HTML;
 			$i   = 0;
 			foreach ( $exp->get_alternatives() as $alt ) {
 				$i++;
-				$link = get_permalink( $alt->get_value() );
-
-				if ( $this->is_ori_page )
-					$link = esc_url( add_query_arg( array(
-						'preview' => 'true',
-					), $link ) );
 
 				$icon = $this->get_experiment_icon( $exp );
 				$id = $alt->get_id();

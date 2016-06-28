@@ -49,32 +49,11 @@ if ( !class_exists( 'NelioABHeatmapExpSummary' ) ) {
 		private $heatmap_info;
 
 
-		/**
-		 * The number of visitors that contributed to build this experiment's clickmap.
-		 *
-		 * These visitors are classified in four groups:
-		 * * phone
-		 * * tablet
-		 * * desktop
-		 * * hd
-		 *
-		 * @since 3.0.0
-		 * @var array
-		 */
-		private $clickmap_info;
-
-
 		// @Override
 		public function __construct( $id ) {
 			parent::__construct( $id );
 			$this->set_type( NelioABExperiment::HEATMAP_EXP );
 			$this->heatmap_info = array(
-					'phone'   => 0,
-					'tablet'  => 0,
-					'desktop' => 0,
-					'hd'      => 0,
-				);
-			$this->clickmap_info = array(
 					'phone'   => 0,
 					'tablet'  => 0,
 					'desktop' => 0,
@@ -103,29 +82,23 @@ if ( !class_exists( 'NelioABHeatmapExpSummary' ) ) {
 		}
 
 
-		/**
-		 * This function returns the heatmap information of this experiment.
-		 *
-		 * @return array the heatmap information of this experiment.
-		 *
-		 * @see self::clickmap_info
-		 *
-		 * @since 3.0.0
-		 */
-		public function get_clickmap_info() {
-			return $this->clickmap_info;
-		}
-
-
 		// @Implements
-		public function load_json4ae( $json ) {
-			$this->set_name( $json->name );
-			$this->set_creation_date( $json->creation );
-			foreach ( $json->heatmapParticipants as $key => $val )
-				$this->heatmap_info[$key] = $val;
-			foreach ( $json->clickmapParticipants as $key => $val )
-				$this->clickmap_info[$key] = $val;
-		}
+		public function build_summary( $exp ) {
+			$this->set_name( $exp->get_name() );
+			$this->set_creation_date( $exp->get_creation_date() );
+
+			$this->heatmap_info = get_post_meta( $exp->get_id(), 'nelioab_hm_summary', true );
+			if ( ! is_array( $this->heatmap_info ) ) {
+				$this->heatmap_info = array();
+			}//end if
+
+			foreach ( array( 'phone', 'tablet', 'desktop', 'hd' ) as $res ) {
+				if ( ! isset( $this->heatmap_info[ $res ] ) ) {
+					$this->heatmap_info[ $res ] = 0;
+				}//end if
+			}//end foreach
+
+		}//end build_summary()
 
 	}//NelioABHeatmapExpSummary
 

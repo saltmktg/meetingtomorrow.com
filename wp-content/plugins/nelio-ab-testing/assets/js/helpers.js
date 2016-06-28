@@ -168,71 +168,6 @@ NelioAB.helpers.extractGetParams = function( query ) {
 
 
 /**
- * Given two URLs A and B, this function merges all the GET params of B into A.
- * Any GET param that appears in both URLs will take the value it has on URL A.
- *
- * @param priority
- *             the first URL.
- * @param priority
- *             the second URL.
- *
- * @return a new URL that looks like URL A, but which includes all GET params
- *         from B that were not in A.
- */
-NelioAB.helpers.mergeUrlParams = function( priority, inherit ) {
-	// Extract URL params
-	var uParams = [];
-	aux = inherit.indexOf('?');
-	if ( -1 != aux )
-		uParams = NelioAB.helpers.extractGetParams( inherit.substring(aux) );
-
-	// Extract PERMALINK params and set
-	//  - stringParams to something like "?..."
-	//  - priority to something like http://..../ without GET params
-	var pParams = [];
-	aux = priority.indexOf('?');
-	if ( -1 != aux ) {
-		pParams = NelioAB.helpers.extractGetParams( priority.substring( aux ) );
-		priority = priority.substring( 0, aux );
-	}
-
-	var newParams = [];
-	for ( var i = 0; i < pParams.length; ++i )
-		newParams.push( pParams[i] );
-
-	for ( var i = 0; i < uParams.length; ++i ) {
-		var isNew = true;
-		for ( var j = 0; j < pParams.length; ++j ) {
-			if ( uParams[i][0] == pParams[j][0] ) {
-				isNew = false;
-				break;
-			}
-		}
-		if ( isNew )
-			newParams.push( uParams[i] );
-	}
-
-	var stringParams = '';
-	if ( newParams.length > 0 ) {
-		stringParams = '?' + newParams[0][0];
-		var aux = '=' + encodeURIComponent(newParams[0][1]);
-		if ( aux.length > 1 )
-			stringParams += aux;
-	}
-	for ( var i = 1; i < newParams.length; ++i ) {
-		stringParams += '&' + newParams[i][0];
-		var aux = '=' + encodeURIComponent(newParams[i][1]);
-		if ( aux.length > 1 )
-			stringParams += aux;
-	}
-
-	priority += stringParams;
-
-	return priority;
-};
-
-
-/**
  * This function adds some relevant hidden fields in forms right before they're
  * submitted. This way, Nelio A/B Testing can kick in when the data is received
  * in WordPress.
@@ -866,4 +801,20 @@ NelioAB.helpers.clickFunctions.maybeSendClickElementEvent = function(e) {
 	}
 };
 
+/**
+ * This function sends a fake goal, which has been created using a click action.
+ */
+NelioAB.helpers.sendFakeGoal = function( name ) {
+
+	var i, ce;
+	for( i = 0; i < NelioABEnv.goals.clickableElements.length; ++i ) {
+
+		ce = NelioABEnv.goals.clickableElements[i];
+		if ( 'id' === ce.mode && name === ce.value ) {
+			NelioAB.helpers.sendClickElementEvent( ce );
+		}//end if
+
+	}//end for
+
+};
 

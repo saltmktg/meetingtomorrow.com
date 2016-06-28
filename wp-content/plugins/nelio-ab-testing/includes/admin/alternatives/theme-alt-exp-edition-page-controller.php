@@ -119,17 +119,13 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPageController' ) ) {
 					$experiment->add_selected_theme( $alt->get_value(), $alt->get_name() );
 			}
 
-			if ( isset( $_POST['nelioab_appspot_ids'] ) )
-				$experiment->set_appspot_ids( json_decode( urldecode( $_POST['nelioab_appspot_ids'] ) ) );
-			else
-				$experiment->set_appspot_ids( $experiment->get_appspot_ids() );
-
 			// Creating the view
 			$view = $this->create_view();
 
 			// Experiment information
 			$view->set_basic_info(
 				$experiment->get_id(),
+				$experiment->get_key_id(),
 				$experiment->get_name(),
 				$experiment->get_description(),
 				$experiment->get_finalization_mode(),
@@ -138,7 +134,6 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPageController' ) ) {
 
 			// Experiment alternatives
 			$view->set_selected_themes( $experiment->get_selected_themes() );
-			$view->set_appspot_ids( $experiment->get_appspot_ids() );
 
 			$view->set_current_theme(
 				$current_theme_id,
@@ -200,9 +195,6 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPageController' ) ) {
 						if ( isset( $theme->isSelected ) &&  $theme->isSelected )
 							$exp->add_selected_theme( $theme->value, $theme->name );
 			}
-
-			if ( isset( $_POST['nelioab_appspot_ids'] ) )
-				$exp->set_appspot_ids( json_decode( urldecode( $_POST['nelioab_appspot_ids'] ) ) );
 
 			global $nelioab_admin_controller;
 			$nelioab_admin_controller->data = $exp;

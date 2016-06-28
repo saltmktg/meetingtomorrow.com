@@ -140,6 +140,7 @@ NelioAB.user.session = function() {
  */
 NelioAB.user.participates = function() {
 	var isIn = NelioAB.cookies.get( 'nelioab_is_in' );
+
 	if ( typeof isIn == 'undefined' ) {
 		isIn  = 'no';
 		var expires = 'expires=' + NelioAB.cookies.EXPIRES_IN_TEN_YEARS;
@@ -165,6 +166,16 @@ NelioAB.user.participates = function() {
 		}
 		document.cookie = 'nelioab_is_in=' + isIn + ';path=/';
 	}
+
+	// If nabforce is set, we have to overwrite the value.
+	if ( 'yes' !== isIn && /\bnabforce\b/.test( window.location.href ) ) {
+		isIn = 'yes';
+		document.cookie = 'nelioab_was_in=' +
+				isIn + ':' + NelioABBasic.settings.partChance + ';' +
+				expires + ';path=/';
+		document.cookie = 'nelioab_is_in=' + isIn + ';path=/';
+	}//end if
+
 	return ('yes' == isIn);
 };
 

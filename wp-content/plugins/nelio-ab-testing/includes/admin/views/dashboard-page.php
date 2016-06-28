@@ -22,26 +22,27 @@ if ( !class_exists( 'NelioABDashboardPage' ) ) {
 
 		private $graphic_delay;
 		private $experiments;
-		private $quota;
 		private $rss;
 
 		public function __construct( $title ) {
-			parent::__construct( $title );
+
+			$loader = sprintf(
+				'<span class="nelioab-results-loader spinner" title="%s" style="margin-top:-4px;"></span>',
+				esc_attr( __( 'Checking if there are new results available...', 'nelioab' ) )
+			);
+
+			parent::__construct( $title . $loader );
+
 			$this->set_icon( 'icon-nelioab' );
 			$this->add_title_action( __( 'New Experiment', 'nelioab' ), '?page=nelioab-add-experiment' );
 			$this->experiments = array();
-			$this->quota = array(
-				'regular' => 5000,
-				'monthly' => 5000,
-				'extra'   => 0,
-			);
 			$this->graphic_delay = 500;
 			$this->rss = fetch_feed( 'https://nelioabtesting.com/feed/' );
+
 		}
 
 		public function set_summary( $summary ) {
 			$this->experiments = $summary['exps'];
-			$this->quota = $summary['quota'];
 		}
 
 		public function do_render() {
@@ -70,66 +71,129 @@ if ( !class_exists( 'NelioABDashboardPage' ) ) {
 				<h2>&nbsp;</h2>
 				<?php
 				require_once( NELIOAB_UTILS_DIR . '/wp-helper.php' );
-				$cs = NelioABWpHelper::get_current_colorscheme();
+
 				?>
 
 				<div class="numbers" style="height:40px;">
 					<div class="left" style="float:left; width:58%;">
 						<span style="font-weight:bold;"><?php _e( 'AVAILABLE QUOTA', 'nelioab' ); ?></span><br>
-						<span style="color:<?php echo $cs['primary']; ?>; font-size:10px;"><?php
-							echo number_format_i18n( $this->quota['regular'], 0 );
-						?></span><span style="font-size:10px;"> / <?php
-							echo number_format_i18n( $this->quota['monthly'], 0 );
-							if ( $this->quota['extra'] > 0 ) {
-								echo ' <span style="color:#999;">';
-								printf( __( '(+%s extra)', 'nelioab' ),
-									number_format_i18n( $this->quota['extra'], 0 ) );
-								echo '</span>';
-							}
+						<span class="available-quota current" style="font-size:10px;"><?php
+							esc_html_e( 'Loading...' );
 						?></span>
+						<span class="available-quota monthly" style="font-size:10px;"></span>
 					</div>
-					<div class="right" style="font-size:32px; text-align:right; float:right; width:35%; padding-right:5%; margin-top:8px; opacity:0.7;">
-						<span><?php
-							// Let's compute the size of the extra quota (if any)
-							if ( $this->quota['extra'] > 0 ) {
-								$extra = $this->quota['extra'];
-								$max_extra = $this->quota['monthly'] / 2;
-								if ( $extra > $max_extra ) {
-									$extra = $max_extra;
-								}
-								$extra_perc = ( $extra / $max_extra  ) * 20;
-							} else {
-								$extra_perc = 0;
-							}
-							$extra_perc = number_format( $extra_perc, 0 );
-
-							// Now let's compute the size of the regular bar
-							if ( $this->quota['regular'] > 0 ) {
-								$perc = ( $this->quota['regular'] / $this->quota['monthly'] ) * 100;
-							} else {
-								$perc = 0;
-							}
-							$num_of_decs = 1;
-							if ( 100 == $perc ) {
-								$num_of_decs = 0;
-							}
-							echo number_format( $perc, $num_of_decs );
-						?>%</span>
-					</div>
+					<div class="right quota-percentage" style="font-size:32px; text-align:right; float:right; width:36%; padding-right:5%; margin-top:8px; opacity:0.7;">&mdash; %</div>
 				</div>
 
-				<div class="progress-bar-container" style="background:none;border:2px solid rgba(0,0,0,0.1); width:95%; margin:0px; height:20px;"><?php
-					$bar = '<div class="progress-bar" style="margin:0;padding:0;display:inline-block;height:20px;background-color:%s;width:%s%%;"></div>';
-					$perc = number_format( $perc, 0 );
-					if ( $perc + $extra_perc > 100 ) {
-						$perc = 100 - $extra_perc;
+				<div class="progress-bar-container" style="background:none;border:2px solid rgba(0,0,0,0.1); width:95%; margin:0px; height:20px;">
+					<div class="progress-bar normal" style="margin:0;padding:0;display:inline-block;height:20px;width:0;"></div><div class="progress-bar extended" style="margin:0;padding:0;display:inline-block;height:20px;width:0;"></div>
+				</div>
+
+				<script type="text/javascript">
+				(function( $ ) {
+					function onError() {
+						$( '.available-quota.current' ).html( <?php
+							echo json_encode( __( 'Error retrieving quota', 'nelioab' ) );
+						?> );
 					}
-					printf( $bar, $cs['primary'], $perc );
-					printf( $bar, $cs['secondary'], $extra_perc );
-				?></div>
+					$.ajax({
+						url: ajaxurl,
+						data: {
+							action: 'nelioab_get_quota'
+						},
+						success: function( data ) {
+							if ( typeof data.available !== 'undefined' ) {
+
+								$( '.available-quota.current' ).html( data.available );
+								$( '.available-quota.current' ).css( 'color', data.darkColor );
+								$( '.available-quota.monthly' ).html( data.monthly );
+
+								$( '.quota-percentage' ).html( data.quotaPercentage );
+								$( '.quota-percentage' ).css( 'color', data.darkColor );
+
+								$( '.progress-bar.normal' ).css( 'background', data.lightColor );
+								$( '.progress-bar.normal' ).css( 'width', data.normalWidth );
+								$( '.progress-bar.extended' ).css( 'background', data.darkColor );
+								$( '.progress-bar.extended' ).css( 'width', data.extraWidth );
+
+							} else {
+								onError();
+							}
+						},
+						error: function() {
+							onError();
+						}
+					});
+				})( jQuery );
+				</script>
+
 			<?php
 			$this->print_rss();
 			echo '</div>'; // #post-body
+			?>
+
+
+			<script type="text/javascript">
+			(function( $ ) {
+				var completedChecks = 0;
+				var areThereNewResults = false;
+
+				var expIds = <?php
+					$ids = array();
+					foreach ( $this->experiments as $exp ) {
+						array_push( $ids, $exp->get_id() );
+					}//end foreach
+					echo json_encode( $ids );
+				?>;
+
+				var $loader = $( 'span.nelioab-results-loader' );
+				$loader.addClass( 'is-active' );
+
+				function maybeDone() {
+					if ( completedChecks === expIds.length ) {
+						$loader.removeClass( 'is-active' );
+						if ( areThereNewResults ) {
+							var $div = $( '#message-div' );
+							$div.html( <?php
+								$message = sprintf(
+									_x( 'Hey! It looks like there are <strong>new results available. <a href="%s">Refresh!</a></strong>', 'HTML formatted string', 'nelioab' ),
+									'javascript:window.location.reload()'
+								);
+								echo json_encode( '<p style="font-size:1.3em;">' . $message . '</p>' );
+							?> );
+							$div.show();
+						}//end if
+					}//end if
+				}//end maybeDone()
+
+				for ( var i = 0; i < expIds.length; ++i ) {
+					var expId = expIds[i];
+					$.ajax({
+						url: ajaxurl,
+						async: true,
+						data: {
+							action: "nelioab_update_results",
+							exp: expId
+						},
+						success: function( result ) {
+							++completedChecks;
+							if ( result.indexOf( 'nelioab-new-results-available' ) >= 0 ) {
+								areThereNewResults = true;
+							}//end if
+							maybeDone();
+						},//end success()
+						error: function() {
+							++completedChecks;
+							maybeDone();
+						}//end error()
+					});
+				}//end for
+
+				maybeDone();
+
+			})( jQuery );
+			</script>
+			<?php
 		}
 
 		public function print_rss() {

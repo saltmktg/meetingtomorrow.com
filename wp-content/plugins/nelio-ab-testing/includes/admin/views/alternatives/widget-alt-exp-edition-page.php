@@ -150,17 +150,6 @@ if ( !class_exists( 'NelioABWidgetAltExpEditionPage' ) ) {
 			parent::display_rows();
 		}
 
-		protected function get_edit_code( $alt ){
-			return sprintf(
-				'<a style="cursor:pointer;" onClick="javascript:' .
-					'jQuery(\'#content_to_edit\').attr(\'value\', %s);' .
-					'submitAndRedirect(\'%s\',true)' .
-					'">%s</a>',
-				$alt->get_id(),
-				'edit_alt_content',
-				__( 'Save Experiment & Edit CSS', 'nelioab' ) );
-		}
-
 		protected function print_additional_info_for_new_alt_form() { ?>
 			<input type="hidden" id="based_on" value="nothing" />
 			<?php

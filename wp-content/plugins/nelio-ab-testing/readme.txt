@@ -2,8 +2,8 @@
 Contributors: nelio, davilera, avillegasn
 Tags: ab testing, ab test, a/b testing, a/b test, a b testing, a b test, split testing, conversion optimization, optimization, conversion, heatmap, split testing, split test, click-map, clickmap, greedy algorithm, conversion rate optimization, conversion rate, cro, landing page, landing pages, conversion goals, goal tracking, visitor tracking, tracking, call to action, analytics, statistics, campaign, campaigns, woocommerce testing, track purchases, ab product, split product, order tracking, woocommerce
 Requires at least: 3.5
-Tested up to: 4.4
-Stable tag: 4.3.3
+Tested up to: 4.5
+Stable tag: 4.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -290,6 +290,76 @@ on your site so that you can understand your customers better.
 
 
 == Changelog ==
+
+= 4.5.3 (June 7, 2016) =
+* **Bug Fix**. AJAX error because of invalid formatted value has now been
+fixed.
+* **Bug Fix**. WooCommerce product testing broke short description's format.
+This has now been fixed too.
+
+
+= 4.5.2 (May 20, 2016) =
+* **Improvement**. `nabforce` now overwrites both the alternative version
+the user is supposed to see and the user's participation in the experiment.
+* **Bug fix**. Renamed AJAX parameter from `filename` to `classfi` so that
+security plugins (such as Wordfence) do not block Nelio's requests.
+
+
+= 4.5.1 (April 29, 2016) =
+* **Bug fix**. Invalid `continue` statement changed to `return`.
+* **Bug fix**. Some query args were not properly encoded, resulting in an
+invalid query string. This has been fixed.
+
+
+= 4.5.0 (April 8, 2016) =
+* **Security Fix**. This new version fixes a couple of security issues we
+detected. In particular, we improved input sanitization and we limited file
+access to those within the plugin's path.
+* **Bug Fix**. In the Results page of a post/page experiment, there are two
+options for previewing an alternative: clicking on a button or on a preview
+image. The former works, the latter doesn't. This has been fixed.
+* Minor improvements.
+
+
+= 4.4.4 (March 17, 2016) =
+* **Bug Fix**. On custom post type experiments, alternative creation didn't
+work as expected: when creating an alternative based on an existing custom
+post, its type wasn't the one you selected in the first step of the experiment
+creation. This has now been fixed.
+
+
+= 4.4.3 (March 16, 2016) =
+* **Bug Fix**. When looking at the results of an experiment with several goals,
+you can now scroll the goal list and select any goal. The previous version
+wasn't scrollable. More over, their results are properly loaded from the
+cloud.
+* **Bug Fix**. Experiments may now be auto-stopped (Professional and Enterprise
+users only).
+* **Speed Improvement**. Faster selection of alternative widgets. We reduced the
+workload of your WordPress server when rendering sidebar widgets.
+
+
+= 4.4.1 (March 3, 2016) =
+* **Bug Fix**. Alternative content is now properly saved and can be edited
+multiple times.
+* **Bug Fix**. Heatmap icons on the upper-left corner of your screen now
+show whether there's information or not for that resolution.
+* **Bug Fix**. When _Clean and Deactivat_ing the plugin, experiments are
+properly removed from your database.
+
+
+= 4.4.0 (March 2, 2016) =
+* **Improved Performance**. We've reimplemented how the plugin syncs your
+experiments information with our cloud servers so that things can go much,
+much faster.
+* **Improved UI**. We've modified a few components in the UI, so that their
+behavior and meaning is clearer. For example, quota graphic uses colors that
+indicate whether you have enough quota or not.
+
+
+= 4.3.4 (February 15, 2016) =
+* **Bug Fix.** CSS fix to show additional goal actions (Rename/Delete).
+
 
 = 4.3.3 (February 8, 2016) =
 * **Improvement**. When loading content using AJAX, the function is now more
@@ -1126,6 +1196,6 @@ replaceText function
 
 == Upgrade Notice ==
 
-= 4.3.3 =
-Some minor updates.
+= 4.5.3=
+Minor updates and bug fixes.
 

@@ -33,6 +33,7 @@ if ( !class_exists( 'NelioABDashboardPageController' ) ) {
 			// Build the page and query data via AJAX
 			$title = __( 'Dashboard', 'nelioab' );
 			$view = new NelioABDashboardPage( $title );
+			include( NELIOAB_ADMIN_DIR . '/sync-exp-status.php' );
 			$view->get_content_with_ajax_and_render( __FILE__, __CLASS__ );
 		}
 

@@ -28,7 +28,6 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPage' ) ) {
 		private $current_theme;
 		private $themes;
 		private $selected_themes;
-		private $appspot_ids;
 
 		public function __construct( $title = false ) {
 			if ( !$title)
@@ -42,7 +41,6 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPage' ) ) {
 			$this->current_theme   = array();
 			$this->themes          = array();
 			$this->selected_themes = array();
-			$this->appspot_ids     = array();
 
 			// Prepare tabs
 			$this->add_tab( 'info', __( 'General', 'nelioab' ), array( $this, 'print_basic_info' ) );
@@ -79,10 +77,6 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPage' ) ) {
 
 		public function set_selected_themes( $themes ) {
 			$this->selected_themes = $themes;
-		}
-
-		public function set_appspot_ids( $ids ) {
-			$this->appspot_ids = $ids;
 		}
 
 		protected function get_basic_info_elements() {
@@ -131,10 +125,6 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPage' ) ) {
 					echo rawurlencode( json_encode( $this->selected_themes ) );
 				?>" />
 
-			<input type="hidden" name="nelioab_appspot_ids" id="nelioab_appspot_ids" value="<?php
-					echo rawurlencode( json_encode( $this->appspot_ids ) );
-				?>" />
-
 			<script type="text/javascript">
 				var NelioABSelectedThemes;
 				(function($) {
@@ -161,14 +151,18 @@ if ( !class_exists( 'NelioABThemeAltExpEditionPage' ) ) {
 						)	);
 
 					function validate() {
-						var isOneSelected = false;
-						for( var i = 0; i < NelioABSelectedThemes.length && !isOneSelected; ++i )
+						console.log( 'validate' );
+						var selected = 0;
+						for( var i = 0; i < NelioABSelectedThemes.length && selected <= 1; ++i )
 							if ( NelioABSelectedThemes[i].isSelected )
-								isOneSelected = true;
-						if ( isOneSelected )
-							return [true,true];
-						else
-							return [true,false];
+								++selected;
+						if ( selected > 1 ) {
+							jQuery( '.button.next' ).removeClass( 'disabled' );
+							return [true, true];
+						} else {
+							jQuery( '.button.next' ).addClass( 'disabled' );
+							return [true, false];
+						}
 					}
 
 					function toggleTheme( theme ) {

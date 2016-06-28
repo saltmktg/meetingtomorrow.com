@@ -45,21 +45,21 @@ if ( !class_exists( 'NelioABWidgetAlternativeExperiment' ) ) {
 		 * @since PHPDOC
 		 * @var array
 		 */
-		private $original_appspot_widget_set;
+		private $original_widget_set;
 
 
 		// @Override
 		public function clear() {
 			parent::clear();
 			$this->set_type( NelioABExperiment::WIDGET_ALT_EXP );
+			$this->original_widget_set = $this->create_widget_set_alternative( 'FakeOriginalWidget' );
 			$this->new_ids = array();
-			$this->original_appspot_widget_set = $this->create_widget_set_alternative( 'FakeOriginalWidget' );
 		}
 
 
 		// @Override
 		public function get_original() {
-			return $this->original_appspot_widget_set;
+			return $this->original_widget_set;
 		}
 
 
@@ -72,14 +72,14 @@ if ( !class_exists( 'NelioABWidgetAlternativeExperiment' ) ) {
 
 
 		// @Override
-		public function set_appspot_alternatives( $alts ) {
+		public function set_alternatives( $alts ) {
 			$aux = array();
 			if ( count( $alts ) > 0 ) {
-				$this->original_appspot_widget_set = $alts[0];
+				$this->original_widget_set = $alts[0];
 				for ( $i = 1; $i < count( $alts ); $i++ )
 					array_push( $aux, $alts[$i] );
 			}
-			parent::set_appspot_alternatives( $aux );
+			parent::set_alternatives( $aux );
 		}
 
 
@@ -117,136 +117,32 @@ if ( !class_exists( 'NelioABWidgetAlternativeExperiment' ) ) {
 
 
 		// @Override
-		public function save() {
-			// 0. WE CHECK WHETHER THE EXPERIMENT IS COMPLETELY NEW OR NOT
-			// -------------------------------------------------------------------------
-			$is_new = $this->get_id() < 0;
+		public function do_save() {
 
+			// Nothing to be done here.
 
-			// 1. SAVE THE EXPERIMENT AND ITS GOALS
-			// -------------------------------------------------------------------------
-			$exp_id = parent::save();
-
-
-			// 2. UPDATE THE ALTERNATIVES
-			// -------------------------------------------------------------------------
-
-			// 2.0. FIRST OF ALL, WE CREATE A FAKE ORIGINAL FOR NEW EXPERIMENTS
-
-			/** @var NelioABAlternative $original */
-			$original = $this->get_original();
-			if ( $is_new && $original->get_id() < 0 ) {
-				$body = array(
-					'name'    => $original->get_name(),
-					'content' => '',
-					'kind'    => NelioABExperiment::get_textual_type(),
-				);
-				try {
-					/** @var int $result */
-					$result = NelioABBackend::remote_post(
-						sprintf( NELIOAB_BACKEND_URL . '/exp/global/%s/alternative', $exp_id ),
-						$body );
-					$original->set_id( $result );
-				} catch ( Exception $e ) {}
-			}
-
-			// 2.1. UPDATE CHANGES ON ALREADY EXISTING APPSPOT ALTERNATIVES
-			foreach ( $this->get_appspot_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
-				if ( $alt->was_removed() || !$alt->is_dirty() )
-					continue;
-
-				$body = array( 'name' => $alt->get_name() );
-				NelioABBackend::remote_post(
-					sprintf( NELIOAB_BACKEND_URL . '/alternative/%s/update', $alt->get_id() ),
-					$body );
-			}
-
-			// 2.2. REMOVE FROM APPSPOT THE REMOVED ALTERNATIVES
-			foreach ( $this->get_appspot_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
-				if ( !$alt->was_removed() )
-					continue;
-
-				$url = sprintf(
-					NELIOAB_BACKEND_URL . '/alternative/%s/delete',
-					$alt->get_id()
-				);
-
-				try {
-					NelioABBackend::remote_post( $url );
-				} catch ( Exception $e ) {}
-			}
-
-			// 2.3. CREATE LOCAL ALTERNATIVES IN APPSPOT
-			$this->new_ids = array();
-			foreach ( $this->get_local_alternatives() as $alt ) {
-				/** @var NelioABAlternative $alt */
-				if ( $alt->was_removed() )
-					continue;
-				$body = array(
-					'name'    => $alt->get_name(),
-					'content' => '',
-					'kind'    => NelioABExperiment::get_textual_type(),
-				);
-
-				try {
-					/** @var object|array $result */
-					$result = NelioABBackend::remote_post(
-						sprintf( NELIOAB_BACKEND_URL . '/exp/global/%s/alternative', $exp_id ),
-						$body );
-					$result = json_decode( $result['body'] );
-					$this->new_ids[$alt->get_id()] = $result->key->id;
-				}
-				catch ( Exception $e ) {
-				}
-			}
-
-			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-			NelioABExperimentsManager::update_experiment( $this );
-		}
-
-
-		/**
-		 * Returns PHPDOC
-		 *
-		 * @param int $id PHPDOC
-		 *
-		 * @return int PHPDOC
-		 *
-		 * @since PHPDOC
-		 */
-		public function get_real_id_for_alt( $id ) {
-			if ( isset( $this->new_ids[$id] ) )
-				return $this->new_ids[$id];
-			else
-				return $id;
-		}
-
-
-		/**
-		 * Returns PHPDOC
-		 *
-		 * @param int    $alt_id PHPDOC
-		 * @param string $name   PHPDOC
-		 *
-		 * @return void
-		 *
-		 * @since PHPDOC
-		 */
-		public static function update_widget_set_alternative( $alt_id, $name ) {
-			$body = array(
-				'name'    => $name,
-			);
-			NelioABBackend::remote_post(
-				sprintf( NELIOAB_BACKEND_URL . '/alternative/%s/update', $alt_id ),
-				$body );
-		}
+		}//end do_save()
 
 
 		// @Override
 		public function start() {
+
 			parent::start();
+
+			// Finally, we need to fix the alternatives.
+			$post = get_post( $this->get_id() );
+			$json = $this->post_content2json( $post->post_content );
+			$new_ids = array();
+			$id = -9000;
+			foreach ( $json->alternatives as $alt ) {
+				$new_ids[ $id ] = $alt->key->id;
+				--$id;
+			}
+
+			NelioABWidgetExpAdminController::update_alternatives_ids(
+				$this->get_id(), $new_ids
+			);
+
 			// This fake widget is inserted to make the system believe that there is
 			// at least one alternative with a widget that can be "applied" (and, thus,
 			// the Apply and Clean buttons in the progress of the experiment make
@@ -257,48 +153,91 @@ if ( !class_exists( 'NelioABWidgetAlternativeExperiment' ) ) {
 				$this->get_id(), 'no-alternative',
 				$aux );
 			NelioABWidgetExpAdminController::set_widgets_in_experiments( $aux );
-		}
+
+		}//end start()
 
 
 		// @Override
-		public function duplicate( $new_name ) {
-			$id = parent::duplicate( $new_name );
-			if ( -1 == $id )
-				return $id;
+		public function do_remove() {
 
+			// 1. Remove all the alternative widgets.
 			require_once( NELIOAB_EXP_CONTROLLERS_DIR . '/widget-experiment-controller.php' );
-			require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
+			NelioABWidgetExpAdminController::clean_widgets_in_experiment( $this->get_id() );
 
-			/** @var NelioABMenuAlternativeExperiment $exp */
-			$exp = NelioABExperimentsManager::get_experiment_by_id( $id, $this->get_type() );
+			// 2. We remove the experiment itself.
+			parent::do_remove();
+
+		}//end do_remove()
+
+
+		// @Override
+		public function post_duplicate( $json, $exp_id ) {
 
 			$alts_src  = $this->get_alternatives();
-			$alts_dest = $exp->get_alternatives();
+			$alt_dest_id = -9001;
 			for ( $i = 0; $i < count( $alts_src ); ++$i ) {
 				/** @var NelioABAlternative $alt_src */
 				$alt_src  = $alts_src[$i];
-				/** @var NelioABAlternative $alt_dest */
-				$alt_dest = $alts_dest[$i];
 				NelioABWidgetExpAdminController::duplicate_widgets(
 					$this->get_id(), $alt_src->get_id(),
-					$exp->get_id(), $alt_dest->get_id() );
-			}
+					$exp_id, $alt_dest_id
+				);
+				--$alt_dest_id;
+			}//end for
 
-			return $id;
+			return $json;
+
 		}
+
+		// @Override
+		public function update_alternatives_ids( $exp_id, $old_alt_ids, $new_alt_ids ) {
+
+			// Save the mapping for future reference.
+			$this->new_ids = array();
+			$count = count( $old_alt_ids );
+			for ( $i = 0; $i < $count; ++$i ) {
+				$this->new_ids[ $old_alt_ids[ $i ] ] = $new_alt_ids[ $i ];
+			}//end for
+
+			NelioABWidgetExpAdminController::update_alternatives_ids(
+				$this->get_id(), $this->new_ids
+			);
+
+		}//end update_alternatives_ids()
+
+
+		/**
+		 * TODO
+		 *
+		 * @since PHPDOC
+		 */
+		public function get_real_id_for_alt( $id ) {
+
+			if ( isset( $this->new_ids[ $id ] ) ) {
+				return $this->new_ids[ $id ];
+			} else {
+				return $id;
+			}//end if
+
+		}//end get_real_id_for_alt()
 
 
 		// @Implements
-		public static function load( $id ) {
-			$json_data = NelioABBackend::remote_get( NELIOAB_BACKEND_URL . '/exp/global/' . $id );
-			$json_data = json_decode( $json_data['body'] );
+		public static function load( $post ) {
+			if ( is_int( $post ) ) {
+				$post = get_post( $post );
+			}
 
-			$exp = new NelioABWidgetAlternativeExperiment( $json_data->key->id );
+			$exp = new NelioABWidgetAlternativeExperiment( $post->ID );
+			$json_data = $exp->post_content2json( $post->post_content );
+
+			$exp->set_key_id( $json_data->key->id );
 			$exp->set_type_using_text( $json_data->kind );
 			$exp->set_name( $json_data->name );
 			if ( isset( $json_data->description ) )
 				$exp->set_description( $json_data->description );
 			$exp->set_status( $json_data->status );
+			$exp->set_creation_date( $json_data->creation );
 			$exp->set_finalization_mode( $json_data->finalizationMode );
 			if ( isset( $json_data->finalizationModeValue ) )
 				$exp->set_finalization_value( $json_data->finalizationModeValue );
@@ -316,26 +255,17 @@ if ( !class_exists( 'NelioABWidgetAlternativeExperiment' ) ) {
 					$alt = new NelioABAlternative( $json_alt->key->id );
 					$alt->set_name( $json_alt->name );
 					if ( isset( $json_alt->content ) )
-						$alt->set_value( $json_alt->content->value );
+						$alt->set_value( $json_alt->value );
 					else
 						$alt->set_value( '' );
 					array_push ( $alternatives, $alt );
 				}
 			}
-			$exp->set_appspot_alternatives( $alternatives );
+			$exp->set_alternatives( $alternatives );
 
 			return $exp;
 		}
 
-
-		// @Override
-		public function remove() {
-			// 1. We remove the experiment itself
-			parent::remove();
-			// 2. And we now remove all the alternative widgets
-			require_once( NELIOAB_EXP_CONTROLLERS_DIR . '/widget-experiment-controller.php' );
-			NelioABWidgetExpAdminController::clean_widgets_in_experiment( $this->get_id() );
-		}
 
 	}//NelioABWidgetAlternativeExperiment
 

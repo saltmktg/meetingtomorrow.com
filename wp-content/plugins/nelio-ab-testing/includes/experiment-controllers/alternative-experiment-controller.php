@@ -63,6 +63,15 @@ class NelioABAlternativeExperimentController {
 
 
 	/**
+	 * PHPDOC
+	 *
+	 * @since PHPDOC
+	 * @var array
+	 */
+	private $relevant_widgets;
+
+
+	/**
 	 * It creates a new instance of this controller.
 	 *
 	 * In principle, this class should be used as if it implemented the
@@ -76,6 +85,7 @@ class NelioABAlternativeExperimentController {
 		$this->actual_theme = false;
 		$this->original_theme = false;
 		$this->applied_headlines = array();
+		$this->relevant_widgets = false;
 	}
 
 
@@ -362,7 +372,7 @@ class NelioABAlternativeExperimentController {
 	 */
 	private function get_global_alt_exp_running() {
 		require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			if ( $exp->get_type() == NelioABExperiment::THEME_ALT_EXP ||
@@ -549,6 +559,11 @@ class NelioABAlternativeExperimentController {
 	 * @since PHPDOC
 	 */
 	private function fix_widgets_for_widget_exp( $all_widgets, $alt ) {
+
+		if ( $this->relevant_widgets ) {
+			return $this->relevant_widgets;
+		}//end if
+
 		/** @var NelioABExperiment $exp */
 		$exp = $this->get_global_alt_exp_running();
 		if ( $exp->get_type() != NelioABExperiment::WIDGET_ALT_EXP )
@@ -576,6 +591,8 @@ class NelioABAlternativeExperimentController {
 				}
 			}
 		}
+
+		$this->relevant_widgets = $res;
 		return $res;
 	}
 
@@ -590,6 +607,11 @@ class NelioABAlternativeExperimentController {
 	 * @since PHPDOC
 	 */
 	public function filter_original_widgets( $all_widgets ) {
+
+		if ( $this->relevant_widgets ) {
+			return $this->relevant_widgets;
+		}//end if
+
 		require_once( NELIOAB_EXP_CONTROLLERS_DIR . '/widget-experiment-controller.php' );
 		$widgets_in_experiments = NelioABWidgetExpAdminController::get_widgets_in_experiments();
 		$res = array();
@@ -602,6 +624,8 @@ class NelioABAlternativeExperimentController {
 					array_push( $res[$sidebar], $widget );
 			}
 		}
+
+		$this->relevant_widgets = $res;
 		return $res;
 	}
 
@@ -654,12 +678,19 @@ class NelioABAlternativeExperimentController {
 	 * @since PHPDOC
 	 */
 	private function fix_widgets_for_theme_exp( $all_widgets ) {
+
+		if ( $this->relevant_widgets ) {
+			return $this->relevant_widgets;
+		}//end if
+
 		$actual_theme = $this->get_actual_theme();
 		$original_theme = $this->get_original_theme();
 		$actual_theme_id = $actual_theme['Stylesheet'];
 
-		if ( !$original_theme || $original_theme['Stylesheet'] == $actual_theme_id )
+		if ( !$original_theme || $original_theme['Stylesheet'] == $actual_theme_id ) {
+			$this->relevant_widgets = $all_widgets;
 			return $all_widgets;
+		}
 
 		$aux = get_option( 'theme_mods_' . $actual_theme_id, array() );
 		if ( isset( $aux['sidebars_widgets'] ) ) {
@@ -667,9 +698,11 @@ class NelioABAlternativeExperimentController {
 			if ( is_array( $sidebars_widgets ) && isset( $sidebars_widgets['array_version'] ) ) {
 				unset( $sidebars_widgets['array_version'] );
 			}
+			$this->relevant_widgets = $sidebars_widgets;
 			return $sidebars_widgets;
 		}
 
+		$this->relevant_widgets = array();
 		return array();
 	}
 
@@ -1045,7 +1078,7 @@ class NelioABAlternativeExperimentController {
 	 */
 	public function is_post_in_a_post_alt_exp( $post_id ) {
 		require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			if ( $exp->get_type() == NelioABExperiment::POST_ALT_EXP ||
@@ -1070,7 +1103,7 @@ class NelioABAlternativeExperimentController {
 	 */
 	public function is_post_in_a_headline_alt_exp( $post_id ) {
 		require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			if ( $exp->get_type() == NelioABExperiment::HEADLINE_ALT_EXP &&
@@ -1092,7 +1125,7 @@ class NelioABAlternativeExperimentController {
 	 */
 	private function is_post_alternative( $post_id ) {
 		require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			if ( $exp->get_type() == NelioABExperiment::POST_ALT_EXP ||
@@ -1121,7 +1154,7 @@ class NelioABAlternativeExperimentController {
 	 */
 	public function get_original_related_to( $alt_id ) {
 		require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			if ( $exp->get_type() == NelioABExperiment::POST_ALT_EXP ||
@@ -1235,7 +1268,7 @@ class NelioABAlternativeExperimentController {
 	 * @since PHPDOC
 	 */
 	private function add_active_headline_experiment( $exp, $alt ) {
-		$exp_id = $exp->get_id();
+		$exp_id = $exp->get_key_id();
 		$aux = $alt->get_value();
 		$alt_id = $aux['id'];
 		foreach ( $this->applied_headlines as $info )
@@ -1258,7 +1291,7 @@ class NelioABAlternativeExperimentController {
 	 * @since PHPDOC
 	 */
 	public function is_there_a_running_headline_experiment() {
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			if ( $exp->get_type() == NelioABExperiment::HEADLINE_ALT_EXP )
@@ -1346,13 +1379,13 @@ class NelioABAlternativeExperimentController {
 				$this->add_active_headline_experiment( $headline_data['exp'], $headline_data['alt'] );
 				/** @var NelioABAlternative $alt */
 				$alt = $headline_data['alt'];
-				$value = $alt->get_value();
+				$alt_value = $alt->get_value();
 				// This first IF is a safeguard...
-				if ( is_array( $value ) && isset( $value['image_id'] ) ) {
+				if ( is_array( $alt_value ) && isset( $alt_value['image_id'] ) && 'inherit' !== $alt_value['image_id'] ) {
 					if ( $single )
-						return $value['image_id'];
+						return $alt_value['image_id'];
 					else
-						return $value['image_id'];
+						return $alt_value['image_id'];
 				}
 			}
 		}
@@ -1477,7 +1510,7 @@ class NelioABAlternativeExperimentController {
 		// get out!
 		require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
 		$send_form_event = false;
-		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments_from_cache();
+		$running_exps = NelioABExperimentsManager::get_relevant_running_experiments();
 		foreach ( $running_exps as $exp ) {
 			/** @var NelioABExperiment $exp */
 			foreach ( $exp->get_goals() as $goal ) {

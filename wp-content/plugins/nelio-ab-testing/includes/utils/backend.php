@@ -173,7 +173,7 @@ if ( !class_exists( 'NelioABBackend' ) ) {
 
 			if ( is_wp_error( $result ) ) {
 				$err = NelioABErrCodes::BACKEND_NOT_AVAILABLE;
-				throw new Exception( NelioABErrCodes::to_string( $err ) . '<br>\n' . $result->get_error_message(), $err );
+				throw new Exception( NelioABErrCodes::to_string( $err ) . "<br>" . $result->get_error_message(), $err );
 			}
 
 			if ( $result['response']['code'] == 404 ) {

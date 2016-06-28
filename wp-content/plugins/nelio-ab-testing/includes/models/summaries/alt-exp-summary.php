@@ -98,7 +98,7 @@ if ( !class_exists( 'NelioABAltExpSummary' ) ) {
 		 * @since 3.0.0
 		 */
 		public function set_result_status( $status, $confidence ) {
-			$this->result_status = NelioABGTest::get_result_status_from_str( $status );
+			$this->result_status = $status;
 			if ( NelioABGTest::WINNER == $this->result_status ) {
 				if ( NelioABSettings::get_min_confidence_for_significance() <= $confidence )
 					$this->result_status = NelioABGTest::WINNER_WITH_CONFIDENCE;
@@ -303,32 +303,85 @@ if ( !class_exists( 'NelioABAltExpSummary' ) ) {
 
 
 		// @Implements
-		public function load_json4ae( $json ) {
-			$this->set_name( $json->name );
-			$this->set_type_using_text( $json->kind );
-			$this->set_creation_date( $json->creation );
-			$this->set_total_visitors( $json->visitors );
-			$this->set_total_conversions( $json->conversions );
+		public function build_summary( $exp ) {
 
-			$confidence = 0;
-			if ( isset( $json->confidenceInResultStatus ) ) {
-				$confidence = $json->confidenceInResultStatus;
-			}
-			if ( isset( $json->resultStatus ) ) {
-				$this->set_result_status( $json->resultStatus, $confidence );
-			}
+			$goal = false;
+			$goals = $exp->get_goals();
+			if ( count( $goals ) == 0 ) {
+				return;
+			}//end if
+			foreach ( $goals as $g ) {
+				if ( $g->is_main_goal() ) {
+					$goal = $g;
+					break;
+				}//end if
+			}//end foreach
+			if ( ! $goal ) {
+				$goal = $goals[0];
+			}//end if
 
-			if ( isset( $json->altVisitors ) ) {
-				for ( $i = 0; $i < count( $json->altVisitors ); ++$i ) {
-					$id = $json->altVisitors[$i]->first;
-					$v = $json->altVisitors[$i]->second;
-					$c = $json->altConversions[$i]->second;
-					$this->add_alternative_info( $id, $v, $c );
-				}
+			$this->set_name( $exp->get_name() );
+			$this->set_type( $exp->get_type() );
+			$this->set_creation_date( $exp->get_creation_date() );
+
+			// Add the original
+			if ( ! $exp->is_global() ) {
+				$alternatives = array( $this->get_id() );
 			} else {
-				for ( $id = 0; $id < $json->alternatives; ++$id )
-					$this->add_alternative_info( -$id, 0, 0 );
+				$alternatives = array();
+			}//end if
+
+			$post = get_post( $this->get_id() );
+			if ( $post ) {
+				$json = $this->post_content2json( $post->post_content );
+				if ( isset( $json->alternatives ) ) {
+					foreach ( $json->alternatives as $alt ) {
+						array_push( $alternatives, $alt->key->id );
+					}
+				}
 			}
+
+			$this->set_total_visitors( 0 );
+			$this->set_total_conversions( 0 );
+			$this->set_result_status( NelioABGTest::UNKNOWN, 0 );
+
+			try {
+				$results = $goal->get_results();
+
+				$this->set_total_visitors( $results->get_total_visitors() );
+				$this->set_total_conversions( $results->get_total_conversions() );
+
+				$confidence = $results->get_confidence();
+				$this->set_result_status( $results->get_summary_status(), $confidence );
+
+				$visitors = array();
+				$conversions = array();
+				foreach ( $results->get_alternative_results() as $alt_stats ) {
+					array_push( $visitors, $alt_stats->get_num_of_visitors() );
+					array_push( $conversions, $alt_stats->get_num_of_conversions() );
+				}//end foreach
+
+			} catch ( Exception $e ) {
+			}//end try
+
+			$this->alternative_info = array();
+			for ( $i = 0; $i < count( $alternatives ); ++$i ) {
+				$alt = $alternatives[$i];
+
+				if ( isset( $visitors[$i] ) ) {
+					$v = $visitors[$i];
+				} else {
+					$v = 0;
+				}
+
+				if ( isset( $conversions[$i] ) ) {
+					$c = $conversions[$i];
+				} else {
+					$c = 0;
+				}
+
+				$this->add_alternative_info( $alt, $v, $c );
+			}//end for
 
 		}
 

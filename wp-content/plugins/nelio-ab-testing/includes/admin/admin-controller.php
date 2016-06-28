@@ -525,11 +525,13 @@ if ( !class_exists( 'NelioABAdminController' ) ) {
 		}
 
 		public function generate_html_content() {
-			if ( isset( $_POST['filename'] ) && isset( $_POST['classname'] ) ) {
-				$file  = $_POST['filename'];
+			if ( isset( $_POST['classfi'] ) && isset( $_POST['classname'] ) ) {
+				$file  = realpath( $_POST['classfi'] );
 				$class = $_POST['classname'];
-				require_once( $file );
-				call_user_func( array ( $class, 'generate_html_content' ) );
+				if ( strpos( $file, NELIOAB_ROOT_DIR ) === 0 ) {
+					require_once( $file );
+					call_user_func( array ( $class, 'generate_html_content' ) );
+				}//end if
 			}
 		}
 
@@ -815,6 +817,13 @@ if ( !class_exists( 'NelioABAdminController' ) ) {
 		 */
 		public function print_alternative_comments( $post ) {
 			$checked = get_post_meta( $post->ID, '_nelioab_hide_discussion', true );
+			if ( $checked === '' ) {
+				if ( $post->post_type === 'post' ) {
+					$checked = false;
+				} else {
+					$checked = true;
+				}//end if
+			}//end if
 			?>
 			<input name="nelioab_hide_discussion" type="checkbox" <?php
 					checked( $checked );

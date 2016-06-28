@@ -363,6 +363,16 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 * the experiment has not been synced to AppEngine yet, the ID will be -1.
 		 *
 		 * @since 1.0.10
+		 * @var string
+		 */
+		protected $key_id;
+
+
+		/**
+		 * The identifier of the local nelioab_local_exp that keeps info about
+		 * this post.
+		 *
+		 * @since 4.3.2
 		 * @var int
 		 */
 		protected $id;
@@ -434,16 +444,6 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 
 
 		/**
-		 * The number of days since the experiment was stopped.
-		 *
-		 * @since 3.2.1
-		 * @var int This value is used for showing/hiding experiments on the
-		 *          _Experiments_ page (according to Nelio's settings).
-		 */
-		private $days_since_finalization;
-
-
-		/**
 		 * The type of the experiment.
 		 *
 		 * @since 1.2.0
@@ -482,7 +482,7 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 * It specifies whether the current experiment is fully loaded.
 		 *
 		 * @see NelioABExperimentsManager::get_experiment_by_id
-		 * @see NelioABExperimentsManager::get_relevant_running_experiments_from_cache
+		 * @see NelioABExperimentsManager::get_relevant_running_experiments
 		 *
 		 * @since 3.4.0
 		 * @var boolean This attribute specifies whether the experiment is fully
@@ -517,6 +517,7 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 * @since 1.0.10
 		 */
 		public function clear() {
+			$this->key_id = 0;
 			$this->id = -time();
 			$this->name = '';
 			$this->descr = '';
@@ -526,7 +527,6 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 			$this->is_fully_loaded = false;
 			$this->finalization_mode  = self::FINALIZATION_MANUAL;
 			$this->finalization_value = '';
-			$this->days_since_finalization = 0;
 		}
 
 
@@ -578,7 +578,7 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 * @return boolean Whether this experiment is fully loaded or not.
 		 *
 		 * @see NelioABExperimentsManager::get_experiment_by_id
-		 * @see NelioABExperimentsManager::get_relevant_running_experiments_from_cache
+		 * @see NelioABExperimentsManager::get_relevant_running_experiments
 		 *
 		 * @since 3.4.0
 		 */
@@ -639,6 +639,12 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 				array_unshift( $this->goals, $goal );
 			else
 				array_push( $this->goals, $goal );
+
+			for ( $i = 0; $i < count( $this->goals ); ++$i ) {
+				$g = $this->goals[$i];
+				$g->set_order( $i + 1 );
+			}//end for
+
 		}
 
 
@@ -756,15 +762,39 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 
 
 		/**
-		 * It returns the ID of this experiment..
+		 * It returns the ID of this experiment.
 		 *
 		 * @return int the ID of this experiment.
 		 *
 		 * @since 1.0.10
 		 */
 		public function get_id() {
-			return $this->id;
+			return intval( $this->id );
 		}
+
+
+		/**
+		 * It returns the ID of this experiment.
+		 *
+		 * @return int the ID of this experiment.
+		 *
+		 * @since 4.3.2
+		 */
+		public function get_key_id() {
+			return $this->key_id;
+		}//end get_key_id()
+
+
+		/**
+		 * Sets the AE id to this experiment (if any).
+		 *
+		 * @param string $key_id AE id to this experiment (if any).
+		 *
+		 * @since 4.3.2
+		 */
+		public function set_key_id( $key_id ) {
+			$this->key_id = $key_id;
+		}//end set_key_id()
 
 
 		/**
@@ -932,22 +962,14 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 * @since 3.2.1
 		 */
 		public function get_days_since_finalization() {
-			return $this->days_since_finalization;
-		}
 
+			if ( isset( $this->end_date ) && ! empty( $this->end_date ) ) {
+				return floor( ( time() - strtotime( $this->end_date ) ) / 86400 );
+			} else {
+				return 0;
+			}//end if
 
-		/**
-		 * It sets the number of days that have gone by since the experiment was stopped.
-		 *
-		 * @param int $days_since_finalization the number of days that have gone by since the experiment was stopped.
-		 *
-		 * @return void
-		 *
-		 * @since 3.2.1
-		 */
-		public function set_days_since_finalization( $days_since_finalization ) {
-			$this->days_since_finalization = $days_since_finalization;
-		}
+		}//end get_days_since_finalization()
 
 
 		/**
@@ -1047,41 +1069,6 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 
 
 		/**
-		 * It synchronizes the goals to AppEngine.
-		 *
-		 * * If a new goal has been created and added to the experiment, so it does
-		 * in AppEngine.
-		 * * If a goal has been modified, the changes are commited to AppEngine.
-		 * * If a goal has been removed, so it is in AppEngine.
-		 *
-		 * @return void
-		 *
-		 * @since 1.4.0
-		 */
-		public function make_goals_persistent() {
-			require_once( NELIOAB_MODELS_DIR . '/goals/goals-manager.php' );
-			$remaining_goals = array();
-			$order = 0;
-			foreach ( $this->get_goals() as $goal ) {
-				/** @var NelioABGoal $goal */
-				$url = $this->get_url_for_making_goal_persistent( $goal );
-				if ( $goal->has_to_be_deleted() ) {
-					if ( $goal->get_id() > 0 )
-						NelioABBackend::remote_post( $url );
-				}
-				else {
-					$order++;
-					array_push( $remaining_goals, $goal );
-					$encoded = $goal->encode_for_appengine();
-					$encoded['order'] = $order;
-					$res = NelioABBackend::remote_post( $url, $encoded );
-				}
-			}
-			$this->goals = $remaining_goals;
-		}
-
-
-		/**
 		 * It schedules the start of the experiment for the given date.
 		 *
 		 * @param string $date the date in which the experiment has to be automatically started.
@@ -1176,30 +1163,339 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 *
 		 * @param string $new_name the new name of the duplicated experiment.
 		 *
-		 * @return int the ID of the new experiment (if successfully duplicated) or -1 otherwise.
-		 *
 		 * @since 3.4.0
 		 */
 		public function duplicate( $new_name ) {
+
 			// If the experiment is not running, or finished, or ready...
 			// then it cannot be duplicated
 			if ( $this->get_status() != NelioABExperiment::STATUS_RUNNING &&
 			     $this->get_status() != NelioABExperiment::STATUS_FINISHED &&
 			     $this->get_status() != NelioABExperiment::STATUS_SCHEDULED &&
-			     $this->get_status() != NelioABExperiment::STATUS_READY )
-				return -1;
+			     $this->get_status() != NelioABExperiment::STATUS_READY ) {
+				return;
+			}//end if
 
-			require_once( NELIOAB_UTILS_DIR . '/backend.php' );
-			$url = sprintf(
-				NELIOAB_BACKEND_URL . '/exp/%s/%s/duplicate',
-				$this->get_exp_kind_url_fragment(), $this->get_id()
-			);
-			$body = array( 'name' => $new_name );
-			$result = NelioABBackend::remote_post( $url, $body );
+			$post_data = get_post( $this->get_id(), ARRAY_A );
+			if ( $post_data && ! is_wp_error( $post_data ) ) {
 
-			$result = json_decode( $result['body'] );
-			return $result->id;
-		}
+				$json = $this->post_content2json( $post_data['post_content'] );
+
+				$json->key->id = 0;
+				$json->name = $new_name;
+				$json->creation = nelioab_get_time();
+				$json->status = NelioABExperiment::STATUS_READY;
+				$json->start = null;
+				$json->finalization = null;
+
+				// Remove heatmap goals.
+				$goals = array();
+				foreach ( $json->goals as $goal ) {
+					if ( $goal->kind !== 'HeatmapGoal' ) {
+						array_push( $goals, $goal );
+					}//end if
+				}//end foreach
+				$json->goals = $goals;
+
+				if ( isset( $json->goals ) ) {
+					$id = -9000;
+					foreach ( $json->goals as &$goal ) {
+						$goal->key->id = $id;
+						--$id;
+					}//end foreach
+				}//end if
+
+				if ( isset( $json->alternatives ) ) {
+					$id = -9000;
+					$old_alt_ids = array();
+					$new_alt_ids = array();
+					foreach ( $json->alternatives as &$alt ) {
+						array_push( $old_alt_ids, $alt->key->id );
+						array_push( $new_alt_ids, $id );
+						$alt->key->id = $id;
+						--$id;
+					}//end foreach
+				}//end if
+
+				unset( $post_data['ID'] );
+				$post_data['post_title'] = $new_name;
+				$id = wp_insert_post( $post_data );
+				if ( $id ) {
+					$post_data['ID'] = $id;
+				}//end if
+
+				$json = $this->post_duplicate( $json, $id );
+
+				if ( isset( $json->alternatives ) ) {
+					$this->update_alternatives_ids( $id, $old_alt_ids, $new_alt_ids );
+				}//end if
+
+				switch ( $json->status ) {
+					case NelioABExperiment::STATUS_DRAFT:
+						$status = 'draft';
+						break;
+					case NelioABExperiment::STATUS_PAUSED:
+						$status = 'nelioab_paused';
+						break;
+					case NelioABExperiment::STATUS_READY:
+						$status = 'nelioab_ready';
+						break;
+					case NelioABExperiment::STATUS_RUNNING:
+						$status = 'nelioab_running';
+						break;
+					case NelioABExperiment::STATUS_FINISHED:
+						$status = 'nelioab_finished';
+						break;
+					case NelioABExperiment::STATUS_TRASH:
+						$status = 'trash';
+						break;
+					case NelioABExperiment::STATUS_SCHEDULED:
+						$status = 'nelioab_scheduled';
+						break;
+					default:
+						$status = 'draft';
+				}
+
+				$post_data['post_content'] = $this->json2post_content( $json );
+				$post_data['post_status'] = $status;
+
+				wp_update_post( $post_data );
+
+
+			}//end if
+
+			NelioABExperimentsManager::refresh();
+
+		}//end duplicate()
+
+
+		/**
+		 * It saves the experiment.
+		 *
+		 * @return int the new ID.
+		 *
+		 * @since 1.0.10
+		 */
+		public function save() {
+
+			NelioABExperimentsManager::get_experiments();
+
+			if ( $this->get_id() < 0 ) {
+				$this->id = wp_insert_post( array(
+					'post_title' => $this->get_name(),
+					'post_type'  => 'nelioab_local_exp',
+				) );
+			}//end if
+
+			if ( $this->get_status() != NelioABExperiment::STATUS_PAUSED &&
+				$this->get_status() != NelioABExperiment::STATUS_RUNNING &&
+				$this->get_status() != NelioABExperiment::STATUS_FINISHED &&
+				$this->get_status() != NelioABExperiment::STATUS_TRASH ) {
+				$this->set_status( $this->determine_proper_status() );
+			}
+
+			// DO Custom Stuff (such as, for instance, preparing the alternatives)
+			$this->do_save();
+
+			$result = $this->encode_for_appengine();
+
+			if ( isset( $result['goals'] ) ) {
+				$id = -9000;
+				for ( $i = 0; $i < count( $result['goals'] ); ++$i ) {
+					if ( $result['goals'][$i]['key']['id'] < 0 ) {
+						$result['goals'][$i]['key']['id'] = $id;
+						--$id;
+					}//end if
+				}//end foreach
+			}//end if
+
+			if ( isset( $result['alternatives'] ) ) {
+
+				$id = -9000;
+				$old_alt_ids = array();
+				$new_alt_ids = array();
+				for ( $i = 0; $i < count( $result['alternatives'] ); ++$i ) {
+					if ( $result['alternatives'][$i]['key']['id'] < 0 ) {
+						array_push( $old_alt_ids, $result['alternatives'][$i]['key']['id'] );
+						array_push( $new_alt_ids, $id );
+						$result['alternatives'][$i]['key']['id'] = $id;
+						--$id;
+					} else {
+						array_push( $old_alt_ids, $result['alternatives'][$i]['key']['id'] );
+						array_push( $new_alt_ids, $result['alternatives'][$i]['key']['id'] );
+					}//end if
+				}//end for
+
+				$this->update_alternatives_ids( $this->get_id(), $old_alt_ids, $new_alt_ids );
+
+			}//end if
+
+			switch ( $this->get_status() ) {
+				case NelioABExperiment::STATUS_DRAFT:
+					$status = 'draft';
+					break;
+				case NelioABExperiment::STATUS_PAUSED:
+					$status = 'nelioab_paused';
+					break;
+				case NelioABExperiment::STATUS_READY:
+					$status = 'nelioab_ready';
+					break;
+				case NelioABExperiment::STATUS_RUNNING:
+					$status = 'nelioab_running';
+					break;
+				case NelioABExperiment::STATUS_FINISHED:
+					$status = 'nelioab_finished';
+					break;
+				case NelioABExperiment::STATUS_TRASH:
+					$status = 'trash';
+					break;
+				case NelioABExperiment::STATUS_SCHEDULED:
+					$status = 'nelioab_scheduled';
+					break;
+				default:
+					$status = 'draft';
+			}
+
+			$post = get_post( $this->get_id() );
+			$creation_date = 0;
+			try {
+				if ( $post ) {
+					$json = $this->post_content2json( $post->post_content );
+					if ( ! empty( $json->creation ) ) {
+						$creation_date = $json->creation;
+					}//end if
+				}//end if
+			} catch ( Exception $e ) {
+			}//end try
+
+			if ( strtotime( $creation_date ) < 1451606400 ) {
+				$creation_date = nelioab_get_time();
+			}//end if
+
+			// Make sure that the creation date is correct:
+			$result['creation'] = $creation_date;
+
+			wp_update_post( array(
+				'ID'           => $this->get_id(),
+				'post_name'    => 'nelioab-local-exp-' . $this->get_id(),
+				'post_title'   => $this->get_name(),
+				'post_content' => $this->json2post_content( $result ),
+				'post_status'  => $status,
+			) );
+
+			NelioABExperimentsManager::refresh();
+
+			return $id;
+
+		}//end save()
+
+
+		/**
+		 * It removes the experiment.
+		 *
+		 * @return void
+		 *
+		 * @since 1.0.10
+		 */
+		public function remove() {
+
+			$this->do_remove();
+			wp_update_post( array(
+				'ID'          => $this->get_id(),
+				'post_status' => 'nelioab_deleted',
+			) );
+			NelioABExperimentsManager::refresh();
+
+		}//end remove()
+
+
+		/**
+		 * It starts the experiment.
+		 *
+		 * When an experiment is started, its status is set to `STATUS_RUNNING`.
+		 *
+		 * @return void
+		 *
+		 * @since 1.0.10
+		 */
+		public function start() {
+
+			if ( $this->get_status() === self::STATUS_RUNNING ) {
+				return;
+			}//end if
+
+			$this->pre_start();
+
+			try {
+
+				$post = get_post( $this->get_id() );
+
+				$params = array( 'body' => array(
+					'customerId'         => NelioABAccountSettings::get_customer_id(),
+					'siteId'             => NelioABAccountSettings::get_site_id(),
+					'registrationNumber' => NelioABAccountSettings::get_reg_num(),
+					'object'             => urldecode( $post->post_content ),
+				) );
+
+				$url = NELIOAB_BACKEND_SERVLET_URL . '/exp/createstart';
+
+				$result = NelioABBackend::remote_post_raw( $url, $params );
+
+				$json = json_decode( $result['body'] );
+				if ( isset( $json->status ) && $json->status == NelioABExperiment::STATUS_RUNNING ) {
+
+					$post->post_content = $this->json2post_content( $json );
+					$post->post_status = 'nelioab_running';
+					wp_update_post( $post );
+
+				} else {
+
+					$err = NelioABErrCodes::EXPERIMENT_NOT_RUNNING;
+					throw new Exception( NelioABErrCodes::to_string( $err ), $err );
+
+				}//end if
+
+			}//end try
+			catch ( Exception $e ) {
+
+				throw $e;
+
+			}//end catch
+
+			NelioABExperimentsManager::refresh();
+			update_option( 'nelioab_last_start_or_stop', time() );
+
+		}//end start()
+
+
+
+		/**
+		 * It stops the experiment.
+		 *
+		 * When an experiment is stopped, its status is set to `STATUS_FINISHED`.
+		 *
+		 * @return void
+		 *
+		 * @since 1.0.10
+		 */
+		public function stop() {
+
+			$this->do_stop();
+
+			$post = get_post( $this->get_id() );
+			$json = $this->post_content2json( $post->post_content );
+
+			$json->status = NelioABExperiment::STATUS_FINISHED;
+			$json->finalization = nelioab_get_time();
+
+			$post->post_content = $this->json2post_content( $json );
+			$post->post_status = 'nelioab_finished';
+			wp_update_post( $post );
+
+			NelioABExperimentsManager::refresh();
+			update_option( 'nelioab_last_start_or_stop', time() );
+
+		}//end stop()
 
 
 		/**
@@ -1255,16 +1551,54 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 
 
 		/**
+		 * This function encodes this experiment for appengine.
+		 *
+		 * @returns array this experiment encoded for appengine.
+		 *
+		 * @since 1.5.6
+		 */
+		public function encode_for_appengine() {
+
+			// 1. PREPARE GOALS.
+			$goals = array();
+			foreach ( $this->get_goals() as $goal ) {
+				array_push( $goals, $goal->encode_for_appengine() );
+			}//end foreach
+
+			// 2. PREPARE THE OBJECT.
+			$result = array(
+				'key'  => array(
+					'id'   => $this->get_key_id(),
+				),
+				'kind' => $this->get_textual_type(),
+				'site' => NelioABAccountSettings::get_site_id(),
+				'name' => $this->get_name(),
+				'description'    => $this->get_description(),
+				'status'         => $this->get_status(),
+				'creation'       => $this->get_creation_date(),
+				'finalization'   => $this->get_end_date(),
+				'benefit'        => 0.0,
+				'goals'          => $goals,
+				'finalizationMode'      => $this->get_finalization_mode(),
+				'finalizationModeValue' => $this->get_finalization_value(),
+			);
+
+			return $result;
+
+		}//end encode_for_appengine()
+
+
+		/**
 		 * This static function creates a new instance of this class, loading all the required information from AppEngine.
 		 *
-		 * @param int $id the ID of the experiment to be retrieved from AppEngine.
+		 * @param WP_Post|int $post the ID of the local `nelioab_local_exp` (or the related wp_post) that contains all the info about this experiment.
 		 *
 		 * @return NelioABExperiment a new instance of this class with all the required information from AppEngine.
 		 *
 		 * @abstract
 		 * @since 4.1.0
 		 */
-		public static function load( /** @noinspection PhpUnusedParameterInspection */ $id ) {
+		public static function load( /** @noinspection PhpUnusedParameterInspection */ $post ) {
 			throw new RuntimeException( 'Not Implemented Method' );
 		}
 
@@ -1283,47 +1617,64 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 
 
 		/**
-		 * It saves the experiment.
+		 * It actually stops the experiment.
+		 *
+		 * This function is called by the "stop" method and makes sure that this
+		 * experiment is actually stopped in AE.
 		 *
 		 * @return void
 		 *
 		 * @since 1.0.10
 		 */
-		public abstract function save();
+		public abstract function do_stop();
 
 
 		/**
-		 * It removes the experiment.
+		 * TODO
 		 *
-		 * @return void
-		 *
-		 * @since 1.0.10
+		 * @since 4.4.0
 		 */
-		public abstract function remove();
+		public abstract function do_save();
 
 
 		/**
-		 * It starts the experiment.
+		 * It actually removes the experiment.
 		 *
-		 * When an experiment is started, its status is set to `STATUS_RUNNING`.
+		 * This function is called by the "remove" method and makes sure that all
+		 * content that has to be removed from WordPress DB is removed.
 		 *
 		 * @return void
 		 *
-		 * @since 1.0.10
+		 * @since 4.4.0
 		 */
-		public abstract function start();
+		public abstract function do_remove();
 
 
 		/**
-		 * It stops the experiment.
+		 * It checks if the experiment can be started and prepares any local info
+		 * that may need tweaking.
 		 *
-		 * When an experiment is stopped, its status is set to `STATUS_FINISHED`.
+		 * This function is called before the experiment is actually started in AE.
 		 *
 		 * @return void
 		 *
-		 * @since 1.0.10
+		 * @since 4.4.0
 		 */
-		public abstract function stop();
+		public abstract function pre_start();
+
+
+		/**
+		 * TODO
+		 *
+		 * @return void
+		 *
+		 * @since 4.4.0
+		 */
+		public function post_duplicate( $json, $exp_id ) {
+
+			return $json;
+
+		}//end post_duplicate()
 
 
 		/**
@@ -1334,6 +1685,45 @@ if ( !class_exists( 'NelioABExperiment' ) ) {
 		 * @since 4.0.0
 		 */
 		public abstract function get_originals_id();
+
+		/**
+		 * TODO
+		 *
+		 * @since 4.0.0
+		 */
+		public function update_alternatives_ids( $exp_id, $old_alt_ids, $new_alt_ids ) {
+
+			// Nothing to be done by default.
+
+		}//end update_alternatives_ids()
+
+		/**
+		 * TODO
+		 *
+		 * @since 4.0.0
+		 */
+		protected function json2post_content( $json ) {
+
+			if ( NELIOAB_SHOW_LOCAL_EXPS ) {
+				$encoded_json = json_encode( $json, JSON_PRETTY_PRINT );
+			} else {
+				$encoded_json = json_encode( $json );
+			}//end if
+
+			return urlencode( $encoded_json );
+
+		}//end json2post_content()
+
+		/**
+		 * TODO
+		 *
+		 * @since 4.0.0
+		 */
+		protected function post_content2json( $post_content ) {
+
+			return json_decode( urldecode( $post_content ) );
+
+		}//end post_content2json
 
 	}//NelioABExperiment
 

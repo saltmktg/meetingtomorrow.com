@@ -130,10 +130,6 @@ function nelioab_activate_plugin() {
 	require_once( NELIOAB_EXP_CONTROLLERS_DIR . '/menu-experiment-controller.php' );
 	NelioABMenuExpAdminController::restore_alternative_menu_backup();
 
-	// Make sure that the cache uses new classes
-	require_once( NELIOAB_MODELS_DIR . '/experiments-manager.php' );
-	NelioABExperimentsManager::update_running_experiments_cache( 'now' );
-
 	// Save the latest version we use for "(re)activating" the plugin and
 	// show the welcome message
 	$version = get_option( 'nelioab_last_version_installed', false );
@@ -185,6 +181,10 @@ function nelioab_deactivate_plugin() {
 					'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE ' .
 						'meta_key = \'_is_nelioab_alternative\' ' .
 				')';
+		$wpdb->query( $query );
+
+		// Remove all alternative experiments
+		$query = 'DELETE FROM ' . $wpdb->posts . ' WHERE post_type = \'nelioab_local_exp\'';
 		$wpdb->query( $query );
 
 		// Clean all experiments in AE
@@ -431,4 +431,25 @@ function nelioab_get_page_on_front() {
 	return $res;
 }
 
+/**
+ * TODO
+ *
+ * @return string TODO.
+ *
+ * @since 4.4.0
+ */
+function nelioab_get_time() {
 
+	if ( function_exists( 'date_default_timezone_set' ) &&
+		   function_exists( 'date_default_timezone_get' ) ) {
+		$tz = date_default_timezone_get();
+		date_default_timezone_set( 'UTC' );
+		$date = date( 'Y-m-d\TH:i:s.000\Z' );
+		date_default_timezone_set( $tz );
+	} else {
+		$date = date( 'Y-m-d\TH:i:s.000\Z' );
+	}//end if
+
+	return $date;
+
+}//end nelioab_get_time()
