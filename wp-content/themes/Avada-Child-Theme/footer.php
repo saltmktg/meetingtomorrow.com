@@ -131,7 +131,7 @@
 
 	<?php wp_footer(); ?>
 
-	<?php echo $smof_data['space_body']; ?>
+	<?php echo $smof_data['space_body']; ?> 
 
 	<!-- Quote Form Popup -->
 	<!-- Quote Tab -->	

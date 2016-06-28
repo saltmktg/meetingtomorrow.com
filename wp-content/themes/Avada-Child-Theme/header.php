@@ -1589,4 +1589,9 @@ $body_classes[] = 'mobile-menu-design-' . $smof_data['mobile_menu_design'];
 	}
 	?>
 	<div id="main" class="clearfix <?php echo $main_class; ?>" style="<?php echo $main_css; ?>">
+	  <?php if (is_home()) {
+	  	echo '<div
+	class="fusion-fullwidth fullwidth-box banner-heading" style="background-attachment:scroll;background-image: url(https://meetingtomorrow.com/wp-content/uploads/2015/05/mt-blog-header-alt.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:110px;padding-left:0px;padding-right:0px;padding-top:110px;"><div
+	class="avada-row"><h1 style="font-size: 46px !important; color: white !important; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, .7);">Meeting Tomorrow</h1><h3 style="font-size: 30px !important; color: #ec7f4c !important; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, .4);">News &amp; Insights</h3></div></div>';
+	  	} ?>
 		<div class="avada-row" style="<?php echo $row_css; ?>">

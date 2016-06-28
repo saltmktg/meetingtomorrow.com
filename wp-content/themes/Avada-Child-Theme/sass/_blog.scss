@@ -1,4 +1,3 @@
-.blog #main,
 .single #main {
   padding-top: 45px !important; }
 
@@ -77,6 +76,9 @@
 .next-post-link {
   float: right; }
 
+.blog #nav_menu-6 {
+  display: none; }
+
 .fusion-blog-medium .blog-medium-slideshow-container {
   width: 35%;
   margin-top: 6px;
@@ -85,6 +87,15 @@
   @media (max-width: $bp3-alt) {
     margin-right: 0%;
     width: 100%; } } 
+
+.blog .pagination {
+  margin-bottom: 60px; }
+
+.blog .banner-heading {
+  margin: 0 -30px 40px; }
+
+.blog-medium h2.entry-title {
+  font-weight: 700 !important; }
 
 .blog-medium h2.entry-title,
 .blog-medium .excerpt-container {
