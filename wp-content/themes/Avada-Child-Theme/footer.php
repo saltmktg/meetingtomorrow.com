@@ -133,12 +133,6 @@
 
 	<?php echo $smof_data['space_body']; ?>
 
-	<script>
-    jQuery(".quote-tab-content").on("click", function(){
-      jQuery("#sidetabContent").load("inc/sidetab-quote-form.php");
-    });
-  </script>
-
 	<!-- Quote Form Popup -->
 	<!-- Quote Tab -->	
 	<a class="fusion-modal-text-link quote-tab-content" data-toggle="modal" data-target=".quote_tab_popup" href="#">
