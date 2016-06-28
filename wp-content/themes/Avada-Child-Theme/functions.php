@@ -590,3 +590,16 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 remove_filter('the_excerpt', 'wptexturize');
 remove_filter('comment_text', 'wptexturize');
 remove_filter('the_title', 'wptexturize');*/
+
+//==================================================
+
+// Register another Sidebar
+add_action( 'widgets_init', 'theme_slug_widgets_init' );
+function theme_slug_widgets_init() {
+    register_sidebar( array(
+        'name' => __( 'Alternate Sidebar', 'theme-slug' ),
+        'id' => 'sidebar-alt',
+        'before_title'  => '<h3 class="widgettitle">',
+        'after_title'   => '</h3>',
+    ) );
+}

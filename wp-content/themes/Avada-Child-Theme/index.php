@@ -178,15 +178,8 @@
 	</div>
 	<?php if( $sidebar_exists == true ): ?>
 	<?php wp_reset_query(); ?>
-	<div id="sidebar" class="sidebar blog-sidebar" style="<?php echo $sidebar_css; ?>">
-		<?php
-		if($sidebar_left == 1) {
-			generated_dynamic_sidebar($sidebar_1);
-		}
-		if($sidebar_left == 2) {
-			generated_dynamic_sidebar_2($sidebar_2);
-		}
-		?>
+	<div id="" class="blog-sidebar">
+		<?php get_sidebar('sidebar-alt'); ?>
 	</div>
 	<?php if( $double_sidebars == true ): ?>
 	<div id="sidebar-2" class="sidebar" style="<?php echo $sidebar_2_css; ?>">
