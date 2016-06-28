@@ -6,7 +6,6 @@
   <?php include_once ('inc/ab-testing-scripts.php') ?>
   <!-- END Google Analytics A/B Testing Scripts -->
 
-
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
@@ -39,12 +38,6 @@
 	?>
 	
 	<?php echo basic_wp_seo(); ?>
-
-	<script>
-    jQuery(".quote-tab").on("click", function(){
-      jQuery("#sidetabContent").load("inc/sidetab-quote-form.php");
-    });
-  </script>
 
 	<!-- Start Visual Website Optimizer Asynchronous Code -->
 	<script type='text/javascript'>
