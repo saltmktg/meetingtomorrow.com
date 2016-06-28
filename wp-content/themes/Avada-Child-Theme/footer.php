@@ -133,6 +133,8 @@
 
 	<?php echo $smof_data['space_body']; ?> 
 
+	
+
 	<!-- Quote Form Popup -->
 	<!-- Quote Tab -->	
 	<a class="fusion-modal-text-link quote-tab-content" data-toggle="modal" data-target=".quote_tab_popup" href="#">
@@ -152,8 +154,12 @@
 					<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Get a Quick Quote</h3>
 				</div>
-				<div class="modal-body">
-					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=AACffht_oVPvzBS2Q5xRFMm3YXYganqAV-g%3D&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+				<div class="modal-body" id="modalBodySidetab">
+							<script>
+					jQuery(window).bind("load", function() {
+					  jQuery('#modalBodySidetab').prepend('<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=AACffht_oVPvzBS2Q5xRFMm3YXYganqAV-g%3D&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>');
+					});
+				</script>
 
 					<!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 

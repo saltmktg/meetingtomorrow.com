@@ -25,12 +25,12 @@ add_action('wp_enqueue_scripts', 'avada_child_scripts');
 //==================================================
 
 // Defer parsing of JavaScript
-function defer_parsing_of_js ( $url ) {
-if ( FALSE === strpos( $url, '.js' ) ) return $url;
-if ( strpos( $url, 'jquery.js' ) ) return $url;
-return "$url' defer ";
-}
-add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
+//function defer_parsing_of_js ( $url ) {
+//if ( FALSE === strpos( $url, '.js' ) ) return $url;
+//if ( strpos( $url, 'jquery.js' ) ) return $url;
+//return "$url' defer ";
+//}
+//add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
 
 //==================================================
 
