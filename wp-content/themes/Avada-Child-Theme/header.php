@@ -1439,7 +1439,7 @@ if( get_post_meta( $c_pageID, 'pyre_display_header', true) != 'no' ) {
 $body_classes[] = 'mobile-menu-design-' . $smof_data['mobile_menu_design'];
 ?>
 
-<body <?php body_class( $body_classes ); ?> data-spy="scroll" onload="_googWcmGet('phone-number-link', '1.877.633.8866')">
+<body <?php body_class( $body_classes ); ?> data-spy="scroll" onload="populateHiddenFields(document.forms['ga-tracking-form'])" onload="_googWcmGet('phone-number-link', '1.877.633.8866')">
 	<?php $boxed_side_header_right = false; ?>
 	<?php if( ( ( $smof_data['layout'] == 'Boxed' && get_post_meta( $c_pageID, 'pyre_page_bg_layout', true ) == 'default' ) || get_post_meta( $c_pageID, 'pyre_page_bg_layout', true ) == 'boxed' ) && $smof_data['header_position'] != 'Top' ): ?>
 	<?php if( $smof_data['slidingbar_widgets'] && ! is_page_template( 'blank.php' ) && $smof_data['header_position'] == 'Right' || $smof_data['header_position'] == 'Left' ): ?>
@@ -1591,7 +1591,7 @@ $body_classes[] = 'mobile-menu-design-' . $smof_data['mobile_menu_design'];
 	<div id="main" class="clearfix <?php echo $main_class; ?>" style="<?php echo $main_css; ?>">
 	  <?php if (is_home()) {
 	  	echo '<div
-	class="fusion-fullwidth fullwidth-box banner-heading" style="background-attachment:scroll;background-image: url(https://meetingtomorrow.com/wp-content/uploads/2015/05/mt-blog-header-alt.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:110px;padding-left:0px;padding-right:0px;padding-top:110px;"><div
-	class="avada-row"><h1 style="font-size: 46px !important; color: white !important; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, .7);">Meeting Tomorrow</h1><h3 style="font-size: 30px !important; color: #ec7f4c !important; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, .4);">News &amp; Insights</h3></div></div>';
+	class="fusion-fullwidth fullwidth-box banner-heading" style="background-attachment:scroll;background-image: url(https://meetingtom-meetingtomorrow.netdna-ssl.com/wp-content/uploads/2015/05/mt-blog-header-alt.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:110px;padding-left:0px;padding-right:0px;padding-top:110px;"><div
+	class="avada-row"><h1 style="font-size: 46px !important; line-height: 50px; color: white !important; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, .7);">Meeting Tomorrow</h1><h3 style="font-size: 30px !important; color: #ec7f4c !important; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, .4);">News &amp; Insights</h3></div></div>';
 	  	} ?>
 		<div class="avada-row" style="<?php echo $row_css; ?>">

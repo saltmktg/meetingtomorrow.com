@@ -153,7 +153,7 @@
 					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Get a Quick Quote</h3>
 				</div>
 				<div class="modal-body">
-					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=AACffht_oVPvzBS2Q5xRFMm3YXYganqAV-g%3D&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+					<iframe id="nsIframeSidetab" src="" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
 					<!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
@@ -450,7 +450,7 @@
 		var loc = window.location.toString();
     params = loc.split('?')[1];     
 
-		document.getElementById("nsIframeSidetab").src = document.getElementById("nsIframeSidetab").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		document.getElementById("nsIframeSidetab").src = 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=AACffht_oVPvzBS2Q5xRFMm3YXYganqAV-g%3D&url=' + encodeURIComponent(window.location.href) + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
 
 		document.getElementById("nsIframeExitIntent").src = document.getElementById("nsIframeExitIntent").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
 
