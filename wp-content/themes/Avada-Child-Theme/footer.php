@@ -278,11 +278,12 @@
   </script>
 
 	<!-- Fitvids.js code - more info here: http://fitvidsjs.com -->
-	<script>
+	<!--<script>
 	  jQuery(document).ready(function(){
 	    jQuery(".fitvids-wrapper").fitVids({ customSelector: "iframe[src^='//fast.wistia.net/embed/iframe/zfnh8g142a']"});
 	  });
 	</script>
+	-->
 
 	<script>
 	  jQuery(document).ready(function(){
@@ -452,7 +453,7 @@
 
 		document.getElementById("nsIframeSidetab").src = 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=AACffht_oVPvzBS2Q5xRFMm3YXYganqAV-g%3D&url=' + encodeURIComponent(window.location.href) + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
 
-		document.getElementById("nsIframeExitIntent").src = document.getElementById("nsIframeExitIntent").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		document.getElementById("nsIframeExitIntent").src = 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=AACffht_JbRmDTPrYhOS7xCYeyKnSLM3M4w%3D&url=' + encodeURIComponent(window.location.href) + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
 
 		document.getElementById("nsIframe").src = document.getElementById("nsIframe").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
                                   

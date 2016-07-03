@@ -131,13 +131,13 @@
 
 	<?php wp_footer(); ?>
 
-	<?php echo $smof_data['space_body']; ?>
+	<?php echo $smof_data['space_body']; ?> 
 
 	<!-- Quote Form Popup -->
 	<!-- Quote Tab -->	
 	<a class="fusion-modal-text-link quote-tab-content" data-toggle="modal" data-target=".quote_tab_popup" href="#">
 		<div class="quote-tab">
-			<div class="quote-tab-img-wrap"><img src="http://meetingtomorrow.com/wp-content/uploads/2015/07/quote-tab.png" alt="Get a Free Quote!"></div> 
+			<div class="quote-tab-img-wrap"><img src="https://meetingtomorrow.com/wp-content/uploads/2015/07/quote-tab.png" alt="Get a Free Quote!"></div> 
 		</div>
 		<div class="quote-tab-mobile">
 			<div class="quote-tab-img-wrap"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/tab-quote-mobile.png" alt="Get a Free Quote!"></div> 
@@ -153,7 +153,12 @@
 					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Get a Quick Quote</h3>
 				</div>
 				<div class="modal-body">
-					<iframe id="nsIframeSidetab" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=4add9c12de957fabde18&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+					
+
+					<?php 
+					  $sidetab_url = 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=65&h=AACffht_oVPvzBS2Q5xRFMm3YXYganqAV-g%3D&url=' . rawurlencode( get_permalink());
+				  ?>
+				  <iframe id="nsIframeSidetab" src="<?php echo $sidetab_url; ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
 					<!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
@@ -172,29 +177,46 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<!-- End Quote Form Popup -->
 
   <!-- Pricelist Popup Form -->
-  <!-- ContactUs.com script to initialize popup -->
-	<script type="text/javascript" src="//cdn.contactus.com/cdn/forms/OWQyOTlhMTQ4MTU,/contactus.js"></script> 
   <!-- Pricelist Tab -->	
-	<a onclick="contactusOpenByFormKey('OWQyOTlhMTQ4MTU,');"> <!--class="fusion-modal-text-link pricelist-tab-content" data-toggle="modal" data-target=".pricelist_tab_popup" href="#">-->
+  <a class="fusion-modal-text-link" data-toggle="modal" data-target=".pricelist_tab_popup" href="#">
 		<div class="pricelist-tab">
-			<div class="pricelist-tab-img-wrap"><img src="http://meetingtomorrow.com/wp-content/uploads/2015/07/pricelist-tab.png" alt="Download a Pricelist"></div> 
+			<div class="pricelist-tab-img-wrap"><img src="https://meetingtomorrow.com/wp-content/uploads/2015/07/pricelist-tab.png" alt="Download a Pricelist"></div> 
 		</div>
 	</a>
-	<!-- Pricelist Form
+	<!-- Pricelist Form -->
 	<div class="fusion-modal modal fade modal-2 pricelist_tab_popup" tabindex="-1" role="dialog" aria-labelledby="modal-heading-2" aria-hidden="true">
-		<style type="text/css">.modal-2 .modal-header, .modal-2 .modal-footer{border-color:#ebebeb;}</style>
+	  <style type="text/css">.modal-2 .modal-header, .modal-2 .modal-footer{border-color:#ebebeb;}</style>
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Download Pricelist</h3>
+					<h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true">Just need pricing? <span style="font-size: 17px; display: block;">Download our Price List PDF</span></h3>
 				</div>
 				<div class="modal-body">
-					<script type="text/javascript" src="//cdn.contactus.com/cdn/forms/OWQyOTlhMTQ4MTU,/inline.js"></script>
+					<div id="wufoo-r1pq4xf3135ngw7">
+					</div>
+					<script type="text/javascript">var r1pq4xf3135ngw7;(function(d, t) {
+					var s = d.createElement(t), options = {
+					'userName':'meetingtomorrow',
+					'formHash':'r1pq4xf3135ngw7',
+					'autoResize':true,
+					'height':'380',
+					'async':true,
+					'host':'wufoo.com',
+					'header':'hide',
+					'ssl':true};
+					s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+					s.onload = s.onreadystatechange = function() {
+					var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+					try { r1pq4xf3135ngw7 = new WufooForm();r1pq4xf3135ngw7.initialize(options);r1pq4xf3135ngw7.display(); } catch (e) {}};
+					var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+					})(document, 'script');</script>
+
 				</div>
 				<div class="modal-footer">
 					<a class="fusion-button button-default button-small button default small" data-dismiss="modal">Close</a>
@@ -202,64 +224,63 @@
 			</div>
 		</div>
 	</div>
-	-->
 
 	<!-- Exit Intent Form -->
 	<!-- Ouibounce Modal -->
-  <div id="ouibounce-modal">
-    <div class="underlay"></div>
-    <div class="ob-modal">
-      <div class="ob-modal-title">
-        <button class="close ob-close" type="button" aria-hidden="true">&times;</button>
-        Get a Quick Quote
-      </div>
-      <div class="ob-modal-body">
-        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=83a177fb847e2f428162&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
+	  <div id="ouibounce-modal">
+	    <div class="underlay"></div>
+	    <div class="ob-modal">
+	      <div class="ob-modal-title">
+	        <button class="close ob-close" type="button" aria-hidden="true">&times;</button>
+	        Get a Quick Quote
+	      </div>
+	      <div class="ob-modal-body">
+	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=AACffht_JbRmDTPrYhOS7xCYeyKnSLM3M4w%3D&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
-        <!-- Form with hidden fields for GA reporting -->
-				<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
-				    <input type='hidden' name='source' /> 
-				    <input type='hidden' name='medium' /> 
-				    <input type='hidden' name='term' /> 
-				    <input type='hidden' name='content' /> 
-				    <input type='hidden' name='campaign' /> 
-				    <input type='hidden' name='gclid' />
-				    <input type='hidden' name='segment' />
-				    <input type='hidden' name='numVisits' />
-				</form>
-      </div>
-      <div class="ob-modal-footer">
-        <a class="fusion-button button-default button-small button default small">Close</a>
-      </div>
-    </div>
-  </div>
+	        <!-- Form with hidden fields for GA reporting -->
+					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
+					    <input type='hidden' name='source' /> 
+					    <input type='hidden' name='medium' /> 
+					    <input type='hidden' name='term' /> 
+					    <input type='hidden' name='content' /> 
+					    <input type='hidden' name='campaign' /> 
+					    <input type='hidden' name='gclid' />
+					    <input type='hidden' name='segment' />
+					    <input type='hidden' name='numVisits' />
+					</form>
+	      </div>
+	      <div class="ob-modal-footer">
+	        <a class="fusion-button button-default button-small button default small">Close</a>
+	      </div>
+	    </div>
+	  </div>
   <!-- End Ouibounce Modal --> 
 
   <script>
-      // if you want to use the 'fire' or 'disable' fn,
-      // you need to save OuiBounce to an object
-      // More info here: https://github.com/carlsednaoui/ouibounce
-      var _ouibounce = ouibounce(document.getElementById('ouibounce-modal'), {
-        timer: 0,
-        delay: 300
-      });
+    // if you want to use the 'fire' or 'disable' fn,
+    // you need to save OuiBounce to an object
+    // More info here: https://github.com/carlsednaoui/ouibounce
+    var _ouibounce = ouibounce(document.getElementById('ouibounce-modal'), {
+      timer: 0,
+      delay: 300
+    });
 
-      jQuery('body').on('click', function() {
-        jQuery('#ouibounce-modal').hide();
-      });
+    jQuery('body').on('click', function() {
+      jQuery('#ouibounce-modal').hide();
+    });
 
-      jQuery('#ouibounce-modal .ob-modal-footer').on('click', function() {
-        jQuery('#ouibounce-modal').hide();
-      });
+    jQuery('#ouibounce-modal .ob-modal-footer').on('click', function() {
+      jQuery('#ouibounce-modal').hide();
+    });
 
-      jQuery('#ouibounce-modal .ob-close').on('click', function() {
-        jQuery('#ouibounce-modal').hide();
-      });
+    jQuery('#ouibounce-modal .ob-close').on('click', function() {
+      jQuery('#ouibounce-modal').hide();
+    });
 
-      jQuery('#ouibounce-modal .ob-modal').on('click', function(e) {
-        e.stopPropagation();
-      });
-    </script>
+    jQuery('#ouibounce-modal .ob-modal').on('click', function(e) {
+      e.stopPropagation();
+    });
+  </script>
 
 	<!-- Fitvids.js code - more info here: http://fitvidsjs.com -->
 	<script>
@@ -429,13 +450,16 @@
 		// Script will check to see if the element exists. If it doesn't, the parameters won't be
 		// added for that element AND any of the following elements below it.
 		// Since nsIframeSidetab and nsExitIntent will be on every page, keep those first. nsIframe goes last
-		// because it's only on certain pages.             
+		// because it's only on certain pages.      
 
-		document.getElementById("nsIframeSidetab").src = document.getElementById("nsIframeSidetab").src + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		var loc = window.location.toString();
+    params = loc.split('?')[1];     
 
-		document.getElementById("nsIframeExitIntent").src = document.getElementById("nsIframeExitIntent").src + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		document.getElementById("nsIframeSidetab").src = document.getElementById("nsIframeSidetab").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
 
-		document.getElementById("nsIframe").src = document.getElementById("nsIframe").src + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+		document.getElementById("nsIframeExitIntent").src = document.getElementById("nsIframeExitIntent").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
+
+		document.getElementById("nsIframe").src = document.getElementById("nsIframe").src + '&custentity_web_lead_nab_parameter=' + encodeURIComponent(params) + '&custentity_ga_search_campaign=' + encodeURIComponent(campaign) + '&custentity_ga_search_source=' + encodeURIComponent(source) + '&custentity_ga_search_medium=' + encodeURIComponent(medium) + '&custentity_ga_search_keyword=' + encodeURIComponent(term) + '&custentity_ga_search_content=' + encodeURIComponent(content) + '&custentity_ga_search_gclid=' + encodeURIComponent(gclid);
                                   
         return false; 
   } 
