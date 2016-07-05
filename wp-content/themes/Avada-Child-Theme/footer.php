@@ -222,6 +222,7 @@
 
 	<!-- Exit Intent Form -->
 	<!-- Ouibounce Modal -->
+	<!--
 	  <div id="ouibounce-modal">
 	    <div class="underlay"></div>
 	    <div class="ob-modal">
@@ -232,7 +233,6 @@
 	      <div class="ob-modal-body">
 	        <iframe id="nsIframeExitIntent" src="<?php echo 'https://forms.na2.netsuite.com/app/site/crm/externalleadpage.nl?compid=3373305&formid=66&h=AACffht_JbRmDTPrYhOS7xCYeyKnSLM3M4w%3D&url=' . rawurlencode( get_permalink()); ?>" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
 
-	        <!-- Form with hidden fields for GA reporting -->
 					<form id="ga-tracking-form" method="POST" name='contactform' onSubmit=""> 
 					    <input type='hidden' name='source' /> 
 					    <input type='hidden' name='medium' /> 
@@ -249,6 +249,7 @@
 	      </div>
 	    </div>
 	  </div>
+	  -->
   <!-- End Ouibounce Modal --> 
 
   <script>
