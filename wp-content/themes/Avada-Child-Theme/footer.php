@@ -222,7 +222,7 @@
 
 	<!-- Exit Intent Form -->
 	<!-- Ouibounce Modal -->
-	<!--
+	<?php if(!is_page('1362') || (!is_page('1571') { ?>
 	  <div id="ouibounce-modal">
 	    <div class="underlay"></div>
 	    <div class="ob-modal">
@@ -249,7 +249,7 @@
 	      </div>
 	    </div>
 	  </div>
-	  -->
+	<?php } ?>
   <!-- End Ouibounce Modal --> 
 
   <script>

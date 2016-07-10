@@ -13,9 +13,9 @@ function avada_child_scripts() {
   wp_enqueue_style ('custom-css', get_stylesheet_directory_uri() . '/css/custom.css' );
 
   wp_enqueue_script( 'jquery-placeholder', get_stylesheet_directory_uri() . '/js/jquery.placeholder.min.js', '', '1.0', true );
+  wp_enqueue_script( 'ouibounce', get_stylesheet_directory_uri() . '/js/ouibounce.min.js', '', '1.0', true );
   wp_enqueue_script( 'jquery-accordion', get_stylesheet_directory_uri() . '/js/accordion.js', '', '1.0', true );
   wp_enqueue_script( 'replace-number', get_stylesheet_directory_uri() . '/js/replace-phone-number.js', '', '1.0', true );  
-  wp_enqueue_script( 'ouibounce', get_stylesheet_directory_uri() . '/js/ouibounce.min.js', '', '1.0', true );
   wp_enqueue_script( 'main-child', get_stylesheet_directory_uri() . '/js/main-child.js', '', '1.0', true );
   wp_enqueue_script( 'rslides', get_stylesheet_directory_uri() . '/js/responsiveslides.min.js', '', '1.0', true );    
   wp_enqueue_script( 'isotope', get_stylesheet_directory_uri() . '/js/isotope.min.js', '', '1.0', true );
